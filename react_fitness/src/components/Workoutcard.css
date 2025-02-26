@@ -1,0 +1,29 @@
+.workout-list {
+    font-family: 'Poppins';
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+  }
+  
+  .workout-list .workout-card2 {
+    background-color: #ffedd3;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .workout-list .workout-card2:hover {
+    transform: scale(1.02);
+  }
+  
+  .workout-list .workout-card2 img {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+  }
+  

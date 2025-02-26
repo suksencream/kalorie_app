@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Poppins';
+    color: black;
+  }
+  
+  .logo {
+    font-family:'Inria Serif';
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .nav-links {
+    padding: 0px;
+    margin-top: 45px;
+    left: 40%;
+    position: absolute;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+
+  }
+  
+  .nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .nav-links a.active {
+    border-bottom: 3px solid green;
+  }
+  
