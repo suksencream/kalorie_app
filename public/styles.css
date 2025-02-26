@@ -1,0 +1,310 @@
+.container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1200px; /* Maximum width for the container */
+    margin: 0 auto; /* Centers the container */
+}
+
+.title {
+  margin-top: 60px;
+  font-size: 27px;
+}
+
+.result {
+  font-size: 27px;
+}
+
+.gender-selection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Ensures buttons wrap on smaller screens */
+}
+
+.gender-selection button {
+  width: 100%; /* Ensure buttons fill available width */
+  max-width: 400px; /* Maximum width for each button */
+  height: 100px;
+  padding: 20px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 25px;
+  font-family: 'Georgia', serif;
+  transition: opacity 0.3s ease;
+}
+
+.male {
+  background: rgb(127, 220, 233);
+}
+
+.female {
+  background: lightpink;
+}
+
+.male:hover {
+  opacity: 0.85; 
+}
+
+.female:hover {
+  opacity: 0.85; 
+}
+
+.selected.male {
+  background: rgb(9, 183, 206);
+  font-weight: bold;
+}
+
+.selected.female {
+  background: #f68c94;
+  font-weight: bold; 
+}
+
+.selected {
+  border: 2px solid black;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between; /* Space between the two boxes */
+  gap: 20px; /* Adjust gap size */
+  max-width: 700px; /* Adjust as needed */
+  margin: auto; /* Center the container */
+  padding: 15px;
+}
+
+.input-box {
+  flex: 1; /* Make both boxes take equal width */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+
+.height-box {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 100%;
+  max-width: 700px; /* Matches input-box width */
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+
+.height-box p {
+  margin-bottom: 10px; /* Space between the text and slider */
+  display: block; /* Ensure the text is on its own line */
+}
+.height-box .slider {
+  width: 80%; /* Set a fixed width percentage for the slider */
+  margin-top: 10px; /* Add space between the text and the slider */
+  display: block; /* Force slider to be on a new line */
+  margin-left: auto; /* Center the slider horizontally */
+  margin-right: auto; /* Center the slider horizontally */
+}
+
+
+
+
+.calculate {
+  background: rgb(68, 178, 1);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100%; /* Makes it the same width as other boxes */
+  max-width: 775px; /* Matches height-box width */
+  font-size: 20px;
+  text-align: center;
+}
+
+
+.calculate:hover {
+  opacity: 0.80; 
+}
+
+/* Styling the range slider */
+.slider {
+  -webkit-appearance: none; /* For Safari */
+  appearance: none;
+  width: 100%;
+  max-width: 800px; /* Maximum width for the slider */
+  height: 10px; /* Height of the slider track */
+  background: #efebeb; /* Default background color for the track */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove the outline */
+  margin: 10px auto;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #dc3545; /* Color of the thumb */
+  border-radius: 50%; /* Circular thumb */
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: rgb(68, 178, 1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.num {
+  font-size: 35px;
+}
+
+.bmi-num {
+  font-size: 40px;
+}
+
+/* Style for the buttons */
+.input-controls button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%; /* Makes it round */
+  color: white; /* White text color */
+  font-size: 20px; /* Font size for the + and - */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition effects */
+}
+
+.input-controls button:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Green button for + */
+.input-controls button:hover.plus {
+  background-color: rgb(68, 178, 1); /* Green background */
+}
+
+/* Red button for - */
+.input-controls button:hover.minus {
+  background-color: #dc3545; /* Red background */
+}
+
+
+.input-controls button.plus {
+  background-color: rgb(68, 178, 1); /* Green background */
+  margin: 15px;
+}
+
+.input-controls button.minus {
+  background-color: #e0245e; /* Red background */
+  margin: 15px;
+}
+
+
+
+.bmi-gauge {
+  margin-top: 20px;
+  text-align: center;
+  max-width: 700px;  /* Limits the width */
+  margin: 20px auto; /* Centers it */
+}
+
+.bmi-gauge-bar {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background: linear-gradient(
+    to right,
+    rgb(132, 205, 283)  0%,
+    rgb(120, 176, 96) 25%,
+    rgb(255, 233, 50) 50%,
+    rgb(245, 85, 74) 75%
+  );
+  border-radius: 10px;
+}
+
+.bmi-indicator {
+  position: absolute;
+  top: -5px;
+  width: 10px;
+  height: 25px;
+  background: black;
+  border-radius: 5px;
+  transition: left 0.3s ease-in-out; /* Smooth movement */
+}
+
+.bmi-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #333;
+}
+
+.bmi-extra-info {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.bmi-category {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.bmi-category.underweight {
+  background: rgb(132, 205, 283);
+  color: white;
+}
+
+.bmi-category.healthy {
+  background: rgb(120, 176, 96);
+  color: white;
+}
+
+.bmi-category.overweight {
+  background: rgb(255, 233, 50);
+  color: black;
+}
+
+.bmi-category.obese {
+  background: rgb(245, 85, 74);
+  color: white;
+}
+
+.result-container {
+  display: flex;
+  justify-content: space-between; /* Space between the two boxes */
+  gap: 20px; /* Adjust gap size */
+  max-width: 700px; /* Adjust as needed */
+  margin: auto; /* Center the container */
+  padding-top: 30px;
+}
+
+.result-box {
+  flex: 1; /* Make both boxes take equal width */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 30px;
+}

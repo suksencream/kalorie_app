@@ -1,0 +1,107 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100vw; */
+  background-color: white;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  padding: 0 0 10px;
+  display: flex; /* Use flexbox to align items horizontally */
+  align-items: center; /* Vertically align the image and text */
+  margin-left: 10px;
+}
+
+.logo img {
+  width: 40px;
+  margin-right: 10px; /* Add some space between the image and the text */
+}
+
+.logo p {
+  margin: 0; /* Remove default margin on <p> element */
+}
+
+/* Centers the nav-links properly */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 0px 0px 10px; /* Remove padding */ /* Remove any extra padding */
+  margin: 0; /* Remove any extra margin */
+  flex-grow: 1;
+  padding-right: 155px;
+}
+
+.nav-links li {
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  text-align: center; /* Ensures text is centered */
+}
+
+.nav-links li:hover {
+  color: #28a745;
+}
+
+Active tab underline .nav-links .active {
+  color: #28a745;
+}
+
+.nav-links .active::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #28a745;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+/* 
+/* Responsive Fix: When screen is too small, stack logo and menu */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex: none;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+/* Remove default link styling */
+a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Change color to black */
+}
+
+/* Optional: If you want it to stay black even when clicked */
+a:visited {
+  color: black;
+}
+
+/* Optional: If you want it to stay black even when hovering */
+a:hover {
+  color: black;
+}
