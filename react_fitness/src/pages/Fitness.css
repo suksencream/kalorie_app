@@ -1,0 +1,54 @@
+.fitness-container {
+    padding: 20px;
+  }
+  
+  .fitness-container h2 {
+    font-family: 'Poppins';
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .workout-card {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fdf3c5;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 10px;
+    width: 90vw;
+    height: 15vh;
+    margin-right: 50px; 
+  }
+  
+  .workout-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .workout-card .text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .workout-card h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .workout-card p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .workout-card img {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
