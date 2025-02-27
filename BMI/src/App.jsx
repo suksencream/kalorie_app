@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BMICalculator from "./pages/BMICalculator";
+import BMICalculator from "./pages/BMI/BMICalculator";
 import Header from "./component/Header";
 
 function App() {
