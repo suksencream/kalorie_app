@@ -1,0 +1,107 @@
+/* Login Page Styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('/BGBG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* Prevents duplicate background */
+  width: 100%;
+}
+
+/* Login Box */
+.login-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 384px;
+  text-align: center;
+  position: relative;
+  z-index: 10; /* Ensures it's above the background */
+}
+
+/* Logo Styling */
+.login-logo {
+  width: 128px;
+  margin: -48px auto 20px;
+}
+
+/* Input Fields */
+.input-field {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  background-color: white;
+}
+
+.input-field input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 8px;
+  background: transparent;
+}
+
+/* Forgot Password */
+.forgot-password {
+  text-align: left;
+  font-size: 14px;
+  color: #10b981;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Login Button */
+.login-button {
+  background-color: #059669;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.login-button:hover {
+  background: rgb(120, 176, 96);
+}
+
+/* Sign Up Link */
+.signup-link {
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+
+.signup-link a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Small Indicator (Optional) */
+.bmi-indicator {
+  position: absolute;
+  top: -5px;
+  width: 10px;
+  height: 25px;
+  background: black;
+  border-radius: 5px;
+  transition: left 0.3s ease-in-out;
+}
+
+/* Margin utility class */
+.mr-10 {
+  margin-right: 10px;
+  font-size: 20px;
+}
