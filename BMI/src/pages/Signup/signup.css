@@ -115,14 +115,6 @@
     text-decoration: underline;
 }
 
-/* Prevent Extra Background Issues */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
 
 /* Input field style for both signup and login forms */
 .in {

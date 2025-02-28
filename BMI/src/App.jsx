@@ -19,7 +19,6 @@ const AppWrapper = () => {
     </Routes>
   );
 };
-
 function App() {
   return (
     <Router>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./BMI.css";
+import Header from "../../component/Header";
+
 
 const BMICalculator = () => {
   const [weight, setWeight] = useState(50);
@@ -44,6 +46,7 @@ const BMICalculator = () => {
 
   return (
     <div className="container">
+      <Header />
       <h2 className="title">BMI Calculator</h2>
       <div className="gender-selection">
         <button className={gender === "male" ? "selected male" : "male"} onClick={() => setGender("male")}>
