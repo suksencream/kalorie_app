@@ -4,7 +4,7 @@ import "./Header.css";
 const Header = () => {
   return (
     <nav className="navbar">
-      <NavLink to="/" className="logo">
+      <NavLink to="/setting" className="logo">
         <img src="/Burger.png" alt="logo" />
         <span>
           <b>

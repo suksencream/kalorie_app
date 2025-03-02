@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import BMICalculator from "./pages/BMI/BMICalculator";
 import LoginPage from "./pages/Login/login";
 import SignUpPage from "./pages/Signup/signup";
+import Setting from "./pages/Profile-setting/setting";
 
 const AppWrapper = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const AppWrapper = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/bmi" element={<BMICalculator />} />
+      <Route path="/setting" element={<Setting />} /> 
     </Routes>
   );
 };

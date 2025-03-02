@@ -10,15 +10,10 @@ const LoginPage = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simulate authentication logic
-    console.log("Logged in with:", { username, password });
-
-    // Call onLogin to update login state
     if (onLogin) {
       onLogin();
     }
 
-    // Redirect to BMI Calculator page
     navigate("/bmi");
   };
 
@@ -32,7 +27,7 @@ const LoginPage = ({ onLogin }) => {
             <span className="mr-10">🍔</span>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="in"
