@@ -1,21 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import BeginnerWorkouts from './pages/Beginnerworkouts';
-import WorkoutDetails from './pages/Workoutdetails';
-import FitnessPage from './pages/fitness';
-import Navbar from './components/Navbar';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import BMICalculator from "./pages/BMI/BMICalculator";
+import LoginPage from "./pages/Login/login";
+import SignUpPage from "./pages/Signup/signup";
 
-const App = () => {
+const AppWrapper = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/login");
+  }, []);
+
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<FitnessPage/>} />
-        <Route path="/fitness" element={<FitnessPage/>} />
-        <Route path="/beginner-workouts" element={<BeginnerWorkouts />} />
-        <Route path="/workout/:id" element={<WorkoutDetails />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/bmi" element={<BMICalculator />} />
+    </Routes>
   );
 };
+
+function App() {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
+  );
+}
 
 export default App;
