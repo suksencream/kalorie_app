@@ -1,0 +1,7 @@
+// Fetch food's info
+GET http://localhost:5000/api/food?query=apple
+
+###
+
+// test if food route is working
+GET http://localhost:5000/api/test
