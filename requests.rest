@@ -1,7 +1,40 @@
-// Fetch food's info
+// fetch food's info
 GET http://localhost:5000/api/food?query=apple
 
 ###
 
 // test if food route is working
-GET http://localhost:5000/api/test
+GET http://localhost:5000/api/testFood
+
+###
+
+// register
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+    "username": "user2",
+    "email": "example2@gmail.com",
+    "password": "1234"
+}
+
+###
+
+// login
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "email": "example@gmail.com",
+    "password": "1234"
+}
+
+###
+
+// test if authentication route is working
+GET http://localhost:5000/api/testAuth
+
+###
+
+GET http://localhost:5000/api/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMDM5NDYsImV4cCI6MTc0MTE5MDM0Nn0.D7rTUsJmM3EXPw7yuFh854Y4Ica0IEmKnPHQQr7SRt8

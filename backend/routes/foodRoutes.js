@@ -7,8 +7,8 @@ dotenv.config();
 const router = express.Router();
 
 // test if route is working
-router.get("/test", (req, res) => {
-    res.send("Food API is working!");
+router.get("/testAuth", (req, res) => {
+    res.send("Auth API is working!");
 });
 
 router.get("/food", async (req, res) => {
