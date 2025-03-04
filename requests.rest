@@ -25,7 +25,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "example@gmail.com",
+    "email": "example2@gmail.com",
     "password": "1234"
 }
 
@@ -37,4 +37,24 @@ GET http://localhost:5000/api/testAuth
 ###
 
 GET http://localhost:5000/api/protected
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMDM5NDYsImV4cCI6MTc0MTE5MDM0Nn0.D7rTUsJmM3EXPw7yuFh854Y4Ica0IEmKnPHQQr7SRt8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMjU4MjQsImV4cCI6MTc0MTEyNTgzOX0.q_vwVjt6U4VOApai-YrrTF7rdHrFA5BRbbMsyDqAg1E
+
+###
+
+// use refresh token to get a new access token
+POST http://localhost:5000/api/refresh
+Content-Type: application/json
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMjU1NTR9.BRFX7kUVS1G3t3fGCijYGjl9aquS5dv9gQMwIkkzE0Q"
+}
+
+###
+
+POST http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MGJiNmU1ZTQ5NWVhNjViZmUzNTgiLCJpYXQiOjE3NDExMjY5ODZ9.OABMcPX5PgZU7MkHLLk1CzRn7SEC_KbFYHlN2-3v0J0"
+}
+
