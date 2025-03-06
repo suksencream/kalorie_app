@@ -1,41 +1,95 @@
+/* Navbar.css */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    border-bottom: 1px solid #ddd;
-    font-family: 'Poppins';
-    color: black;
-  }
-  
-  .logo {
-    font-family:'Inria Serif';
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .nav-links {
-    padding: 0px;
-    margin-top: 45px;
-    left: 40%;
-    position: absolute;
-    list-style: none;
-    display: flex;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  position: relative;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+/* LOGO Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.kalories-img {
+  height: 35px;
+  width: auto;
+}
+
+/* Navigation Links - PC View */
+.nav-links {
+  position: absolute;
+  margin-top: 50px; /* Keeps the margin on PC */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+/* Navigation Links Styling */
+.nav-links a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-bottom: 3px solid transparent;
+  transition: border-bottom 0.3s ease-in-out;
+}
+
+/* Green underline when active */
+.nav-links a.active {
+  border-bottom: 3px solid green;
+}
+
+/* Hamburger Menu */
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
   }
-  
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 0; /* Ensures menu is right-aligned */
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 150px; /* Removes extra white space */
+    padding-left: 30px;
+    margin-left: 38%;
+  }
+
+  .nav-links.active {
+    display: flex;
+    align-items: flex-end; /* Right-aligns the text */
+    text-align: left;
+  }
+
   .nav-links a {
-    color: black;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 5px 10px;
-    border-bottom: 3px solid transparent;
+    display: block;
+    padding: 10px 15px;
+    width: 100%; /* Ensures no extra space */
   }
-  
-  .nav-links a.active {
-    border-bottom: 3px solid green;
-  }
-  
+
+}

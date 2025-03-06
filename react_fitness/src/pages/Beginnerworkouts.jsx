@@ -1,29 +1,42 @@
-import WorkoutList from '../components/Workoutlist';
 import { useNavigate } from 'react-router-dom';
 import './Beginnerworkouts.css';
-import absImg from "../assets/abs.svg"
-import buttImg from "../assets/butt.svg"
-import thighImg from "../assets/thigh.svg"
+import absImg from "../assets/absbeginner.svg"
+import buttImg from "../assets/buttbeginner.svg"
+import thighImg from "../assets/thighbeginner.svg"
 
 const BeginnerWorkouts = () => {
   const navigate = useNavigate();
 
   const workouts = [
-    { id: 1, title: 'Abs Beginner', minutes: 12, image: absImg },
-    { id: 2, title: 'Butt Beginner', minutes: 11, image: buttImg },
-    { id: 3, title: 'Thigh Beginner', minutes: 12, image: thighImg }
+    { id: "abs-beginner", title: 'Abs Beginner', minutes: 12, image: absImg },
+    { id: "butt-beginner", title: 'Butt Beginner', minutes: 11, image: buttImg },
+    { id: "thigh-beginner", title: 'Thigh Beginner', minutes: 12, image: thighImg }
   ];
 
-  const handleWorkoutClick = (workout) => {
-    navigate(`/workout/${workout.id}`);
-  };
 
   return (
-    <div className="beginner-workouts">
-      <h2>Hi Satt</h2>
-      <p>Don’t Miss the Fitness!</p>
-      <h3>Practice</h3>
-      <WorkoutList workouts={workouts} onSelectWorkout={handleWorkoutClick} />
+    <div className="ex-container">
+      <div className='ex-box'>
+        <h2>Hi Satt</h2>
+        <p>Don’t Miss the Fitness!</p>
+        <h3>Practice</h3>
+
+        {workouts.map((workout, index)=> (
+          <div
+            key={index}
+            className='ex-card'
+            onClick={()=> navigate(`/workout/${workout.id}`)}
+            style={{ backgroundColor: "#FCEFBB" }}
+          >
+            <div className='text'>
+              <h3>{workout.title}</h3>
+              <div className='ex-number' style={{ backgroundColor: "#FFD83E" }}>{workout.minutes} min</div>
+            </div>
+            <img src={workout.image} alt={workout.title} className='ex-image' />
+          </div>
+        ))}
+
+      </div>  
     </div>
   );
 };

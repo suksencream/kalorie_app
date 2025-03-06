@@ -1,0 +1,41 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; 
+    height: 100vh;
+}
+
+.page-box {
+    margin-top: -10%;
+    max-width: 800px;
+    padding: 30px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+.page-box h1 {
+    font-size: 24px;
+    color: #4C9A2A;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+.page-box h2 {
+    font-size: 18px;
+    color: #76ba1b;
+    margin-top: 20px;
+  }
+  
+.page-box p {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+
+  

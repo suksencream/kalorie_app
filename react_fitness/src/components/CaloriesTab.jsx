@@ -1,0 +1,265 @@
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { Clock } from "lucide-react";
+
+const todayMealsIcon = "/assets/todaymeal.png";
+const eggImage = "/assets/egg.png";
+
+// Recommended meals list
+const recommendedMeals = [
+  { name: "Hard-boiled egg (large)", protein: "6g", carbs: "0.6g", fat: "5g", calories: "70", image: eggImage },
+  { name: "Fried Eggs", protein: "7g", carbs: "1g", fat: "6g", calories: "90", image: eggImage },
+  { name: "Egg Salad", protein: "8g", carbs: "2g", fat: "9g", calories: "120", image: eggImage },
+  { name: "Egg Fried Rice", protein: "9g", carbs: "20g", fat: "10g", calories: "250", image: eggImage }
+];
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  background-color: white;
+  min-height: 100vh;
+`;
+
+const Title = styled.h1`
+  font-size: 26px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+`;
+
+const SearchBarContainer = styled.div`
+  position: relative;
+  width: 70%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+`;
+
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+`;
+
+const AddButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: darkorange;
+  }
+`;
+
+const RecentSearchesDropdown = styled.div`
+  position: absolute;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  display: ${({ show }) => (show ? "block" : "none")};
+  z-index: 10;
+`;
+
+const RecentItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #f8f8f8;
+  }
+`;
+
+const ClockIcon = styled(Clock)`
+  margin-right: 10px;
+  color: gray;
+`;
+
+const CategoryContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+`;
+
+const Category = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s, transform 0.2s;
+  &:hover {
+    color: orange;
+    transform: scale(1.15);
+  }
+`;
+
+const Icon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-bottom: 8px;
+`;
+
+const SectionTitle = styled.h2`
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  align-self: flex-start;
+  padding-left: 15%;
+  @media (max-width: 768px) {
+    padding-left: 5%;
+    font-size: 18px;
+  }
+`;
+
+const FoodList = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+`;
+
+const FoodItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  transition: background 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background: #f8f8f8;
+  }
+`;
+
+const FoodImage = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+
+const CalorieTab = () => {
+  const navigate = useNavigate();
+  const [showRecent, setShowRecent] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [recentSearches, setRecentSearches] = useState([]);
+  const [selectedMeal, setSelectedMeal] = useState(null);
+
+  useEffect(() => {
+    const storedSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
+    setRecentSearches(storedSearches);
+  }, []);
+
+  const handleMealClick = (meal) => {
+    setSearchInput(meal.name);
+    setShowRecent(false);
+    setSelectedMeal(meal);
+
+    const updatedSearches = [meal, ...recentSearches.filter((item) => item.name !== meal.name)].slice(0, 5);
+    setRecentSearches(updatedSearches);
+    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+  };
+
+  const handleAddToMeals = () => {
+    if (!selectedMeal) return;
+
+    const today = new Date().toISOString().split("T")[0];
+    let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
+
+    if (!storedMeals[today]) {
+      storedMeals[today] = [];
+    }
+
+    if (!storedMeals[today].some((meal) => meal.name === selectedMeal.name)) {
+      storedMeals[today].push(selectedMeal);
+    }
+
+    localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
+    
+    setSelectedMeal(null);
+    setSearchInput("");
+  };
+
+  return (
+    <Container>
+      <Title>Calories</Title>
+
+      {/* Search Bar */}
+      <SearchBarContainer>
+        <SearchBar
+          type="text"
+          placeholder="Search for meals..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onFocus={() => setShowRecent(true)}
+          onBlur={() => setTimeout(() => setShowRecent(false), 200)}
+        />
+        <RecentSearchesDropdown show={showRecent}>
+          {recentSearches.map((meal, index) => (
+            <RecentItem key={index} onClick={() => handleMealClick(meal)}>
+              <ClockIcon size={18} />
+              {meal.name}
+            </RecentItem>
+          ))}
+        </RecentSearchesDropdown>
+      </SearchBarContainer>
+
+      {/* Show Add Button when a meal is selected */}
+      {selectedMeal && <AddButton onClick={handleAddToMeals}>Add</AddButton>}
+
+      {/* Today's Meals */}
+      <CategoryContainer>
+        <Category onClick={() => navigate("/today-meals")}>
+          <Icon src={todayMealsIcon} alt="Today's Meals" />
+          Today's Meals
+        </Category>
+      </CategoryContainer>
+
+      {/* Recommended Meals */}
+      <SectionTitle>Recommended</SectionTitle>
+      <FoodList>
+        {recommendedMeals.map((meal, index) => (
+          <FoodItem key={index} onClick={() => handleMealClick(meal)}>
+            <FoodImage src={meal.image} alt={meal.name} />
+            <div>
+              <div style={{ fontWeight: "bold" }}>{meal.name}</div>
+              <div style={{ fontSize: "14px", color: "#666" }}>
+                Protein: {meal.protein} | Carbs: {meal.carbs} | Fat: {meal.fat} | Calories: {meal.calories}
+              </div>
+            </div>
+          </FoodItem>
+        ))}
+      </FoodList>
+    </Container>
+  );
+};
+
+export default CalorieTab;

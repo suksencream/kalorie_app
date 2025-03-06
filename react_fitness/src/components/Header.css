@@ -1,0 +1,115 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Poppins';
+    color: black;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    cursor: pointer;
+  }
+  
+  .burger {
+    height: 35px;
+    width: auto;
+  }
+
+  .kalories {
+    height: 30px;
+    width: auto;
+  }
+  
+  .nav-links {
+    padding: 0px;
+    margin-top: 40px;
+    left: 40%;
+    position: absolute;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  
+  }
+  
+  .nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s ease; 
+  }
+  
+  .nav-links a.active {
+    border-bottom: 3px solid green;
+  }
+  
+  .menu-icon {
+    cursor: pointer;
+    display: none;
+  }
+
+  
+  @media (max-width: 768px) {
+    .menu-icon {
+      display: block;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 20px;
+      right: 0; /* Ensures menu is right-aligned */
+      background: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 150px; /* Removes extra white space */
+      padding-left: 30px;
+      margin-left: 38%;
+    }
+  
+    .nav-links.active {
+      display: flex;
+      align-items: flex-end; /* Right-aligns the text */
+      text-align: left;
+    }
+  
+    .nav-links a {
+      display: block;
+      padding: 10px 15px;
+      width: 100%; /* Ensures no extra space */
+    }
+  
+  } 
+
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Initially hidden */
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    z-index: 1100;
+  }
+  
+  .sidebar-container.open {
+    left: 0; /* Slide in */
+  }
+  
+  /* Overlay effect */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Below sidebar */
+  }

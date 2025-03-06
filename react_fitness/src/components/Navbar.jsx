@@ -1,18 +1,54 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useState } from "react";
 import "./Navbar.css";
+import Logo from "../assets/LOGO.svg";
+import Kalories from "../assets/Kalories.svg";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isFitnessActive = location.pathname.startsWith("/fitness") || 
+                          location.pathname.startsWith("/beginner-workouts") || 
+                          location.pathname.startsWith("/intermediate-workouts") || 
+                          location.pathname.startsWith("/advanced-workouts") || 
+                          location.pathname.startsWith("/workout");
+
   return (
     <nav className="navbar">
-      <NavLink to="/" className="logo">
-        🍔 <span><b><i>Kalories</i></b></span>
-      </NavLink>
-      <ul className="nav-links">
-        {["Calories", "BMI", "Fitness"].map((tab) => (
-          <NavLink key={tab} to={`/${tab.toLowerCase()}`} className={({ isActive }) => (isActive ? "active" : "")}>
-            {tab}
-          </NavLink>
-        ))}
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo-img" />
+        <img src={Kalories} alt="Kalories" className="kalories-img" />
+      </div>
+
+      <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </div>
+
+      <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+        <NavLink
+          to="/calories"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={() => setMenuOpen(false)}
+        >
+          Calories
+        </NavLink>
+
+        <NavLink
+          to="/bmi"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={() => setMenuOpen(false)}
+        >
+          BMI
+        </NavLink>
+
+        <NavLink
+          to="/fitness"
+          className={isFitnessActive ? "active" : ""}
+          onClick={() => setMenuOpen(false)}
+        >
+          Fitness
+        </NavLink>
       </ul>
     </nav>
   );
