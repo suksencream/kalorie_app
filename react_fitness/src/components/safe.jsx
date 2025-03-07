@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Clock } from "lucide-react"; 
 
-const todayMealsIcon = "/assets/todaymeal.png";
-const eggImage = "/assets/egg.png";
+const todayMealsIcon = "/todaymeal.png";
+const eggImage = "/egg.png";
 
 const recommendedMeals = [
   { name: "Hard-boiled egg (large)", protein: "6g", carbs: "0.6g", fat: "5g", calories: "70", image: eggImage },

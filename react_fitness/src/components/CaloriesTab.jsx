@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Clock } from "lucide-react";
 
-const todayMealsIcon = "/assets/todaymeal.png";
-const eggImage = "/assets/egg.png";
+const todayMealsIcon = "/todaymeal.png";
+const eggImage = "/egg.png";
 
 // Recommended meals list
 const recommendedMeals = [
@@ -52,7 +52,7 @@ const SearchBar = styled.input`
 const AddButton = styled.button`
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: orange;
+  background-color: #76BA1B;
   color: white;
   border: none;
   border-radius: 8px;
@@ -63,7 +63,7 @@ const AddButton = styled.button`
   transition: background 0.3s;
 
   &:hover {
-    background-color: darkorange;
+    background-color: #4C9A2A;
   }
 `;
 
@@ -109,7 +109,7 @@ const Category = styled.div`
   font-size: 16px;
   transition: color 0.3s, transform 0.2s;
   &:hover {
-    color: orange;
+    color: #76BA1B;
     transform: scale(1.15);
   }
 `;
@@ -210,7 +210,7 @@ const CalorieTab = () => {
 
   return (
     <Container>
-      <Title>Calories</Title>
+      <Title>Food Log</Title>
 
       {/* Search Bar */}
       <SearchBarContainer>

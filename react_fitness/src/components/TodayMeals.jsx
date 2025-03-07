@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Trash2, Calendar } from "lucide-react";
 
 const Container = styled.div`
   display: flex;
@@ -9,13 +11,13 @@ const Container = styled.div`
   align-items: center;
   padding: 30px;
   font-family: "Poppins", sans-serif;
-  background-color: white;
+  background-color: #f9f9f9;
   min-height: 100vh;
 `;
 
 const Title = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: bold;
   color: #333;
   margin-bottom: 20px;
   text-align: center;
@@ -27,7 +29,7 @@ const Section = styled.div`
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 
   @media (max-width: 768px) {
@@ -36,34 +38,38 @@ const Section = styled.div`
   }
 `;
 
-const Navigation = styled.div`
+const DatePickerWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+  position: relative;
 `;
 
-const DateText = styled.span`
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-`;
-
-const NavButton = styled.button`
-  background: none;
-  border: none;
+const CalendarIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  padding: 5px;
-  transition: transform 0.2s;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    transform: scale(1.2);
+    background: #f5f5f5;
   }
+`;
 
-  &:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
+const StyledDatePicker = styled(DatePicker)`
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const FoodList = styled.div`
@@ -78,15 +84,16 @@ const FoodItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 12px;
-  border-radius: 10px;
-  background: #f8f8f8;
+  border-radius: 12px;
+  background: white;
   border: 1px solid #ddd;
-  font-size: 16px;
-  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
   gap: 12px;
 
   &:hover {
-    background: #f0f0f0;
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -123,17 +130,17 @@ const NoMealMessage = styled.p`
 const BackButton = styled.button`
   margin-top: 20px;
   padding: 12px 25px;
-  background-color: orange;
+  background-color: #76BA1B;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  transition: background 0.3s;
+  transition: background 0.3s ease-in-out;
 
   &:hover {
-    background-color: darkorange;
+    background-color: #4C9A2A;
     transform: scale(1.05);
   }
 
@@ -145,50 +152,28 @@ const BackButton = styled.button`
 const TodayMeals = () => {
   const navigate = useNavigate();
   const [mealsByDate, setMealsByDate] = useState({});
-  const [selectedDate, setSelectedDate] = useState("");
-
-  // Format date to display "Today" for current day
-  const formatDate = (dateStr) => {
-    const today = new Date().toISOString().split("T")[0];
-    if (dateStr === today) return "Today";
-
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateStr).toLocaleDateString(undefined, options);
-  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false); // Control DatePicker visibility
+  const datePickerRef = useRef(null);
 
   useEffect(() => {
     const storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
     setMealsByDate(storedMeals);
-
-    // Set today's date dynamically
-    const today = new Date().toISOString().split("T")[0];
-    setSelectedDate(today);
   }, []);
 
-  const changeDate = (days) => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(newDate.getDate() + days);
-    setSelectedDate(newDate.toISOString().split("T")[0]);
-  };
+  const formattedDate = selectedDate.toISOString().split("T")[0];
 
-  const getLast7Days = () => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      days.push(date.toISOString().split("T")[0]);
-    }
-    return days;
-  };
+  // Check if selected date is today
+  const isToday = formattedDate === new Date().toISOString().split("T")[0];
 
   const handleDeleteMeal = (mealName) => {
-    if (!selectedDate) return;
+    if (!formattedDate) return;
 
-    const updatedMeals = mealsByDate[selectedDate]?.filter((meal) => meal.name !== mealName);
-    const newMealsByDate = { ...mealsByDate, [selectedDate]: updatedMeals };
+    const updatedMeals = mealsByDate[formattedDate]?.filter((meal) => meal.name !== mealName);
+    const newMealsByDate = { ...mealsByDate, [formattedDate]: updatedMeals };
 
     if (updatedMeals.length === 0) {
-      delete newMealsByDate[selectedDate];
+      delete newMealsByDate[formattedDate];
     }
 
     setMealsByDate(newMealsByDate);
@@ -200,28 +185,33 @@ const TodayMeals = () => {
       <Title>Meal History</Title>
 
       <Section>
-        {/* Navigation for Back & Next */}
-        <Navigation>
-          <NavButton
-            onClick={() => changeDate(-1)}
-            disabled={selectedDate === getLast7Days()[6]}
-          >
-            <ChevronLeft size={28} />
-          </NavButton>
+        {/* Date Picker with Calendar Icon for Today */}
+        <DatePickerWrapper>
+          <h2>{isToday ? "Today" : selectedDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</h2>
+          
+          {/* Show Calendar Icon Instead of Input for Today */}
+          <CalendarIconWrapper onClick={() => setShowDatePicker((prev) => !prev)}>
+            <Calendar size={24} />
+          </CalendarIconWrapper>
 
-          <DateText>{formatDate(selectedDate)}</DateText>
-
-          <NavButton
-            onClick={() => changeDate(1)}
-            disabled={selectedDate === new Date().toISOString().split("T")[0]} // Prevents future dates
-          >
-            <ChevronRight size={28} />
-          </NavButton>
-        </Navigation>
+          {showDatePicker && (
+            <StyledDatePicker
+              ref={datePickerRef}
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+                setShowDatePicker(false);
+              }}
+              dateFormat="MMMM d, yyyy"
+              maxDate={new Date()} // Prevent selecting future dates
+              inline // Opens directly in UI
+            />
+          )}
+        </DatePickerWrapper>
 
         <FoodList>
-          {mealsByDate[selectedDate] && mealsByDate[selectedDate].length > 0 ? (
-            mealsByDate[selectedDate].map((meal, index) => (
+          {mealsByDate[formattedDate] && mealsByDate[formattedDate].length > 0 ? (
+            mealsByDate[formattedDate].map((meal, index) => (
               <FoodItem key={index}>
                 <FoodImage src={meal.image} alt={meal.name} />
                 <FoodDetails>
@@ -241,7 +231,7 @@ const TodayMeals = () => {
         </FoodList>
       </Section>
 
-      <BackButton onClick={() => navigate("/calories")}>Back</BackButton>
+      <BackButton onClick={() => navigate("/calorieintake")}>Back</BackButton>
     </Container>
   );
 };
