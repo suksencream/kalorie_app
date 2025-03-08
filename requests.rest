@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=apple
+GET http://localhost:5000/api/food?query=Boiled%20Chicken%20Hainanese%20Rice
 
 ###
 
@@ -13,9 +13,16 @@ POST http://localhost:5000/api/register
 Content-Type: application/json
 
 {
-    "username": "user2",
-    "email": "example2@gmail.com",
-    "password": "1234"
+  "username": "JohnDoe",
+  "email": "john@example.com",
+  "password": "1234",
+  "age": 25,
+  "weight": 70,
+  "height": 175,
+  "gender": "male",
+  "activityLevel": "moderately active",
+  "goalWeight": 65,
+  "progressDuration": 12
 }
 
 ###
@@ -25,7 +32,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "example2@gmail.com",
+    "email": "john@example.com",
     "password": "1234"
 }
 
@@ -58,3 +65,30 @@ Content-Type: application/json
 "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MGJiNmU1ZTQ5NWVhNjViZmUzNTgiLCJpYXQiOjE3NDExMjY5ODZ9.OABMcPX5PgZU7MkHLLk1CzRn7SEC_KbFYHlN2-3v0J0"
 }
 
+###
+
+POST http://localhost:5000/api/food-intake
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE0MDA1NDcsImV4cCI6MTc0MTQ4Njk0N30.PkaJbYWSpLEVT4ceyFwOOvT8adjBFaX8L75PDE9Nh0k
+Content-Type: application/json
+
+{
+"foodName": "Banana",
+"calories": 165,
+"protein": 31,
+"carbs": 0,
+"fats": 3
+}
+
+###
+
+GET http://localhost:5000/api/food-intake
+
+###
+
+GET http://localhost:5000/api/food-intake
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MGJiNmU1ZTQ5NWVhNjViZmUzNTgiLCJpYXQiOjE3NDExNjM0NTAsImV4cCI6MTc0MTI0OTg1MH0.HZZoOVVcH7D2PuwRGLzD6tjQ3hASvLbNTgJ_CpPzRU8
+
+
+###
+
+GET http://localhost:5000/api/testFoodIntake

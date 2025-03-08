@@ -13,7 +13,11 @@ router.get("/testAuth", (req, res) => {
 // Register Route -----------------------
 router.post("/register", async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { 
+            username, email, password, 
+            age, weight, height, gender, 
+            activityLevel, goalWeight, progressDuration 
+        } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -30,6 +34,13 @@ router.post("/register", async (req, res) => {
             username,
             email,
             password: hashedPassword,
+            age,
+            weight,
+            height,
+            gender,
+            activityLevel,
+            goalWeight,
+            progressDuration
         });
 
         await newUser.save();
@@ -45,7 +56,7 @@ router.post("/register", async (req, res) => {
 
 // generate refresh token
 const generateAccessToken = (userId) => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "15s" }); 
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1d" }); 
 };
 
 // Refresh token never expires
@@ -99,7 +110,7 @@ router.post("/refresh", async (req, res) => {
         jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH);
 
         // Generate a new access token
-        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "15s" });
+        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
         res.json({ accessToken });
     } catch (error) {
