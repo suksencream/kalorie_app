@@ -1,811 +1,807 @@
 [
   {
-    "name": "Chicken Stewed Noodle Soup (ก๋วยเตี๋ยวไก่ตุ๋น)",
-    "calories_per_300g": 360,
-    "protein_g": 24,
-    "fats_g": 9,
-    "carbs_g": 45
+  "name":"Chicken Stewed Noodle Soup (ก๋วยเตี๋ยวไก่ตุ๋น)",
+  "calories": 360,
+  "protein": 24,
+  "fats": 9,
+  "carbs": 45
   },
   {
-    "name": "Stewed Chicken Soup (เกาเหลาไก่ตุ๋น)",
-    "calories_per_300g": 330,
-    "protein_g": 27,
-    "fats_g": 6,
-    "carbs_g": 36
+    "name":"Stewed Chicken Soup (เกาเหลาไก่ตุ๋น)",
+    "calories": 330,
+    "protein": 27,
+    "fats": 6,
+    "carbs": 36
   },
   {
     "name": "Stewed Pork Soup (เกาเหลาหมูตุ๋น)",
-    "calories_per_300g": 390,
-    "protein_g": 30,
-    "fats_g": 12,
-    "carbs_g": 36
+    "calories":39,
+    "protein": 30,
+    "fats": 12,
+    "carbs": 36
   },
   {
     "name": "Stewed Beef Soup (เกาเหลาเนื้อตุ๋น)",
-    "calories_per_300g": 405,
-    "protein_g": 33,
-    "fats_g": 15,
-    "carbs_g": 36
+    "calories": 405,
+    "protein": 33,
+    "fats": 15,
+    "carbs": 36
   },
   {
     "name": "Pork Stewed Noodle Soup (ก๋วยเตี๋ยวหมูตุ๋น)",
-    "calories_per_300g": 375,
-    "protein_g": 27,
-    "fats_g": 10,
-    "carbs_g": 48
+    "calories": 375,
+    "protein": 27,
+    "fats": 10,
+    "carbs": 48
   },
   {
     "name": "Beef Stewed Noodle Soup (ก๋วยเตี๋ยวเนื้อตุ๋น)",
-    "calories_per_300g": 420,
-    "protein_g": 30,
-    "fats_g": 12,
-    "carbs_g": 54
+    "calories": 420,
+    "protein": 30,
+    "fats": 12,
+    "carbs": 54
   },
   {
     "name": "Pad Thai with Fresh Shrimp (ผัดไทกุ้งสด)",
-    "calories_per_300g": 450,
-    "protein_g": 21,
-    "fats_g": 12,
-    "carbs_g": 60
+    "calories": 450,
+    "protein": 21,
+    "fats": 12,
+    "carbs": 60
   },
   {
     "name": "Fried Rice with Egg and Pork (ข้าวผัดไข่-หมู)",
-    "calories_per_300g": 540,
-    "protein_g": 24,
-    "fats_g": 18,
-    "carbs_g": 72
+    "calories": 540,
+    "protein": 24,
+    "fats": 18,
+    "carbs": 72
   },
   {
     "name": "Pork Blood Soup (ต้มเลือดหมู)",
-    "calories_per_300g": 270,
-    "protein_g": 18,
-    "fats_g": 6,
-    "carbs_g": 30
+    "calories": 270,
+    "protein": 18,
+    "fats": 6,
+    "carbs": 30
   },
   {
     "name": "Clear Soup with Tofu and Minced Pork (แกงจืดเต้าหู้หมูสับ)",
-    "calories_per_300g": 240,
-    "protein_g": 15,
-    "fats_g": 6,
-    "carbs_g": 24
+    "calories": 240,
+    "protein": 15,
+    "fats": 6,
+    "carbs": 24
   },
   {
     "name": "Fried Rice with Garlic Pork (ข้าวหมูกระเทียม)",
-    "calories_per_300g": 600,
-    "protein_g": 25,
-    "fats_g": 20,
-    "carbs_g": 75
+    "calories": 600,
+    "protein": 25,
+    "fats": 20,
+    "carbs": 75
   },
   {
     "name": "Fried Rice with Garlic Chicken (ข้าวไก่กระเทียม)",
-    "calories_per_300g": 580,
-    "protein_g": 28,
-    "fats_g": 18,
-    "carbs_g": 70
+    "calories": 580,
+    "protein": 28,
+    "fats": 18,
+    "carbs": 70
   },
   {
     "name": "Yen Ta Fo (เย็นตาโฟ)",
-    "calories_per_300g": 350,
-    "protein_g": 15,
-    "fats_g": 5,
-    "carbs_g": 60
+    "calories": 350,
+    "protein": 15,
+    "fats": 5,
+    "carbs": 60
   },
   {
     "name": "Kuay Jub (ก๋วยจั๊บ)",
-    "calories_per_300g": 400,
-    "protein_g": 20,
-    "fats_g": 10,
-    "carbs_g": 60
+    "calories": 400,
+    "protein": 20,
+    "fats": 10,
+    "carbs": 60
   },
   {
     "name": "Stir-Fried Minced Pork with Basil (ข้าวกะเพราหมูสับ)",
-    "calories_per_300g": 550,
-    "protein_g": 22,
-    "fats_g": 18,
-    "carbs_g": 70
+    "calories": 550,
+    "protein": 22,
+    "fats": 18,
+    "carbs": 70
   },
   {
     "name": "Fried Chicken Basil Rice (ข้าวกะเพราไก่ทอด)",
-    "calories_per_300g": 650,
-    "protein_g": 30,
-    "fats_g": 25,
-    "carbs_g": 70
+    "calories": 650,
+    "protein": 30,
+    "fats": 25,
+    "carbs": 70
   },
   {
     "name": "Grilled Chicken Breast Steak with Black Pepper (สเต็กอกไก่พริกไทยดำ)",
-    "calories_per_300g": 450,
-    "protein_g": 35,
-    "fats_g": 15,
-    "carbs_g": 40
+    "calories": 450,
+    "protein": 35,
+    "fats": 15,
+    "carbs": 40
   },
   {
     "name": "Spicy Chicken Steak (สเต็กไก่สไปซี่)",
-    "calories_per_300g": 470,
-    "protein_g": 34,
-    "fats_g": 16,
-    "carbs_g": 42
+    "calories": 470,
+    "protein": 34,
+    "fats": 16,
+    "carbs": 42
   },
   {
     "name": "Grilled Beef Steak (สเต็กเนื้อโคขุน)",
-    "calories_per_300g": 600,
-    "protein_g": 40,
-    "fats_g": 30,
-    "carbs_g": 30
+    "calories": 600,
+    "protein": 40,
+    "fats": 30,
+    "carbs": 30
   },
   {
     "name": "Grilled Salmon Steak (สเต็กปลาซามอล)",
-    "calories_per_300g": 510,
-    "protein_g": 45,
-    "fats_g": 30,
-    "carbs_g": 10
+    "calories": 510,
+    "protein": 45,
+    "fats": 30,
+    "carbs": 10
   },
   {
     "name": "Spaghetti Carbonara (สปาเก็ตตี้คาโบนาร่า)",
-    "calories_per_300g": 650,
-    "protein_g": 25,
-    "fats_g": 35,
-    "carbs_g": 65
+    "calories": 650,
+    "protein": 25,
+    "fats": 35,
+    "carbs": 65
   },
   {
     "name": "Spaghetti with Bacon and Dried Chili (สปาเก็ตตี้เบคอนผัดพริกแห้ง)",
-    "calories_per_300g": 700,
-    "protein_g": 20,
-    "fats_g": 40,
-    "carbs_g": 70
+    "calories": 700,
+    "protein": 20,
+    "fats": 40,
+    "carbs": 70
   },
   {
     "name": "Mixed Vegetable Salad with Chicken Breast (สลัดผักรวมและอกไก่)",
-    "calories_per_300g": 350,
-    "protein_g": 30,
-    "fats_g": 15,
-    "carbs_g": 20
+    "calories": 350,
+    "protein": 30,
+    "fats": 15,
+    "carbs": 20
   },
   {
     "name": "Cream of Mushroom Soup (ครีมซุปเห็ด)",
-    "calories_per_300g": 250,
-    "protein_g": 5,
-    "fats_g": 15,
-    "carbs_g": 25
+    "calories": 250,
+    "protein": 5,
+    "fats": 15,
+    "carbs": 25
   },
   {
     "name": "Cream of Chicken Soup (ครีมซุปไก่)",
-    "calories_per_300g": 300,
-    "protein_g": 15,
-    "fats_g": 15,
-    "carbs_g": 25
+    "calories": 300,
+    "protein": 15,
+    "fats": 15,
+    "carbs": 25
   },
   {
     "name": "Pan-Fried Eggs with Toppings (ไข่กระทะทรงเครื่อง)",
-    "calories_per_300g": 400,
-    "protein_g": 20,
-    "fats_g": 30,
-    "carbs_g": 10
+    "calories": 400,
+    "protein": 20,
+    "fats": 30,
+    "carbs": 10
   },
   {
     "name": "Garlic Chicken Rice (ข้าวไก่กระเทียม)",
-    "calories_per_300g": 750,
-    "protein_g": 30,
-    "fats_g": 25,
-    "carbs_g": 90
+    "calories": 750,
+    "protein": 30,
+    "fats": 25,
+    "carbs": 90
   },
   {
     "name": "Pink Noodle Soup (เย็นตาโฟ)",
-    "calories_per_300g": 360,
-    "protein_g": 20,
-    "fats_g": 10,
-    "carbs_g": 45
+    "calories": 360,
+    "protein": 20,
+    "fats": 10,
+    "carbs": 45
   },
   {
     "name": "Kuay Jap (ก๋วยจั๊บ)",
-    "calories_per_300g": 420,
-    "protein_g": 18,
-    "fats_g": 12,
-    "carbs_g": 60
+    "calories": 420,
+    "protein": 18,
+    "fats": 12,
+    "carbs": 60
   },
   {
     "name": "Minced Pork Basil Rice (ข้าวกระเพราหมูสับ)",
-    "calories_per_300g": 690,
-    "protein_g": 25,
-    "fats_g": 20,
-    "carbs_g": 90
+    "calories": 690,
+    "protein": 25,
+    "fats": 20,
+    "carbs": 90
   },
   {
     "name": "Fried Chicken Basil Rice (ข้าวกระเพราไก่ทอด)",
-    "calories_per_300g": 720,
-    "protein_g": 28,
-    "fats_g": 22,
-    "carbs_g": 90
+    "calories": 720,
+    "protein": 28,
+    "fats": 22,
+    "carbs": 90
   },
   {
     "name": "Stir-Fried Mama Noodles (ผัดมาม่า)",
-    "calories_per_300g": 540,
-    "protein_g": 12,
-    "fats_g": 18,
-    "carbs_g": 80
+    "calories": 540,
+    "protein": 12,
+    "fats": 18,
+    "carbs": 80
   },
   {
     "name": "Fried Chicken (ไก่ทอด)",
-    "calories_per_300g": 900,
-    "protein_g": 60,
-    "fats_g": 60,
-    "carbs_g": 30
+    "calories": 900,
+    "protein": 60,
+    "fats": 60,
+    "carbs": 30
   },
   {
     "name": "Curry Fried Chicken Rice (ข้าวแกงกะหรี่ไก่ทอด)",
-    "calories_per_300g": 810,
-    "protein_g": 30,
-    "fats_g": 25,
-    "carbs_g": 100
+    "calories": 810,
+    "protein": 30,
+    "fats": 25,
+    "carbs": 100
   },
   {
     "name": "Stir-Fried Mama Noodles with Minced Pork (ผัดมาม่าหมูสับ)",
-    "calories_per_300g": 600,
-    "protein_g": 18,
-    "fats_g": 22,
-    "carbs_g": 80
+    "calories": 600,
+    "protein": 18,
+    "fats": 22,
+    "carbs": 80
   },
   {
     "name": "Fried Egg (ไข่ดาว)",
-    "calories_per_300g": 660,
-    "protein_g": 36,
-    "fats_g": 54,
-    "carbs_g": 3
+    "calories": 660,
+    "protein": 36,
+    "fats": 54,
+    "carbs": 3
   },
   {
     "name": "Thai Omelette (ไข่เจียว)",
-    "calories_per_300g": 720,
-    "protein_g": 36,
-    "fats_g": 60,
-    "carbs_g": 6
+    "calories": 720,
+    "protein": 36,
+    "fats": 60,
+    "carbs": 6
   },
   {
     "name": "Boiled Egg (ไข่ต้ม)",
-    "calories_per_300g": 450,
-    "protein_g": 36,
-    "fats_g": 30,
-    "carbs_g": 3
+    "calories": 450,
+    "protein": 36,
+    "fats": 30,
+    "carbs": 3
   },
   {
     "name": "Stuffed Thai Omelette Rice (ข้าวไข่เจียวทรงเครื่อง)",
-    "calories_per_300g": 780,
-    "protein_g": 30,
-    "fats_g": 40,
-    "carbs_g": 80
+    "calories": 780,
+    "protein": 30,
+    "fats": 40,
+    "carbs": 80
   },
   {
     "name": "Steamed Rice (ข้าวสวย)",
-    "calories_per_300g": 390,
-    "protein_g": 6,
-    "fats_g": 1,
-    "carbs_g": 85
+    "calories": 390,
+    "protein": 6,
+    "fats": 1,
+    "carbs": 85
   },
   {
     "name": "Boat Noodles (ก๋วยเตี๋ยวเรือน้ำตก)",
-    "calories_per_300g": 450,
-    "protein_g": 20,
-    "fats_g": 10,
-    "carbs_g": 60
+    "calories": 450,
+    "protein": 20,
+    "fats": 10,
+    "carbs": 60
   },
   {
     "name": "Wonton Soup with Red Pork (เกี๊ยวน้ำหมูแดง)",
-    "calories_per_300g": 360,
-    "protein_g": 18,
-    "fats_g": 8,
-    "carbs_g": 50
+    "calories": 360,
+    "protein": 18,
+    "fats": 8,
+    "carbs": 50
   },
   {
     "name": "Egg Noodles with Wonton and Red Pork (บะหมี่เกี๊ยวหมูแดง)",
-    "calories_per_300g": 480,
-    "protein_g": 20,
-    "fats_g": 12,
-    "carbs_g": 70
+    "calories": 480,
+    "protein": 20,
+    "fats": 12,
+    "carbs": 70
   },
   {
     "name": "Fried Chicken Hainanese Rice (ข้าวมันไก่ทอด)",
-    "calories_per_300g": 810,
-    "protein_g": 30,
-    "fats_g": 35,
-    "carbs_g": 90
+    "calories": 810,
+    "protein": 30,
+    "fats": 35,
+    "carbs": 90
   },
   {
     "name": "Boiled Chicken Hainanese Rice (ข้าวมันไก่ต้ม)",
-    "calories_per_300g": 720,
-    "protein_g": 28,
-    "fats_g": 25,
-    "carbs_g": 90
+    "calories": 720,
+    "protein": 28,
+    "fats": 25,
+    "carbs": 90
   },
   {
     "name": "Grilled Chicken Hainanese Rice (ข้าวมันไก่ย่าง)",
-    "calories_per_300g": 750,
-    "protein_g": 30,
-    "fats_g": 28,
-    "carbs_g": 90
+    "calories": 750,
+    "protein": 30,
+    "fats": 28,
+    "carbs": 90
   },
   {
     "name": "Mixed Fried and Boiled Chicken Hainanese Rice (ข้าวมันไก่ทอด และ ต้ม)",
-    "calories_per_300g": 765,
-    "protein_g": 29,
-    "fats_g": 30,
-    "carbs_g": 90
+    "calories": 765,
+    "protein": 29,
+    "fats": 30,
+    "carbs": 90
   },
   {
     "name": "Mixed Fried and Grilled Chicken Hainanese Rice (ข้าวมันไก่ทอด และ ไก่ย่าง)",
-    "calories_per_300g": 780,
-    "protein_g": 30,
-    "fats_g": 32,
-    "carbs_g": 90
+    "calories": 780,
+    "protein": 30,
+    "fats": 32,
+    "carbs": 90
   },
   {
     "name": "Chicken Biryani (ข้าวหมกไก่)",
-    "calories_per_300g": 690,
-    "protein_g": 25,
-    "fats_g": 20,
-    "carbs_g": 90
+    "calories": 690,
+    "protein": 25,
+    "fats": 20,
+    "carbs": 90
   },
   {
     "name": "Fried Fish Hainanese Rice (ข้าวมันปลาทอด)",
-    "calories_per_300g": 780,
-    "protein_g": 28,
-    "fats_g": 35,
-    "carbs_g": 90
+    "calories": 780,
+    "protein": 28,
+    "fats": 35,
+    "carbs": 90
   },
   {
     "name": "Hainanese Rice (ข้าวมัน)",
-    "calories_per_300g": 600,
-    "protein_g": 6,
-    "fats_g": 10,
-    "carbs_g": 85
+    "calories": 600,
+    "protein": 6,
+    "fats": 10,
+    "carbs": 85
   },
   {
     "name": "Ham Cheese Sandwich(ขนมปังแฮมชีส)",
-    "calories_per_150g": 450,
-    "protein_g": 12,
-    "fats_g": 20,
-    "carbs_g": 50
+    "calories": 450,
+    "protein": 12,
+    "fats": 20,
+    "carbs": 50
   },
   {
     "name": "Double Cheese Sandwich (ขนมปังDouble cheese)",
-    "calories_per_150g": 500,
-    "protein_g": 15,
-    "fats_g": 25,
-    "carbs_g": 55
+    "calories": 500,
+    "protein": 15,
+    "fats": 25,
+    "carbs": 55
   },
   {
     "name": "Nutella and Banana Sandwich (ขนมปังnutella and banana)",
-    "calories_per_150g": 480,
-    "protein_g": 10,
-    "fats_g": 22,
-    "carbs_g": 60
+    "calories": 480,
+    "protein": 10,
+    "fats": 22,
+    "carbs": 60
   },
   {
     "name": "Waffle (วาฟเฟิล)",
-    "calories_per_150g": 420,
-    "protein_g": 8,
-    "fats_g": 18,
-    "carbs_g": 55
+    "calories": 420,
+    "protein": 8,
+    "fats": 18,
+    "carbs": 55
   },
   {
     "name": "Brownie (บราวนี่)",
-    "calories_per_150g": 500,
-    "protein_g": 6,
-    "fats_g": 30,
-    "carbs_g": 60
+    "calories": 500,
+    "protein": 6,
+    "fats": 30,
+    "carbs": 60
   },
   {
     "name": "Chocolate Ice Cream (ไอศกรีมช็อกโกแลต)",
-    "calories_per_150g": 300,
-    "protein_g": 5,
-    "fats_g": 15,
-    "carbs_g": 40
+    "calories": 300,
+    "protein": 5,
+    "fats": 15,
+    "carbs": 40
   },
   {
     "name": "Vanilla Ice Cream (ไอศกรีมวานิลลา)",
-    "calories_per_150g": 290,
-    "protein_g": 5,
-    "fats_g": 14,
-    "carbs_g": 39
+    "calories": 290,
+    "protein": 5,
+    "fats": 14,
+    "carbs": 39
   },
   {
     "name": "Chocolate Chip Ice Cream (ไอศกรีมช็อกโกแลตชิพ)",
-    "calories_per_150g": 320,
-    "protein_g": 5,
-    "fats_g": 16,
-    "carbs_g": 42
+    "calories": 320,
+    "protein": 5,
+    "fats": 16,
+    "carbs": 42
   },
   {
     "name": "Mint Ice Cream (ไอศกรีมมิ้นต์)",
-    "calories_per_150g": 310,
-    "protein_g": 5,
-    "fats_g": 15,
-    "carbs_g": 41
+    "calories": 310,
+    "protein": 5,
+    "fats": 15,
+    "carbs": 41
   },
   {
     "name": "Ovaltine Ice Cream (ไอศกรีมโอวัลติน)",
-    "calories_per_150g": 330,
-    "protein_g": 6,
-    "fats_g": 17,
-    "carbs_g": 45
+    "calories": 330,
+    "protein": 6,
+    "fats": 17,
+    "carbs": 45
   },
   {
     "name": "Fried Meatballs (ลูกชิ้นทอด)",
-    "calories_per_150g": 450,
-    "protein_g": 20,
-    "fats_g": 25,
-    "carbs_g": 30
+    "calories": 450,
+    "protein": 20,
+    "fats": 25,
+    "carbs": 30
   },
   {
     "name": "Fried Sausage (ไส้กรอกทอด)",
-    "calories_per_150g": 480,
-    "protein_g": 18,
-    "fats_g": 28,
-    "carbs_g": 25
+    "calories": 480,
+    "protein": 18,
+    "fats": 28,
+    "carbs": 25
   },
   {
     "name": "Butter Cookie (บัตเตอร์คุกกี้)",
-    "calories_per_150g": 520,
-    "protein_g": 5,
-    "fats_g": 30,
-    "carbs_g": 65
+    "calories": 520,
+    "protein": 5,
+    "fats": 30,
+    "carbs": 65
   },
   {
     "name": "Smoothie - Watermelon (สมูทตี้แตงโม)",
-    "calories_per_serving": 150,
-    "protein_g": 2,
-    "fats_g": 0,
-    "carbs_g": 35
+    "calories": 150,
+    "protein": 2,
+    "fats": 0,
+    "carbs": 35
   },
   {
     "name": "Smoothie - Strawberry (สมูทตี้สตรอว์เบอร์รี่)",
-    "calories_per_serving": 160,
-    "protein_g": 2,
-    "fats_g": 1,
-    "carbs_g": 36
+    "calories": 160,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 36
   },
   {
     "name": "Smoothie - Passion Fruit (สมูทตี้เสาวรส)",
-    "calories_per_serving": 140,
-    "protein_g": 2,
-    "fats_g": 0,
-    "carbs_g": 33
+    "calories": 140,
+    "protein": 2,
+    "fats": 0,
+    "carbs": 33
   },
   {
     "name": "Smoothie - Kiwi (สมูทตี้กีวี่)",
-    "calories_per_serving": 155,
-    "protein_g": 2,
-    "fats_g": 1,
-    "carbs_g": 34
+    "calories": 155,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 34
   },
   {
     "name": "Smoothie - Banana (สมูทตี้กล้วย)",
-    "calories_per_serving": 200,
-    "protein_g": 3,
-    "fats_g": 1,
-    "carbs_g": 45
+    "calories": 200,
+    "protein": 3,
+    "fats": 1,
+    "carbs": 45
   },
   {
     "name": "Smoothie - Apple (สมูทตี้แอปเปิ้ล)",
-    "calories_per_serving": 130,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 32
+    "calories": 130,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 32
   },
   {
     "name": "Smoothie - Mixed Berries (สมูทตี้มิกซ์เบอร์รี่)",
-    "calories_per_serving": 170,
-    "protein_g": 2,
-    "fats_g": 1,
-    "carbs_g": 38
+    "calories": 170,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 38
   },
   {
     "name": "Smoothie - Coconut (สมูทตี้มะพร้าว)",
-    "calories_per_serving": 180,
-    "protein_g": 2,
-    "fats_g": 5,
-    "carbs_g": 30
+    "calories": 180,
+    "protein": 2,
+    "fats": 5,
+    "carbs": 30
   },
   {
     "name": "Smoothie - Chocolate (สมูทตี้ช็อกโกแลต)",
-    "calories_per_serving": 250,
-    "protein_g": 5,
-    "fats_g": 8,
-    "carbs_g": 45
+    "calories": 250,
+    "protein": 5,
+    "fats": 8,
+    "carbs": 45
   },
   {
     "name": "Smoothie - Peach (สมูทตี้พีช)",
-    "calories_per_serving": 160,
-    "protein_g": 2,
-    "fats_g": 0,
-    "carbs_g": 35
+    "calories": 160,
+    "protein": 2,
+    "fats": 0,
+    "carbs": 35
   },
   {
     "name": "Smoothie - All Fruits (สมูทตี้รวมผลไม้)",
-    "calories_per_serving": 180,
-    "protein_g": 3,
-    "fats_g": 1,
-    "carbs_g": 40
+    "calories": 180,
+    "protein": 3,
+    "fats": 1,
+    "carbs": 40
   },
   {
     "name": "Smoothie - Yogurt Strawberry (สมูทตี้โยเกิร์ตสตรอว์เบอร์รี่)",
-    "calories_per_serving": 190,
-    "protein_g": 4,
-    "fats_g": 2,
-    "carbs_g": 38
+    "calories": 190,
+    "protein": 4,
+    "fats": 2,
+    "carbs": 38
   },
   {
     "name": "Nom Plerio Pipo (นมเปรี่ยวปีโป้)",
-    "total_calories_per_300g": 180,
-    "protein_g": 5,
-    "fats_g": 3,
-    "carbs_g": 30
+    "calories": 180,
+    "protein": 5,
+    "fats": 3,
+    "carbs": 30
   },
   {
     "name": "Strawberry Yogurt (สตอเบอรี่โยเกิต)",
-    "total_calories_per_300g": 200,
-    "protein_g": 6,
-    "fats_g": 4,
-    "carbs_g": 35
+    "calories": 200,
+    "protein": 6,
+    "fats": 4,
+    "carbs": 35
   },
   {
     "name": "Orange (ส้ม)",
-    "total_calories_per_300g": 150,
-    "protein_g": 3,
-    "fats_g": 0,
-    "carbs_g": 38
+    "calories": 150,
+    "protein": 3,
+    "fats": 0,
+    "carbs": 38
   },
   {
     "name": "Thai Tea (ชาขกาแฟ)",
-    "total_calories_per_300g": 120,
-    "protein_g": 2,
-    "fats_g": 5,
-    "carbs_g": 18
+    "calories": 120,
+    "protein": 2,
+    "fats": 5,
+    "carbs": 18
   },
   {
     "name": "Black Coffee (กาแฟดำ)",
-    "total_calories_per_300g": 2,
-    "protein_g": 0,
-    "fats_g": 0,
-    "carbs_g": 0
+    "calories": 2,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 0
   },
   {
     "name": "Coffee with Milk (กาแฟนม)",
-    "total_calories_per_300g": 150,
-    "protein_g": 5,
-    "fats_g": 6,
-    "carbs_g": 20
+    "calories": 150,
+    "protein": 5,
+    "fats": 6,
+    "carbs": 20
   },
   {
     "name": "Thai Iced Tea (ชาไทย)",
-    "total_calories_per_300g": 180,
-    "protein_g": 3,
-    "fats_g": 7,
-    "carbs_g": 25
+    "calories": 180,
+    "protein": 3,
+    "fats": 7,
+    "carbs": 25
   },
   {
     "name": "Green Tea (ชาเขียว)",
-    "total_calories_per_300g": 5,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 1
+    "calories": 5,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 1
   },
   {
     "name": "Green Tea with Milk (ชาเขียวนม)",
-    "total_calories_per_300g": 160,
-    "protein_g": 4,
-    "fats_g": 5,
-    "carbs_g": 25
+    "calories": 160,
+    "protein": 4,
+    "fats": 5,
+    "carbs": 25
   },
   {
     "name": "Green Tea with Honey (ชาเขียวน้ำผึ้ง)",
-    "total_calories_per_300g": 180,
-    "protein_g": 4,
-    "fats_g": 5,
-    "carbs_g": 28
+    "calories": 180,
+    "protein": 4,
+    "fats": 5,
+    "carbs": 28
   },
   {
     "name": "Lemon Iced Tea (ชามะนาว)",
-    "total_calories_per_300g": 110,
-    "protein_g": 2,
-    "fats_g": 3,
-    "carbs_g": 20
+    "calories": 110,
+    "protein": 2,
+    "fats": 3,
+    "carbs": 20
   },
   {
     "name": "Honey Lemon (น้ำผึ้งมะนาว)",
-    "total_calories_per_300g": 180,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 45
+    "calories": 180,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 45
   },
   {
     "name": "Butterfly Pea Lemon (อัญชันมะนาว)",
-    "total_calories_per_300g": 100,
-    "protein_g": 2,
-    "fats_g": 1,
-    "carbs_g": 25
+    "calories": 100,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 25
   },
   {
     "name": "Strawberry Soda (สตอเบอรี่)",
-    "total_calories_per_300g": 160,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 40
+    "calories": 160,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 40
   },
   {
     "name": "Honey Lemon Soda (น้ำผึ้งมะนาว)",
-    "total_calories_per_300g": 180,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 45
+    "calories": 180,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 45
   },
   {
     "name": "Blue Hawaii Soda (บลูหาวาย)",
-    "total_calories_per_300g": 150,
-    "protein_g": 0,
-    "fats_g": 0,
-    "carbs_g": 40
+    "calories": 150,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 40
   },
   {
     "name": "Watermelon Soda (แตงโม)",
-    "total_calories_per_300g": 120,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 30
+    "calories": 120,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 30
   },
   {
     "name": "Peach Soda (พีช)",
-    "total_calories_per_300g": 140,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 35
+    "calories": 140,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 35
   },
   {
     "name": "Orange Soda (ส้ม)",
-    "total_calories_per_300g": 130,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 32
+    "calories": 130,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 32
   },
   {
     "name": "Grape Soda (องุ่น)",
-    "total_calories_per_300g": 140,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 35
+    "calories": 140,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 35
   },
   {
     "name": "Red Syrup Soda (น้ำแดง)",
-    "total_calories_per_300g": 160,
-    "protein_g": 0,
-    "fats_g": 0,
-    "carbs_g": 40
+    "calories": 160,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 40
   },
   {
     "name": "Fresh Milk (นมสด)",
-    "total_calories_per_300g": 150,
-    "protein_g": 8,
-    "fats_g": 8,
-    "carbs_g": 12
+    "calories": 150,
+    "protein": 8,
+    "fats": 8,
+    "carbs": 12
   },
   {
     "name": "Pink Milk (นมชมพู)",
-    "total_calories_per_300g": 180,
-    "protein_g": 7,
-    "fats_g": 6,
-    "carbs_g": 25
+    "calories": 180,
+    "protein": 7,
+    "fats": 6,
+    "carbs": 25
   },
   {
     "name": "Ovaltine Milk (นมโอวัลติน)",
-    "total_calories_per_300g": 160,
-    "protein_g": 6,
-    "fats_g": 5,
-    "carbs_g": 30
+    "calories": 160,
+    "protein": 6,
+    "fats": 5,
+    "carbs": 30
   },
   {
     "name": "Tapioca Pearls (ไข่มุก)",
-    "total_calories_per_50g": 110,
-    "protein_g": 0,
-    "fats_g": 0,
-    "carbs_g": 28
+    "calories": 110,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 28
   },
   {
     "name": "Lamlai Water (น้ำลำไย)",
-    "total_calories_per_300g": 120,
-    "protein_g": 1,
-    "fats_g": 0,
-    "carbs_g": 30
+    "calories": 120,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 30
   },
   {
     "name": "Oliang (โอเลี้ยง)",
-    "total_calories_per_300g": 110,
-    "protein_g": 2,
-    "fats_g": 6,
-    "carbs_g": 18
+    "calories": 110,
+    "protein": 2,
+    "fats": 6,
+    "carbs": 18
   },
   {
     "name": "Traditional Coffee (กาแฟโบราณ)",
-    "total_calories_per_300g": 120,
-    "protein_g": 2,
-    "fats_g": 6,
-    "carbs_g": 18
+    "calories": 120,
+    "protein": 2,
+    "fats": 6,
+    "carbs": 18
   },
   {
-    "beverages": [
-      {
-        "name": "Iced Milk Tea (ชาเย็น)",
-        "total_calories_per_300g": 160,
-        "protein_g": 4,
-        "fats_g": 6,
-        "carbs_g": 24
-      },
-      {
-        "name": "Lemon Tea (ชาเลมอน)",
-        "total_calories_per_300g": 100,
-        "protein_g": 2,
-        "fats_g": 2,
-        "carbs_g": 22
-      },
-      {
-        "name": "Coconut Water (น้ำมะพร้าว)",
-        "total_calories_per_300g": 60,
-        "protein_g": 1,
-        "fats_g": 0,
-        "carbs_g": 15
-      },
-      {
-        "name": "Sugar Cane Juice (น้ำตาลสด)",
-        "total_calories_per_300g": 120,
-        "protein_g": 0,
-        "fats_g": 0,
-        "carbs_g": 32
-      },
-      {
-        "name": "Tamarind Juice (น้ำมะขาม)",
-        "total_calories_per_300g": 140,
-        "protein_g": 1,
-        "fats_g": 0,
-        "carbs_g": 35
-      },
-      {
-        "name": "Guava Juice (น้ำฝรั่ง)",
-        "total_calories_per_300g": 130,
-        "protein_g": 2,
-        "fats_g": 0,
-        "carbs_g": 33
-      },
-      {
-        "name": "Pineapple Juice (น้ำสัปปะรด)",
-        "total_calories_per_300g": 120,
-        "protein_g": 1,
-        "fats_g": 0,
-        "carbs_g": 30
-      },
-      {
-        "name": "Mango Juice (น้ำมะม่วง)",
-        "total_calories_per_300g": 160,
-        "protein_g": 2,
-        "fats_g": 1,
-        "carbs_g": 39
-      },
-      {
-        "name": "Rose Water (น้ำกุหลาบ)",
-        "total_calories_per_300g": 40,
-        "protein_g": 0,
-        "fats_g": 0,
-        "carbs_g": 10
-      },
-      {
-        "name": "Fried Banana (กล้วยทอด)",
-        "total_calories_per_300g": 320,
-        "protein_g": 2,
-        "fats_g": 12,
-        "carbs_g": 60
-      },
-      {
-        "name": "Mango Sticky Rice (ข้าวเหนียวมะม่วง)",
-        "total_calories_per_300g": 450,
-        "protein_g": 5,
-        "fats_g": 18,
-        "carbs_g": 75
-      }
-    ]
+    "name": "Iced Milk Tea (ชาเย็น)",
+    "calories": 160,
+    "protein": 4,
+    "fats": 6,
+    "carbs": 24
+  },
+  {
+    "name": "Lemon Tea (ชาเลมอน)",
+    "calories": 100,
+    "protein": 2,
+    "fats": 2,
+    "carbs": 22
+  },
+  {
+    "name": "Coconut Water (น้ำมะพร้าว)",
+    "calories": 60,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 15
+  },
+  {
+    "name": "Sugar Cane Juice (น้ำตาลสด)",
+    "calories": 120,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 32
+  },
+  {
+    "name": "Tamarind Juice (น้ำมะขาม)",
+    "calories": 140,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 35
+  },
+  {
+    "name": "Guava Juice (น้ำฝรั่ง)",
+    "calories": 130,
+    "protein": 2,
+    "fats": 0,
+    "carbs": 33
+  },
+  {
+    "name": "Pineapple Juice (น้ำสัปปะรด)",
+    "calories": 120,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 30
+  },
+  {
+    "name": "Mango Juice (น้ำมะม่วง)",
+    "calories": 160,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 39
+  },
+  {
+    "name": "Rose Water (น้ำกุหลาบ)",
+    "calories": 40,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 10
+  },
+  {
+    "name": "Fried Banana (กล้วยทอด)",
+    "calories": 320,
+    "protein": 2,
+    "fats": 12,
+    "carbs": 60
+  },
+  {
+    "name": "Mango Sticky Rice (ข้าวเหนียวมะม่วง)",
+    "calories": 450,
+    "protein": 5,
+    "fats": 18,
+    "carbs": 75
   }
 ]

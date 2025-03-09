@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=Boiled%20Chicken%20Hainanese%20Rice
+GET http://localhost:5000/api/food?query=pad%20thai
 
 ###
 

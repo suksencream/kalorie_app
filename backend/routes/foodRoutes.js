@@ -1,75 +1,87 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import Food from "../models/Food.js"; // Import Food model
 
 dotenv.config();
-
 const router = express.Router();
-
-// test if route is working
-router.get("/testFood", (req, res) => {
-    res.send("Food API is working!");
-});
 
 router.get("/food", async (req, res) => {
   const query = req.query.query || "";
 
   try {
-    // Step 1: Get food ID by searching for the food
+    // ✅ Step 1: Search for food in the database (exclude `_id` and `__v`)
+    let dbFoods = await Food.find(
+      { name: { $regex: query, $options: "i" } },
+      { _id: 0, __v: 0 } // Exclude unnecessary fields
+    ).limit(10);
+
+    // ✅ Step 2: Ensure correct field order for database results
+    dbFoods = dbFoods.map((food) => ({
+      name: food.name,
+      calories: food.calories,
+      protein: food.protein,
+      carbs: food.carbs,
+      fats: food.fats
+    }));
+
+    // If we already have 10 results, return them
+    if (dbFoods.length >= 10) {
+      return res.json(dbFoods);
+    }
+
+    // ✅ Step 3: Fetch remaining foods from Spoonacular
+    const remaining = 10 - dbFoods.length;
     const searchResponse = await axios.get(
       `https://api.spoonacular.com/recipes/complexSearch`,
       {
         params: {
           apiKey: process.env.SPOONACULAR_API_KEY,
           query: query,
-          number: 1, // Get only the first result
+          number: remaining, // Fetch only the required number of foods
         },
       }
     );
 
-    if (!searchResponse.data.results || searchResponse.data.results.length === 0) {
-      return res.status(404).json({ error: "Food not found" });
-    }
+    const spoonacularFoods = await Promise.all(
+      searchResponse.data.results.map(async (food) => {
+        try {
+          const nutritionResponse = await axios.get(
+            `https://api.spoonacular.com/recipes/${food.id}/information`,
+            {
+              params: {
+                apiKey: process.env.SPOONACULAR_API_KEY,
+                includeNutrition: true,
+              },
+            }
+          );
 
-    const foodId = searchResponse.data.results[0].id;
+          const nutrition = nutritionResponse.data.nutrition.nutrients;
 
-    // Step 2: Get nutrition info using the food ID
-    const nutritionResponse = await axios.get(
-      `https://api.spoonacular.com/recipes/${foodId}/information`,
-      {
-        params: {
-          apiKey: process.env.SPOONACULAR_API_KEY,
-          includeNutrition: true,
-        },
-      }
+          return {
+            name: food.title,
+            calories: nutrition.find((n) => n.name === "Calories")?.amount || 0,
+            protein: nutrition.find((n) => n.name === "Protein")?.amount || 0,
+            carbs: nutrition.find((n) => n.name === "Carbohydrates")?.amount || 0,
+            fats: nutrition.find((n) => n.name === "Fat")?.amount || 0,
+          };
+        } catch (error) {
+          console.error(`Error fetching nutrition for ${food.title}:`, error.message);
+          return null; // Skip failed fetches
+        }
+      })
     );
 
-    const nutrition = nutritionResponse.data.nutrition.nutrients;
-    const servingSize = nutritionResponse.data.nutrition.weightPerServing;
-    const servingAmount = servingSize?.amount || "Unknown";
-    const servingUnit = servingSize?.unit || "Unknown";
+    // Filter out any null values (failed fetches)
+    const validSpoonacularFoods = spoonacularFoods.filter((food) => food !== null);
 
-    // Extract relevant nutrition data
-    const calories = nutrition.find((n) => n.name === "Calories")?.amount || 0;
-    const protein = nutrition.find((n) => n.name === "Protein")?.amount || 0;
-    const carbs = nutrition.find((n) => n.name === "Carbohydrates")?.amount || 0;
-    const fats = nutrition.find((n) => n.name === "Fat")?.amount || 0;
-    
-    return res.json({
-      name: query,
-      servingSize: `${servingAmount} ${servingUnit}`,
-      calories,
-      protein,
-      carbs,
-      fats,
-    });
+    // ✅ Step 4: Combine results and return (limit to 10)
+    const combinedFoods = [...dbFoods, ...validSpoonacularFoods].slice(0, 10);
+    return res.json(combinedFoods);
 
   } catch (error) {
     console.error("Error fetching food:", error.response?.data || error.message);
-
-    if (!res.headersSent) {
-      return res.status(500).json({ error: error.response?.data || "Failed to fetch food data" });
-    }
+    return res.status(500).json({ error: "Failed to fetch food data" });
   }
 });
 
