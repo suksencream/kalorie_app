@@ -1,7 +1,52 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-// Styled Components
+// Animation for jumping effect
+const jump = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+`;
+
+const BubbleContainer = styled.div`
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  margin-left: 35%;
+  top: 20px;
+  background: #76BA1B;
+  color: white;
+  border: 2px solid #388E3C;
+  padding: 8px 16px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid #76BA1B;
+  }
+`;
+
+const JumpingBurger = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  cursor: pointer;
+  animation: ${jump} 1.5s infinite;
+  position: relative;
+`;
+
 const BunTop = styled.div`
   width: 300px;
   height: 105px;
@@ -13,7 +58,6 @@ const BunTop = styled.div`
   align-items: flex-start;
   padding-top: 30px;
   overflow: hidden;
-  cursor: pointer; /* Clickable */
 `;
 
 const Seed = styled.div`
@@ -37,18 +81,8 @@ const BurgerLayout = () => {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '30px',
-        cursor: 'pointer',
-      }}
-      onClick={() => navigate('/calorieintake')} // Navigates when clicked
-    >
+    <JumpingBurger onClick={() => navigate('/calorieintake')}>
       <BunTop>
-        {/* Correct Seed Placement from Figma */}
         <Seed style={{ top: '18px', left: '70px', rotate: '-15deg' }} />
         <Seed style={{ top: '28px', left: '110px', rotate: '10deg' }} />
         <Seed style={{ top: '20px', left: '150px', rotate: '-12deg' }} />
@@ -56,13 +90,12 @@ const BurgerLayout = () => {
         <Seed style={{ top: '24px', left: '230px', rotate: '-18deg' }} />
         <Seed style={{ top: '30px', left: '270px', rotate: '12deg' }} />
       </BunTop>
-
-      {/* Burger Layers */}
-      <BurgerLayer color="#4CAF50" height="35px" /> {/* Breakfast */}
-      <BurgerLayer color="#5D4037" height="35px" /> {/* Lunch */}
-      <BurgerLayer color="#d79d55" height="25px" /> {/* Snacks */}
-      <BurgerLayer color="#BDBDBD" height="0px" /> {/* Dinner */}
-    </div>
+      <BurgerLayer color="#76BA1B" height="35px" />
+      <BurgerLayer color="#5D4037" height="35px" />
+      <BurgerLayer color="#d79d55" height="25px" />
+      <BurgerLayer color="#BDBDBD" height="0px" />
+      <BubbleContainer>Tap Me!</BubbleContainer>
+    </JumpingBurger>
   );
 };
 

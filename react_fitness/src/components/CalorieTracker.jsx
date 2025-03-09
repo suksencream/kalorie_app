@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -36,29 +36,30 @@ const ProgressContainer = styled.div`
 const ProgressBar = styled.div`
   height: 100%;
   width: ${({ percentage }) => percentage}%;
-  background: #76BA1B;
+  background: ${({ percentage }) => (percentage > 100 ? "#FF3D00" : "#76BA1B")};
   border-radius: 10px;
   transition: width 0.5s ease-in-out;
 `;
 
 const CalorieTracker = () => {
   const [totalCalories, setTotalCalories] = useState(0);
-  const [goalCalories, setGoalCalories] = useState(2000); // Default in case no setting
+  const [goalCalories, setGoalCalories] = useState(2000);
 
   useEffect(() => {
-    // Fetch today's meals from localStorage
-    const storedMeals = JSON.parse(localStorage.getItem("todaysMeals")) || [];
-    const total = storedMeals.reduce((acc, meal) => acc + parseInt(meal.calories), 0);
+    const today = new Date().toISOString().split("T")[0];
+    const storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
+    const todayMeals = storedMeals[today] || [];
+
+    const total = todayMeals.reduce((acc, meal) => acc + parseInt(meal.calories), 0);
     setTotalCalories(total);
 
-    // Fetch user's calorie goal from localStorage (set by Profile Settings page)
     const storedGoal = localStorage.getItem("userCalorieGoal");
     if (storedGoal) {
       setGoalCalories(parseInt(storedGoal));
     }
   }, []);
 
-  const progressPercentage = Math.min((totalCalories / goalCalories) * 100, 100); // Ensure max 100%
+  const progressPercentage = Math.min((totalCalories / goalCalories) * 100, 100);
 
   return (
     <Container>
