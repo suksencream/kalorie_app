@@ -34,8 +34,6 @@ router.get("/food", async (req, res) => {
       }
     );
 
-    console.log(searchResponse.data.results)
-
     const spoonacularFoods = await Promise.all(
       searchResponse.data.results.map(async (food) => {
         try {
