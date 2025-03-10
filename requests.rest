@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=pad%20thai
+GET http://localhost:5000/api/food?query=banana
 
 ###
 
@@ -43,6 +43,7 @@ GET http://localhost:5000/api/testAuth
 
 ###
 
+// test authorization
 GET http://localhost:5000/api/protected
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMjU4MjQsImV4cCI6MTc0MTEyNTgzOX0.q_vwVjt6U4VOApai-YrrTF7rdHrFA5BRbbMsyDqAg1E
 
@@ -58,6 +59,7 @@ Content-Type: application/json
 
 ###
 
+// logout
 POST http://localhost:5000/api/logout
 Content-Type: application/json
 
@@ -67,8 +69,9 @@ Content-Type: application/json
 
 ###
 
+// stores food intake to db
 POST http://localhost:5000/api/food-intake
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE0MDA1NDcsImV4cCI6MTc0MTQ4Njk0N30.PkaJbYWSpLEVT4ceyFwOOvT8adjBFaX8L75PDE9Nh0k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
 Content-Type: application/json
 
 {
@@ -76,19 +79,21 @@ Content-Type: application/json
 "calories": 165,
 "protein": 31,
 "carbs": 0,
-"fats": 3
+"fats": 5
 }
 
 ###
 
+// get foodintake
 GET http://localhost:5000/api/food-intake
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
 
 ###
 
-GET http://localhost:5000/api/food-intake
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MGJiNmU1ZTQ5NWVhNjViZmUzNTgiLCJpYXQiOjE3NDExNjM0NTAsImV4cCI6MTc0MTI0OTg1MH0.HZZoOVVcH7D2PuwRGLzD6tjQ3hASvLbNTgJ_CpPzRU8
-
+// delete foodintake
+DELETE http://localhost:5000/api/food-intake/67ce66f7574cb32f3aaff5e1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
 
 ###
-
+// test if foodintake route is working
 GET http://localhost:5000/api/testFoodIntake

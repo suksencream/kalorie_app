@@ -13,6 +13,10 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("Connected to MongoDB"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
+// Delete everything from the database
+await Food.deleteMany({});
+console.log("Old food data removed.");
+
 // Read food data from the JSON file
 const importFoodData = async () => {
   try {

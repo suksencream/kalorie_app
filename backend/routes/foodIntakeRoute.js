@@ -49,7 +49,7 @@ router.get("/food-intake", authMiddleware, async (req, res) => {
   });
 
 // ✅ Delete a food entry
-router.delete("/api/food-intake/:id", authMiddleware, async (req, res) => {
+router.delete("/food-intake/:id", authMiddleware, async (req, res) => {
   try {
     const foodEntry = await FoodIntake.findById(req.params.id);
 
