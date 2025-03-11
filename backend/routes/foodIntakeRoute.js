@@ -13,7 +13,7 @@ router.get("/testFoodIntake", (req, res) => {
 router.post("/food-intake", authMiddleware, async (req, res) => {
     console.log("📥 Received Data:", req.body);
     try {
-        const { foodName, calories, protein, carbs, fats } = req.body;
+        const { foodName, calories, protein, carbs, fats, servingSize, image} = req.body;
         const userId = req.user.userId; // Get user from token
         const date = new Date();
 
@@ -24,6 +24,8 @@ router.post("/food-intake", authMiddleware, async (req, res) => {
         protein,
         carbs,
         fats,
+        servingSize,
+        image,
         date
         });
 

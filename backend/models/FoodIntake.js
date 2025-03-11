@@ -7,6 +7,8 @@ const FoodIntakeSchema = new mongoose.Schema({
   protein: { type: Number, required: true },
   carbs: { type: Number, required: true },
   fats: { type: Number, required: true },
+  servingSize: { type: String},
+  image: { type: String },
   date: { type: Date, default: Date.now } // Timestamp for when food was eaten
 });
 

@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=banana
+GET http://localhost:5000/api/food?query=ต้มยำ
 
 ###
 
@@ -13,8 +13,8 @@ POST http://localhost:5000/api/register
 Content-Type: application/json
 
 {
-  "username": "JohnDoe",
-  "email": "john@example.com",
+  "username": "james",
+  "email": "james@example.com",
   "password": "1234",
   "age": 25,
   "weight": 70,
@@ -32,7 +32,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "john@example.com",
+    "email": "james@example.com",
     "password": "1234"
 }
 
@@ -45,7 +45,7 @@ GET http://localhost:5000/api/testAuth
 
 // test authorization
 GET http://localhost:5000/api/protected
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMjU4MjQsImV4cCI6MTc0MTEyNTgzOX0.q_vwVjt6U4VOApai-YrrTF7rdHrFA5BRbbMsyDqAg1E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc1MDgsImV4cCI6MTc0MTc2MzkwOH0.2VDDiyniqJ4UmLBJ5sIO3O74QeSiq9RyFiluters52U
 
 ###
 
@@ -54,7 +54,7 @@ POST http://localhost:5000/api/refresh
 Content-Type: application/json
 
 {
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MDM4ZDUyYTRmN2VjMjQwNzlmYjIiLCJpYXQiOjE3NDExMjU1NTR9.BRFX7kUVS1G3t3fGCijYGjl9aquS5dv9gQMwIkkzE0Q"
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc3Mzh9.HsQwuRwr9x7RFb8DGDOXDydSiWJ0AB6yRlstYLTOgE8"
 }
 
 ###
@@ -64,35 +64,37 @@ POST http://localhost:5000/api/logout
 Content-Type: application/json
 
 {
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2M3MGJiNmU1ZTQ5NWVhNjViZmUzNTgiLCJpYXQiOjE3NDExMjY5ODZ9.OABMcPX5PgZU7MkHLLk1CzRn7SEC_KbFYHlN2-3v0J0"
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc3Mzh9.HsQwuRwr9x7RFb8DGDOXDydSiWJ0AB6yRlstYLTOgE8"
 }
 
 ###
 
 // stores food intake to db
 POST http://localhost:5000/api/food-intake
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
 Content-Type: application/json
 
 {
-"foodName": "Banana",
+"foodName": "test",
 "calories": 165,
 "protein": 31,
 "carbs": 0,
-"fats": 5
+"fats": 5,
+"servingSize": "300 g",
+"image": "test.jpg"
 }
 
 ###
 
 // get foodintake
 GET http://localhost:5000/api/food-intake
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
 
 ###
 
 // delete foodintake
-DELETE http://localhost:5000/api/food-intake/67ce66f7574cb32f3aaff5e1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NiOGI1ODMzMzQ1NWIyYjVkYzcyYjYiLCJpYXQiOjE3NDE1Nzk5NDksImV4cCI6MTc0MTY2NjM0OX0.WYHDdiICNxMEy91muPQd5y_BhRAVvz4oPJRRl_J1hFM
+DELETE http://localhost:5000/api/food-intake/67cfe580192e588014ea7fd8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
 
 ###
 // test if foodintake route is working
