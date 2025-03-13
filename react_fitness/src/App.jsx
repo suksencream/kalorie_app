@@ -67,6 +67,31 @@ const AppWrapper = () => {
 };
 
 function App() {
+  useEffect(() => {
+    // Create a div to hold the hamburger emoji cursor
+    const cursor = document.createElement('div');
+    cursor.style.position = 'absolute';
+    cursor.style.zIndex = '9999';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.fontSize = '24px'; // Adjust emoji size
+    cursor.innerHTML = '🍔'; // The hamburger emoji
+    document.body.appendChild(cursor);
+
+    // Update cursor position on mousemove
+    const updateCursor = (e) => {
+      cursor.style.left = `${e.pageX + 10}px`; // Offset from cursor
+      cursor.style.top = `${e.pageY + 10}px`;
+    };
+
+    // Add event listener to track mouse movement
+    document.addEventListener('mousemove', updateCursor);
+
+    // Clean up on component unmount
+    return () => {
+      document.removeEventListener('mousemove', updateCursor);
+      document.body.removeChild(cursor);
+    };
+  }, []);
   return (
     <Router>
       <AppWrapper />
