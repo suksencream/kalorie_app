@@ -1,23 +1,22 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String },
   googleId: { type: String },
   userPfp: { type: String },
   refreshToken: { type: String },
-  age: { type: Number, required: true },
-  weight: { type: Number, required: true },  // in kg
-  height: { type: Number, required: true },  // in cm
-  gender: { type: String, required: true, enum: ["male", "female", "other"] },
+  age: { type: Number},
+  weight: { type: Number},  // in kg
+  height: { type: Number},  // in cm
+  gender: { type: String, enum: ["male", "female", "other"] },
   activityLevel: { 
-    type: String, 
-    required: true, 
+    type: String,  
     enum: ["sedentary", "lightly active", "moderately active", "very active", "super active"] 
   },
-  goalWeight: { type: Number, required: true },  // in kg
-  progressDuration: { type: Number, required: true } // in weeks
+  goalWeight: { type: Number},  // in kg
+  progressDuration: { type: Number} // in weeks
 });
 
 const User = mongoose.model("User", UserSchema);
