@@ -120,7 +120,3 @@ Content-Type: application/json
   "goalWeight": 65,
   "progressDuration": 12
 }
-
-###
-
-GET http://localhost:5000/api/auth/google/callback
