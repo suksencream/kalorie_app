@@ -13,16 +13,8 @@ POST http://localhost:5000/api/register
 Content-Type: application/json
 
 {
-  "username": "user3",
-  "email": "user3@example.com",
-  "password": "1234",
-  "age": 25,
-  "weight": 70,
-  "height": 175,
-  "gender": "male",
-  "activityLevel": "moderately active",
-  "goalWeight": 65,
-  "progressDuration": 12
+  "email": "user5@example.com",
+  "password": "1234"
 }
 
 ###
@@ -32,7 +24,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "user3@example.com",
+    "email": "user5@example.com",
     "password": "1234"
 }
 
@@ -108,15 +100,19 @@ GET http://localhost:5000/api/auth/google
 ###
 
 PUT http://localhost:5000/api/complete-profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzOWY3YjAwNzhkZDQxYWViZDk4ZDgiLCJpYXQiOjE3NDE5MjI4NjEsImV4cCI6MTc0MjAwOTI2MX0.RXPL4xWhitc1dt6-ajR-pTXwI6t3hocnjlj06X95PhE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzZThhYzZmOTU2MjMwNjdhYWQxNmUiLCJpYXQiOjE3NDE5NDA5NTcsImV4cCI6MTc0MjAyNzM1N30.ejj5P0zlQXwBrEt_U5HrGut-KlneS9YX_glQitgzL_g
 Content-Type: application/json
 
 {
+  "username": "user5",
+  "firstName": "user",
+  "lastName": "5",
   "age": 25,
-  "weight": 71,
+  "weight": 72,
   "height": 175,
   "gender": "male",
   "activityLevel": "moderately active",
   "goalWeight": 65,
-  "progressDuration": 12
+  "progressDuration": 12,
+  "userPfp": "test.jpg"
 }

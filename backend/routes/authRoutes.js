@@ -17,9 +17,7 @@ router.get("/testAuth", (req, res) => {
 router.post("/register", async (req, res) => {
     try {
         const { 
-            username, email, password, 
-            age, weight, height, gender, 
-            activityLevel, goalWeight, progressDuration 
+            email, password
         } = req.body;
 
         // Check if user already exists
@@ -34,16 +32,8 @@ router.post("/register", async (req, res) => {
 
         // Create new user
         const newUser = new User({
-            username,
             email,
-            password: hashedPassword,
-            age,
-            weight,
-            height,
-            gender,
-            activityLevel,
-            goalWeight,
-            progressDuration
+            password: hashedPassword
         });
 
         await newUser.save();
@@ -225,14 +215,18 @@ router.get('/auth/google/callback',
 // Complete profile route for Google users
 router.put('/complete-profile', authMiddleware, async (req, res) => {
     try {
-        const { 
+        const {
+            username,
+            firstName,
+            lastName,
             age, 
             weight, 
             height, 
             gender, 
             activityLevel, 
             goalWeight, 
-            progressDuration 
+            progressDuration,
+            userPfp 
         } = req.body;
 
         // Get user from the authenticated request
@@ -243,6 +237,9 @@ router.put('/complete-profile', authMiddleware, async (req, res) => {
         }
 
         // Update user profile with the required fields
+        user.username = username;
+        user.firstName = firstName;
+        user.lastName = lastName;
         user.age = age;
         user.weight = weight;
         user.height = height;
@@ -250,6 +247,7 @@ router.put('/complete-profile', authMiddleware, async (req, res) => {
         user.activityLevel = activityLevel;
         user.goalWeight = goalWeight;
         user.progressDuration = progressDuration;
+        user.userPfp = userPfp;
 
         // Save the updated user
         await user.save();
@@ -265,7 +263,8 @@ router.put('/complete-profile', authMiddleware, async (req, res) => {
                 gender: user.gender,
                 activityLevel: user.activityLevel,
                 goalWeight: user.goalWeight,
-                progressDuration: user.progressDuration
+                progressDuration: user.progressDuration,
+                userPfp: user.userPfp
             }
         });
 
