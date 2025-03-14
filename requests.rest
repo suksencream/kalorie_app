@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=ต้มยำ
+GET http://localhost:5000/api/food?query=banana
 
 ###
 
@@ -13,8 +13,8 @@ POST http://localhost:5000/api/register
 Content-Type: application/json
 
 {
-  "username": "james",
-  "email": "james@example.com",
+  "username": "user3",
+  "email": "user3@example.com",
   "password": "1234",
   "age": 25,
   "weight": 70,
@@ -32,7 +32,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "james@example.com",
+    "email": "user3@example.com",
     "password": "1234"
 }
 
@@ -45,7 +45,7 @@ GET http://localhost:5000/api/testAuth
 
 // test authorization
 GET http://localhost:5000/api/protected
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc1MDgsImV4cCI6MTc0MTc2MzkwOH0.2VDDiyniqJ4UmLBJ5sIO3O74QeSiq9RyFiluters52U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzYThhNzk4NTBmYjk3ZTYyOTkxMTYiLCJpYXQiOjE3NDE5MjQ1NDksImV4cCI6MTc0MjAxMDk0OX0.GS61kAhdRL81_j9Lst7tdtTAkWmzvf2W5nM7RsaSa2w
 
 ###
 
@@ -54,7 +54,7 @@ POST http://localhost:5000/api/refresh
 Content-Type: application/json
 
 {
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc3Mzh9.HsQwuRwr9x7RFb8DGDOXDydSiWJ0AB6yRlstYLTOgE8"
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzYThhNzk4NTBmYjk3ZTYyOTkxMTYiLCJpYXQiOjE3NDE5MjQ1NDl9.FeHcEGOD5WDN9g3c-nn24wfXK6_WDs8gZXvPHcYb0mg"
 }
 
 ###
@@ -64,7 +64,7 @@ POST http://localhost:5000/api/logout
 Content-Type: application/json
 
 {
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc3Mzh9.HsQwuRwr9x7RFb8DGDOXDydSiWJ0AB6yRlstYLTOgE8"
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzOWY3YjAwNzhkZDQxYWViZDk4ZDgiLCJpYXQiOjE3NDE5MjI4NjF9.MGLxoKCquas3_Cxj_XFidBSfQynSRXjizPhhTXrOh7w","userId":"67d39f7b0078dd41aebd98d8"
 }
 
 ###
@@ -99,3 +99,28 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZ
 ###
 // test if foodintake route is working
 GET http://localhost:5000/api/testFoodIntake
+
+###
+
+// google login
+GET http://localhost:5000/api/auth/google
+
+###
+
+PUT http://localhost:5000/api/complete-profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzOWY3YjAwNzhkZDQxYWViZDk4ZDgiLCJpYXQiOjE3NDE5MjI4NjEsImV4cCI6MTc0MjAwOTI2MX0.RXPL4xWhitc1dt6-ajR-pTXwI6t3hocnjlj06X95PhE
+Content-Type: application/json
+
+{
+  "age": 25,
+  "weight": 71,
+  "height": 175,
+  "gender": "male",
+  "activityLevel": "moderately active",
+  "goalWeight": 65,
+  "progressDuration": 12
+}
+
+###
+
+GET http://localhost:5000/api/auth/google/callback

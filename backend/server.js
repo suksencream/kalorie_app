@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import passport from 'passport';
 import foodRoutes from "./routes/foodRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import connectDB from "./config/db.js";
@@ -15,8 +16,12 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
+// Add Passport initialization before routes
+app.use(passport.initialize());
+
 app.use("/api", foodRoutes);
 app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api", foodIntakeRoute);
 
 connectDB();

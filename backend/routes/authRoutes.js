@@ -2,6 +2,9 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -140,4 +143,136 @@ router.post("/logout", async (req, res) => {
         res.status(500).json({ error: "Failed to log out" });
     }
 });
+
+// Add Google OAuth configuration
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:5000/api/auth/google/callback",
+    scope: ['profile', 'email']
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      // Check if user already exists
+      let user = await User.findOne({ googleId: profile.id });
+      
+      if (user) {
+        return done(null, user);
+      }
+      
+      // If user doesn't exist, create new user
+      user = new User({
+        googleId: profile.id,
+        username: profile.displayName,
+        email: profile.emails[0].value,
+        userPfp: profile.photos[0].value,
+        // You'll need to handle these required fields differently for Google sign-up
+        age: 0, // Default value
+        weight: 0, // Default value
+        height: 0, // Default value
+        gender: "other", // Default value
+        activityLevel: "sedentary", // Default value
+        goalWeight: 0, // Default value
+        progressDuration: 1 // Default value
+      });
+      
+      await user.save();
+      done(null, user);
+    } catch (error) {
+      done(error, null);
+    }
+  }
+));
+
+// Add these new routes
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { session: false }),
+  async (req, res) => {
+    try {
+      const accessToken = generateAccessToken(req.user._id);
+      const refreshToken = generateRefreshToken(req.user._id);
+      
+      // Save refresh token
+      req.user.refreshToken = refreshToken;
+      await req.user.save();
+      
+      // Instead of redirecting, send JSON response
+      res.json({
+        success: true,
+        accessToken,
+        refreshToken,
+        userId: req.user._id,
+        user: {
+          username: req.user.username,
+          email: req.user.email,
+          userPfp: req.user.userPfp
+        }
+      });
+    } catch (error) {
+      console.error("Google callback error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Authentication failed" 
+      });
+    }
+  }
+);
+
+// Complete profile route for Google users
+router.put('/complete-profile', authMiddleware, async (req, res) => {
+    try {
+        const { 
+            age, 
+            weight, 
+            height, 
+            gender, 
+            activityLevel, 
+            goalWeight, 
+            progressDuration 
+        } = req.body;
+
+        // Get user from the authenticated request
+        const user = await User.findById(req.user.userId);
+        
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Update user profile with the required fields
+        user.age = age;
+        user.weight = weight;
+        user.height = height;
+        user.gender = gender;
+        user.activityLevel = activityLevel;
+        user.goalWeight = goalWeight;
+        user.progressDuration = progressDuration;
+
+        // Save the updated user
+        await user.save();
+
+        res.json({ 
+            message: "Profile completed successfully",
+            user: {
+                username: user.username,
+                email: user.email,
+                age: user.age,
+                weight: user.weight,
+                height: user.height,
+                gender: user.gender,
+                activityLevel: user.activityLevel,
+                goalWeight: user.goalWeight,
+                progressDuration: user.progressDuration
+            }
+        });
+
+    } catch (error) {
+        console.error("Error completing profile:", error);
+        res.status(500).json({ error: "Failed to complete profile" });
+    }
+});
+
 export default router;
