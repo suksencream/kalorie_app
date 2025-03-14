@@ -7,12 +7,12 @@ const todayMealsIcon = "/todaymeal.png";
 const eggImage = "/egg.png";
 
 // Recommended meals list
-const recommendedMeals = [
-  { name: "Hard-boiled egg (large)", protein: "6g", carbs: "0.6g", fat: "5g", calories: "70", image: eggImage },
-  { name: "Fried Eggs", protein: "7g", carbs: "1g", fat: "6g", calories: "90", image: eggImage },
-  { name: "Egg Salad", protein: "8g", carbs: "2g", fat: "9g", calories: "120", image: eggImage },
-  { name: "Egg Fried Rice", protein: "9g", carbs: "20g", fat: "10g", calories: "250", image: eggImage }
-];
+//const recommendedMeals = [
+//  { name: "Hard-boiled egg (large)", protein: "6g", carbs: "0.6g", fat: "5g", calories: "70", image: eggImage },
+//  { name: "Fried Eggs", protein: "7g", carbs: "1g", fat: "6g", calories: "90", image: eggImage },
+//  { name: "Egg Salad", protein: "8g", carbs: "2g", fat: "9g", calories: "120", image: eggImage },
+ // { name: "Egg Fried Rice", protein: "9g", carbs: "20g", fat: "10g", calories: "250", image: eggImage }
+//];
 
 const Container = styled.div`
   display: flex;
@@ -172,6 +172,7 @@ const CalorieTab = () => {
   const [searchInput, setSearchInput] = useState("");
   const [recentSearches, setRecentSearches] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(null);
+  const [ recommendedMeals, setRecommendedMeals ] = useState([]);
 
   useEffect(() => {
     const storedSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
@@ -187,6 +188,20 @@ const CalorieTab = () => {
     setRecentSearches(updatedSearches);
     localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
   };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch(`http://localhost:5000/api/food?query=${searchInput}`, {
+        method: 'GET',
+      })
+      const resObj = await response.json()
+      console.log(resObj)      
+      setRecommendedMeals(resObj)
+    } catch (error) {
+      console.error(`Error fetching data ${error.message}`)
+    }
+  }
 
   const handleAddToMeals = () => {
     if (!selectedMeal) return;
@@ -214,6 +229,7 @@ const CalorieTab = () => {
 
       {/* Search Bar */}
       <SearchBarContainer>
+        <form onSubmit={handleSubmit}>
         <SearchBar
           type="text"
           placeholder="Search for meals..."
@@ -222,6 +238,9 @@ const CalorieTab = () => {
           onFocus={() => setShowRecent(true)}
           onBlur={() => setTimeout(() => setShowRecent(false), 200)}
         />
+        <button type="submit">search</button>
+        </form>
+
         <RecentSearchesDropdown show={showRecent}>
           {recentSearches.map((meal, index) => (
             <RecentItem key={index} onClick={() => handleMealClick(meal)}>

@@ -8,9 +8,10 @@ const SignUpPage = () => {
   const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signed up with:", { email, password, agreed });
+    //TODO: fetch the api and check the response
 
     // Redirect user to login page after signup
     navigate("/login");

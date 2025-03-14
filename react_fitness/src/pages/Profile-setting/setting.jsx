@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./setting.css";
 
-export const calculateCalorieDeficit = (userData) => {
+const calculateCalorieDeficit = (userData) => {
   if (!userData.weight || !userData.height || !userData.age) return 0;
 
   const baseCalories = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age;
@@ -35,19 +35,60 @@ const Setting = () => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
     age: "",
     weight: "",
     height: "",
     gender: "",
     activityLevel: "",
-    goals: "",
-    speedOfProgress: "",
+    goalWeight: "",
+    progressDuration: "",
   });
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Assuming you have a method to get the user's token (e.g., from localStorage or state)
+    const token = localStorage.getItem('accessToken'); // You may want to change this based on where you store the token
+
+    console.log(token)
+  
+    if (!token) {
+      console.error("No authentication token found");
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/complete-profile', {
+        method: 'PUT', // Use PUT since it's updating the profile
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`  // Send the token in the Authorization header
+        },
+        body: JSON.stringify(userData)  // Send the user data as the body of the request
+      });
+
+
+  
+      // Handle response from the backend
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Profile successfully updated:', data);
+        // Optionally, you can update the UI, show success message, or redirect the user
+      } else {
+        const errorData = await response.json();
+        console.error('Error completing profile:', errorData);
+        // You can show an error message to the user here
+      }
+    } catch (error) {
+      console.error('Error during request:', error);
+      // Handle any network or other errors
+    }
+  };
+  
 
   return (
     <div className="container" >
@@ -60,7 +101,7 @@ const Setting = () => {
           </div>
         </div>
 
-        <form className="settings-form">
+        <form onSubmit={handleSubmit} className="settings-form">
           <div className="input-row">
             <div className="input-group">
               <label>First Name</label>
@@ -72,10 +113,6 @@ const Setting = () => {
             </div>
           </div>
           <div className="input-row">
-            <div className="input-group">
-              <label>Email address</label>
-              <input type="email" name="email" value={userData.email} onChange={handleChange} placeholder="Your Email" />
-            </div>
             <div className="input-group">
               <label>Age</label>
               <input type="number" name="age" value={userData.age} onChange={handleChange} placeholder="Your Age" />
@@ -132,12 +169,15 @@ const Setting = () => {
               </select>
             </div>
           </div>
-        </form>
 
         <div className="calorie-result">
-        <p>Estimated Daily Calories: {calculateCalorieDeficit(userData).toFixed(0)}</p>
+        <p>Estimated Daily Calories: {calculateCalorieDeficit(userData) < 0 ? 0 : calculateCalorieDeficit(userData).toFixed(0)}</p>
 
         </div>
+        <div>
+          <button className="submit" >Submit</button>
+        </div>
+        </form>
       </div>
     </div>
   );

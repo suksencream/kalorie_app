@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
   color: #333;
   margin-bottom: 20px;
@@ -39,6 +39,7 @@ const Section = styled.div`
 `;
 
 const DatePickerWrapper = styled.div`
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,6 +64,7 @@ const CalendarIconWrapper = styled.div`
 `;
 
 const StyledDatePicker = styled(DatePicker)`
+  
   position: absolute;
   top: 45px;
   left: 50%;
@@ -128,6 +130,7 @@ const NoMealMessage = styled.p`
 `;
 
 const BackButton = styled.button`
+  font-family: 'Poppins';
   margin-top: 20px;
   padding: 12px 25px;
   background-color: #76BA1B;

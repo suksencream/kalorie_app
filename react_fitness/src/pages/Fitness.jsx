@@ -8,7 +8,6 @@ import AdvancedImg from "../assets/advanced.svg"
 const FitnessPage = () => {
   const navigate = useNavigate();
 
-  // Define workout levels
   const workoutLevels = [
     { level: "Beginner", number: "6 Workout Types", image: BeginnerImg, route: "/beginner-workouts", bgColor: "#FCEFBB", btnColor: "#FFD83E", imgSize: "120px" },
     { level: "Intermediate", number: "8 Workout Types", image: InterImg, route: "/intermediate-workouts", bgColor: "#FFE4BD", btnColor: "#FDAD3D", imgSize: "190px" },

@@ -52,7 +52,7 @@ const InnerText = styled.div`
 `;
 
 const CompletedText = styled.div`
-  font-size: 12px;
+  font-size: 11px;
   font-weight: normal;
   position: absolute;
   top: 65%;
@@ -105,8 +105,9 @@ const MacronutrientTracker = () => {
     const today = new Date().toISOString().split("T")[0]; // Get today's date
     const storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
     const todayMeals = storedMeals[today] || [];
+    console.log(todayMeals)
 
-    const totalFats = todayMeals.reduce((acc, meal) => acc + parseInt(meal.fat), 0);
+    const totalFats = todayMeals.reduce((acc, meal) => acc + parseInt(meal.fats), 0);
     const totalCarbs = todayMeals.reduce((acc, meal) => acc + parseInt(meal.carbs), 0);
     const totalProteins = todayMeals.reduce((acc, meal) => acc + parseInt(meal.protein), 0);
 
