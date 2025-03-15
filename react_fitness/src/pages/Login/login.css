@@ -114,3 +114,11 @@
     margin-right: 10px;
     font-size: 20px;
   }
+
+
+.error-message {
+  font-size: 13px;
+  color: red;
+  margin-bottom: 5px;
+  margin-bottom: 5px;
+}

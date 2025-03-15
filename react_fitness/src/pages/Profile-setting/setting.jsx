@@ -185,32 +185,3 @@ const Setting = () => {
 
 
 export default Setting; 
-
-
-// import React from "react";
-// import Setting, { calculateCalorieDeficit } from "../path/to/Setting";
-
-// const ExampleComponent = () => {
-//   const userData = {
-//     weight: 70, 
-//     height: 175, 
-//     age: 25, 
-//     gender: "Male", 
-//     activityLevel: "Moderately Active", 
-//     goals: "Lose Weight"
-//   };
-
-//   const dailyCalories = calculateCalorieDeficit(userData);
-
-//   return (
-//     <div>
-//       <h1>Calorie Deficit Calculation</h1>
-//       <p>Your estimated daily calories: {dailyCalories}</p>
-
-//       {/* Using the Setting component */}
-//       <Setting />
-//     </div>
-//   );
-// };
-
-// export default ExampleComponent;
