@@ -192,7 +192,7 @@ const CalorieTab = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:5000/api/food?query=${searchInput}`, {
+      const response = await fetch(`http://localhost:8080/api/food?query=${searchInput}`, {
         method: 'GET',
       })
       const resObj = await response.json()

@@ -54,12 +54,24 @@
   
   /* Forgot Password */
   .forgot-password {
+    text-decoration-style: none;
     font-family: 'Poppins';
     text-align: left;
     font-size: 14px;
     color: #4C9A2A;
     margin-bottom: 12px;
     cursor: pointer;
+  }
+
+  .forgot-password a {
+    font-family: 'Poppins';
+    color: #4C9A2A;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .forgot-password a:hover {
+    text-decoration: underline;
   }
   
   /* Login Button */
@@ -88,7 +100,7 @@
   
   .signup-link a {
     font-family: 'Poppins';
-    color: black;
+    color: #4C9A2A;
     text-decoration: none;
     font-weight: 600;
   }
@@ -110,7 +122,15 @@
   }
   
   /* Margin utility class */
-  .mr-10 {
+  /*.mr-10 {
     margin-right: 10px;
     font-size: 20px;
-  }
+  }*/
+
+
+.error-message {
+  font-size: 13px;
+  color: red;
+  margin-bottom: 5px;
+  margin-bottom: 5px;
+}

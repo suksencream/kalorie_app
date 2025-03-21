@@ -21,6 +21,9 @@ import TermsConditions from "./pages/sidebar/Termsconditions";
 import AboutUs from "./pages/sidebar/Aboutus";
 import DeleteAccount from "./pages/sidebar/Delete";
 import Logout from "./pages/sidebar/Logout";
+import ForgotPassword from "./pages/Login/Forgotpsw"
+import CheckMail from "./pages/Login/Checkmail"
+import ResetPassword from "./pages/Login/Resetpsw"
 
 
 
@@ -34,9 +37,8 @@ const AppWrapper = () => {
     }
   }, [location, navigate]);
 
-  const hideHeaderPages = ["/login", "/signup"];
+  const hideHeaderPages = ["/login", "/signup", "/forgotpassword", "/resetpassword", "/checkyouremail"];
   const showHeader = !hideHeaderPages.includes(location.pathname);
-
 
   return (
     <>
@@ -44,6 +46,9 @@ const AppWrapper = () => {
 
       <Routes> 
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/checkyouremail" element={<CheckMail/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path='/sidebar' element={<Sidebar/>} />
         <Route path='/privacy' element={<PrivacyPolicy/>} />
@@ -74,7 +79,8 @@ function App() {
     cursor.style.zIndex = '9999';
     cursor.style.pointerEvents = 'none';
     cursor.style.fontSize = '24px'; 
-    cursor.innerHTML = '🍔'; 
+    cursor.innerHTML = "/logo.svg"; 
+    cursor.innerHTML = `<img src="/LOGO.svg" style="width: 25px; height: 25px;">`;
     document.body.appendChild(cursor);
 
 

@@ -11,8 +11,8 @@ const calculateCalorieDeficit = (userData) => {
   else if (userData.activityLevel === "Very Active") activityFactor = 1.725;
 
   let calorieNeeds = baseCalories * activityFactor;
-  if (userData.gender === "Male") calorieNeeds += 5;
-  else if (userData.gender === "Female") calorieNeeds -= 161;
+  if (userData.Sex === "Male") calorieNeeds += 5;
+  else if (userData.Sex === "Female") calorieNeeds -= 161;
 
   let deficit = calorieNeeds;
 
@@ -30,7 +30,6 @@ const calculateCalorieDeficit = (userData) => {
   return deficit;
 };
 
-
 const Setting = () => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -38,60 +37,72 @@ const Setting = () => {
     age: "",
     weight: "",
     height: "",
-    gender: "",
+    Sex: "",
     activityLevel: "",
-    goalWeight: "",
-    progressDuration: "",
+    goals: "",
+    speedOfProgress: "",
   });
+
+  const [errors, setErrors] = useState({});
+  const [isEditable, setIsEditable] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Assuming you have a method to get the user's token (e.g., from localStorage or state)
-    const token = localStorage.getItem('accessToken'); // You may want to change this based on where you store the token
+    setIsSaving(true);
 
-    console.log(token)
-  
+    const newErrors = {};
+    Object.keys(userData).forEach((key) => {
+      if (!userData[key]) {
+        newErrors[key] = "This field is required";
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setIsSaving(false);
+      return;
+    }
+
+    const token = localStorage.getItem("accessToken");
     if (!token) {
       console.error("No authentication token found");
       return;
     }
-  
+
     try {
-      const response = await fetch('http://localhost:5000/api/complete-profile', {
-        method: 'PUT', // Use PUT since it's updating the profile
+      const response = await fetch("http://localhost:5000/api/complete-profile", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`  // Send the token in the Authorization header
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(userData)  // Send the user data as the body of the request
+        body: JSON.stringify(userData),
       });
 
-
-  
-      // Handle response from the backend
       if (response.ok) {
         const data = await response.json();
-        console.log('Profile successfully updated:', data);
-        // Optionally, you can update the UI, show success message, or redirect the user
+        console.log("Profile successfully updated:", data);
+        setIsEditable(false);
+        setUserData(data);
       } else {
         const errorData = await response.json();
-        console.error('Error completing profile:', errorData);
-        // You can show an error message to the user here
+        console.error("Error completing profile:", errorData);
       }
     } catch (error) {
-      console.error('Error during request:', error);
-      // Handle any network or other errors
+      console.error("Error during request:", error);
+    } finally {
+      setIsSaving(false);
     }
   };
-  
 
   return (
-    <div className="container" >
+    <div className="container">
       <div className="settings-container">
         <div className="profile-header">
           <img src="/Burger.png" alt="Profile" className="profile-icon" />
@@ -100,117 +111,54 @@ const Setting = () => {
             <p>burger123@gmail.com</p>
           </div>
         </div>
-
+        <button className="edit" onClick={() => setIsEditable(true)}>Edit</button>
         <form onSubmit={handleSubmit} className="settings-form">
-          <div className="input-row">
-            <div className="input-group">
-              <label>First Name</label>
-              <input type="text" name="firstName" value={userData.firstName} onChange={handleChange} placeholder="Your First Name" />
+          {[
+            ["firstName", "First Name"],
+            ["lastName", "Last Name"],
+            ["age", "Age"],
+            ["weight", "Weight"],
+            ["height", "Height"],
+            ["sex", "Sex"],
+            ["activityLevel", "Activity Level"],
+            ["goals", "Goals"],
+            ["speedOfProgress", "Speed of Progress"],
+          ].map(([name, label], index) => (
+            <div className="input-group" key={name}>
+              <label>{label}</label>
+              {name === "sex" || name === "activityLevel" || name === "goals" || name === "speedOfProgress" ? (
+                <select name={name} value={userData[name]} onChange={handleChange} disabled={!isEditable}>
+                  <option value="">Select {label}</option>
+                  {name === "sex" && ["Male", "Female"].map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                  {name === "activityLevel" && ["Sedentary", "Lightly Active", "Moderately Active", "Very Active"].map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                  {name === "goals" && ["Lose Weight", "Maintain Weight", "Gain Muscle"].map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                  {name === "speedOfProgress" && ["Slow", "Moderate", "Fast"].map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              ) : (
+                <input type={name === "age" || name === "weight" || name === "height" ? "number" : "text"} name={name} value={userData[name]} onChange={handleChange} placeholder={`Your ${label}`} disabled={!isEditable} />
+              )}
+              {errors[name] && <p className="error-message">{errors[name]}</p>}
             </div>
-            <div className="input-group">
-              <label>Last Name</label>
-              <input type="text" name="lastName" value={userData.lastName} onChange={handleChange} placeholder="Your Last Name" />
-            </div>
-          </div>
-          <div className="input-row">
-            <div className="input-group">
-              <label>Age</label>
-              <input type="number" name="age" value={userData.age} onChange={handleChange} placeholder="Your Age" />
-            </div>
-          </div>
-          <div className="input-row">
-            <div className="input-group">
-              <label>Weight</label>
-              <input type="number" name="weight" value={userData.weight} onChange={handleChange} placeholder="Your Weight" />
-            </div>
-            <div className="input-group">
-              <label>Height</label>
-              <input type="number" name="height" value={userData.height} onChange={handleChange} placeholder="Your Height" />
-            </div>
-          </div>
-          <div className="input-row">
-            <div className="input-group">
-              <label>Gender</label>
-              <select name="gender" value={userData.gender} onChange={handleChange}>
-                <option value="">Your Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div className="input-group">
-              <label>Activity Level</label>
-              <select name="activityLevel" value={userData.activityLevel} onChange={handleChange}>
-                <option value="">Your Activity Level</option>
-                <option value="Sedentary">Sedentary</option>
-                <option value="Lightly Active">Lightly Active</option>
-                <option value="Moderately Active">Moderately Active</option>
-                <option value="Very Active">Very Active</option>
-              </select>
-            </div>
-          </div>
-          <div className="input-row">
-            <div className="input-group">
-              <label>Goals</label>
-              <select name="goals" value={userData.goals} onChange={handleChange}>
-                <option value="">Your Goals</option>
-                <option value="Lose Weight">Lose Weight</option>
-                <option value="Maintain Weight">Maintain Weight</option>
-                <option value="Gain Muscle">Gain Muscle</option>
-              </select>
-            </div>
-            <div className="input-group">
-              <label>Speed of progress</label>
-              <select name="speedOfProgress" value={userData.speedOfProgress} onChange={handleChange}>
-                <option value="">Your Speed of progress</option>
-                <option value="Slow">Slow</option>
-                <option value="Moderate">Moderate</option>
-                <option value="Fast">Fast</option>
-              </select>
-            </div>
+          ))}
+
+          <div className="calorie-result">
+            <p>Estimated Daily Calories: {Math.max(0, calculateCalorieDeficit(userData)).toFixed(0)}</p>
           </div>
 
-        <div className="calorie-result">
-        <p>Estimated Daily Calories: {calculateCalorieDeficit(userData) < 0 ? 0 : calculateCalorieDeficit(userData).toFixed(0)}</p>
-
-        </div>
-        <div>
-          <button className="submit" >Submit</button>
-        </div>
+          <button className="submit" type="submit" disabled={!isEditable || isSaving}>{isSaving ? "Saving..." : "Save"}</button>
         </form>
       </div>
     </div>
   );
 };
 
-
-export default Setting; 
-
-
-// import React from "react";
-// import Setting, { calculateCalorieDeficit } from "../path/to/Setting";
-
-// const ExampleComponent = () => {
-//   const userData = {
-//     weight: 70, 
-//     height: 175, 
-//     age: 25, 
-//     gender: "Male", 
-//     activityLevel: "Moderately Active", 
-//     goals: "Lose Weight"
-//   };
-
-//   const dailyCalories = calculateCalorieDeficit(userData);
-
-//   return (
-//     <div>
-//       <h1>Calorie Deficit Calculation</h1>
-//       <p>Your estimated daily calories: {dailyCalories}</p>
-
-//       {/* Using the Setting component */}
-//       <Setting />
-//     </div>
-//   );
-// };
-
-// export default ExampleComponent;
+export { calculateCalorieDeficit };
+export default Setting;

@@ -17,7 +17,9 @@ const LoginPage = () => {
 
     try {
       // Send login request to the backend
+
       const response = await fetch("http://localhost:5000/api/auth/login", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,6 +64,7 @@ const LoginPage = () => {
               placeholder="Email"
               value={email}  // Corrected to use 'email'
               onChange={(e) => setEmail(e.target.value)}
+              required
               className="in"
             />
           </div>
@@ -73,6 +76,7 @@ const LoginPage = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
               className="in"
             />
           </div>
@@ -80,7 +84,7 @@ const LoginPage = () => {
           {/* Display error message if there's an error */}
           {error && <div className="error-message">{error}</div>}
 
-          <div className="forgot-password">Forgot your password?</div>
+          <div className="forgot-password"><Link to="/forgotpassword">Forgot your password?</Link></div>
 
           <button type="submit" className="login-button">
             Login

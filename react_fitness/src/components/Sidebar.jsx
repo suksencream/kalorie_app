@@ -23,11 +23,6 @@ const Sidebar = () => {
           <li><a href="/privacy"><Shield size={20} /> Privacy Policy</a></li>
           <li><a href="/terms"><FileText size={20} /> Terms & Conditions</a></li>
           <li><a href="/aboutus"><Info size={20} /> About Us</a></li>
-          <li className="delete">
-            <button onClick={() => setShowDeleteModal(true)}>
-              <Trash2 size={20} /> Delete Account
-            </button>
-          </li>
           <li className="logout">
             <button onClick={() => setShowLogoutModal(true)}>
               <LogOut size={20} /> Log Out
@@ -39,7 +34,6 @@ const Sidebar = () => {
       </div>
 
       {/* Render Modals Conditionally */}
-      {showDeleteModal && <DeleteAccount onClose={() => setShowDeleteModal(false)} />}
       {showLogoutModal && <Logout onClose={() => setShowLogoutModal(false)} />}
     </>
   );
