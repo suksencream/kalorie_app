@@ -5,16 +5,26 @@ import "./signup.css";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate(); // Hook for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signed up with:", { email, password, agreed });
     //TODO: fetch the api and check the response
-
+    if (password != confirmPassword) {
+      setError ("Passwords don't match. Re-enter your password.")
+      setSuccess (false)
+    } else {
+      setError("")
+      setSuccess(true)
+      navigate("/login");
+    }
     // Redirect user to login page after signup
-    navigate("/login");
+    
   };
 
   return (
@@ -50,6 +60,20 @@ const SignUpPage = () => {
               className="in"
             />
           </div>
+
+          <div className="signup-input">
+            <span className="mr-10">🔄</span>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              className="in"
+            />
+            {error && <p className="error-text">{error}</p>}
+          </div>
+          {success}
 
           <div className="signup-terms">
             <input
