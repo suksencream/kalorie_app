@@ -43,7 +43,7 @@ const LoginPage = () => {
       localStorage.setItem("userId", data.userId);
 
       // Redirect user to the BMI page or wherever you want
-      navigate("/calories");
+      navigate("/loadingscreen");
 
     } catch (error) {
       console.error("Login error:", error);

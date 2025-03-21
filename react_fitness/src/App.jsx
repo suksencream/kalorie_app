@@ -19,11 +19,11 @@ import Header from "./components/Header";
 import PrivacyPolicy from "./pages/sidebar/Privacypolicy";
 import TermsConditions from "./pages/sidebar/Termsconditions";
 import AboutUs from "./pages/sidebar/Aboutus";
-import DeleteAccount from "./pages/sidebar/Delete";
 import Logout from "./pages/sidebar/Logout";
 import ForgotPassword from "./pages/Login/Forgotpsw"
 import CheckMail from "./pages/Login/Checkmail"
 import ResetPassword from "./pages/Login/Resetpsw"
+import LoadingPage from "./components/Loadingscreen";
 
 
 
@@ -37,7 +37,7 @@ const AppWrapper = () => {
     }
   }, [location, navigate]);
 
-  const hideHeaderPages = ["/login", "/signup", "/forgotpassword", "/resetpassword", "/checkyouremail"];
+  const hideHeaderPages = ["/login", "/signup", "/forgotpassword", "/resetpassword", "/checkyouremail", "/loadingscreen"];
   const showHeader = !hideHeaderPages.includes(location.pathname);
 
   return (
@@ -45,6 +45,7 @@ const AppWrapper = () => {
       {showHeader && <Header />}
 
       <Routes> 
+        <Route path="/loadingscreen" element={<LoadingPage/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
         <Route path="/checkyouremail" element={<CheckMail/>} />
@@ -54,7 +55,6 @@ const AppWrapper = () => {
         <Route path='/privacy' element={<PrivacyPolicy/>} />
         <Route path='/terms' element={<TermsConditions/>} />
         <Route path='/aboutus' element={<AboutUs/>} />
-        <Route path='/delete' element={<DeleteAccount/>} />
         <Route path='/logout' element={<Logout/>} />
         <Route path="/calories" element={<><BurgerLayout/> <CalorieTracker/> <MacronutrientTracker/></>} />
         <Route path="/calorieintake" element={<CalorieTab/>} />
