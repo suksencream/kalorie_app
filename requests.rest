@@ -1,5 +1,5 @@
 // fetch food's info
-GET http://localhost:5000/api/food?query=banana
+GET http://localhost:5000/api/food?query=apple
 
 ###
 
