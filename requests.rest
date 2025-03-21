@@ -13,8 +13,9 @@ POST http://localhost:5000/api/register
 Content-Type: application/json
 
 {
-  "email": "user5@example.com",
+  "email": "jbongaj@gmail.com",
   "password": "1234"
+  
 }
 
 ###
@@ -24,7 +25,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "user5@example.com",
+    "email": "jbongaj@gmail.com",
     "password": "1234"
 }
 
@@ -115,4 +116,25 @@ Content-Type: application/json
   "goalWeight": 65,
   "progressDuration": 12,
   "userPfp": "test.jpg"
+}
+
+###
+
+// forgot password
+POST http://localhost:5000/api/forgot-password
+Content-Type: application/json
+
+{
+    "email": "jbongaj@gmail.com"
+}
+
+###
+
+// reset password
+POST http://localhost:5000/api/reset-password
+Content-Type: application/json
+
+{
+    "token": "452b9c56ff4143738c3ecb5404cb71f0fd5a0d8641f2b87fdfe4586cc7ea73c8",
+    "newPassword": "12345"
 }

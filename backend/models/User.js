@@ -18,7 +18,9 @@ const UserSchema = new mongoose.Schema({
     enum: ["sedentary", "lightly active", "moderately active", "very active", "super active"] 
   },
   goalWeight: { type: Number},  // in kg
-  progressDuration: { type: Number} // in weeks
+  progressDuration: { type: Number}, // in weeks
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
 });
 
 const User = mongoose.model("User", UserSchema);

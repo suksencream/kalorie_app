@@ -5,6 +5,8 @@ import User from "../models/User.js";
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import authMiddleware from "../middleware/authMiddleware.js";
+import crypto from 'crypto'; // Node.js built-in module for generating random tokens
+import { sendResetEmail } from '../config/emailConfig.js';
 
 const router = express.Router();
 
@@ -271,6 +273,89 @@ router.put('/complete-profile', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error("Error completing profile:", error);
         res.status(500).json({ error: "Failed to complete profile" });
+    }
+});
+
+// Request Password Reset Route
+router.post("/forgot-password", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        
+        // Hash the reset token
+        const hashedToken = await bcrypt.hash(resetToken, 10);
+        
+        // Save hashed token to user document with expiry
+        user.resetPasswordToken = hashedToken;
+        user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+        await user.save();
+
+        // Send reset email
+        const emailSent = await sendResetEmail(email, resetToken);
+
+        if (emailSent) {
+            res.json({ 
+                message: "Password reset instructions sent to your email"
+            });
+        } else {
+            // If email fails to send, remove the reset token
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            await user.save();
+            
+            throw new Error("Failed to send reset email");
+        }
+
+    } catch (error) {
+        console.error("Error in forgot password:", error);
+        res.status(500).json({ error: "Failed to process password reset request" });
+    }
+});
+
+// Reset Password Route
+router.post("/reset-password", async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+
+        // Find user with valid reset token
+        const user = await User.findOne({
+            resetPasswordToken: { $exists: true },
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ error: "Invalid or expired reset token" });
+        }
+
+        // Verify the token
+        const isValidToken = await bcrypt.compare(token, user.resetPasswordToken);
+        if (!isValidToken) {
+            return res.status(400).json({ error: "Invalid reset token" });
+        }
+
+        // Hash the new password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // Update user's password and clear reset token fields
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+        res.json({ message: "Password reset successful" });
+
+    } catch (error) {
+        console.error("Error in reset password:", error);
+        res.status(500).json({ error: "Server error" });
     }
 });
 
