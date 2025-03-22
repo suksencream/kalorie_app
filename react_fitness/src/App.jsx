@@ -45,6 +45,7 @@ const AppWrapper = () => {
       {showHeader && <Header />}
 
       <Routes> 
+        <Route path="/" element={<LoginPage />} />
         <Route path="/loadingscreen" element={<LoadingPage/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />

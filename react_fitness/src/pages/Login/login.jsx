@@ -11,42 +11,40 @@ const LoginPage = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Clear any previous errors
     setError("");
 
+    // Log the data being sent
+    console.log("Login attempt with:", { email, password });
+
     try {
-      // Send login request to the backend
-
       const response = await fetch("http://localhost:5000/api/auth/login", {
-
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),  // Send the email and password
+        body: JSON.stringify({ email, password }),
       });
 
+      // Log the full response details
+      console.log("Response status:", response.status);
       const data = await response.json();
-
-      // console.log(data)
+      console.log("Response data:", data);
 
       if (!response.ok) {
-        // If the response is not ok, show the error message
+        // Log the specific error message from the server
+        console.error("Login failed:", data.error);
         setError(data.error || "Failed to log in");
         return;
       }
 
-      // On successful login, store tokens in localStorage
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("userId", data.userId);
 
-      // Redirect user to the BMI page or wherever you want
       navigate("/loadingscreen");
 
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error details:", error);
       setError("An error occurred during login. Please try again.");
     }
   };
