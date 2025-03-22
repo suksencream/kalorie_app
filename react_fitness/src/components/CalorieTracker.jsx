@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -35,10 +35,10 @@ const ProgressContainer = styled.div`
 
 const ProgressBar = styled.div`
   height: 100%;
-  width: ${({ percentage }) => percentage}%;
-  background: ${({ percentage }) => (percentage > 100 ? "#FF3D00" : "#76BA1B")};
+  width: ${({ percentage }) => Math.min(percentage, 100)}%;
+  background: ${({ percentage }) => (percentage > 100 ? "#cd071e" : "#4caf50")};
   border-radius: 10px;
-  transition: width 0.5s ease-in-out;
+  transition: width 0.5s ease-in-out, background 0.5s ease-in-out;
 `;
 
 const CalorieTracker = () => {
@@ -59,7 +59,7 @@ const CalorieTracker = () => {
     }
   }, []);
 
-  const progressPercentage = Math.min((totalCalories / goalCalories) * 100, 100);
+  const progressPercentage = (totalCalories / goalCalories) * 100;
 
   return (
     <Container>

@@ -192,7 +192,7 @@ const CalorieTab = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:8080/api/food?query=${searchInput}`, {
+      const response = await fetch(`http://localhost:5000/api/food?query=${searchInput}`, {
         method: 'GET',
       })
       const resObj = await response.json()
@@ -203,24 +203,76 @@ const CalorieTab = () => {
     }
   }
 
-  const handleAddToMeals = () => {
+  const handleAddToMeals = async () => {
     if (!selectedMeal) return;
 
-    const today = new Date().toISOString().split("T")[0];
-    let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
+    // Get token from localStorage
+    const token = localStorage.getItem('accessToken');
 
-    if (!storedMeals[today]) {
-      storedMeals[today] = [];
+    try {
+        // Convert nutritional values safely
+        const parseNutrient = (value) => {
+            if (typeof value === 'string') {
+                return parseFloat(value.replace('g', '')) || 0;
+            }
+            return parseFloat(value) || 0;
+        };
+
+        // First save to database
+        const response = await fetch('http://localhost:5000/api/food-intake', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                foodName: selectedMeal.name,
+                calories: parseFloat(selectedMeal.calories) || 0,
+                protein: parseNutrient(selectedMeal.protein),
+                carbs: parseNutrient(selectedMeal.carbs),
+                fats: parseNutrient(selectedMeal.fat),
+                image: selectedMeal.image || ''
+            })
+        });
+
+        const data = await response.json();
+        
+        // Then proceed with your existing local storage logic
+        const today = new Date().toISOString().split("T")[0];
+        let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
+
+        if (!storedMeals[today]) {
+            storedMeals[today] = [];
+        }
+
+        // Store the database ID with the meal
+        storedMeals[today].push({ 
+            ...selectedMeal, 
+            addedAt: Date.now(),
+            _id: data.foodEntry._id  // Save the database ID
+        });
+        
+        localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
+        
+        setSelectedMeal(null);
+        setSearchInput("");
+
+    } catch (error) {
+        console.error('Error saving meal:', error);
+        // Continue with local storage even if database save fails
+        const today = new Date().toISOString().split("T")[0];
+        let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
+
+        if (!storedMeals[today]) {
+            storedMeals[today] = [];
+        }
+
+        storedMeals[today].push({ ...selectedMeal, addedAt: Date.now() });
+        localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
+        
+        setSelectedMeal(null);
+        setSearchInput("");
     }
-
-    if (!storedMeals[today].some((meal) => meal.name === selectedMeal.name)) {
-      storedMeals[today].push(selectedMeal);
-    }
-
-    localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
-    
-    setSelectedMeal(null);
-    setSearchInput("");
   };
 
   return (
@@ -238,7 +290,7 @@ const CalorieTab = () => {
           onFocus={() => setShowRecent(true)}
           onBlur={() => setTimeout(() => setShowRecent(false), 200)}
         />
-        <button type="submit">search</button>
+        
         </form>
 
         <RecentSearchesDropdown show={showRecent}>

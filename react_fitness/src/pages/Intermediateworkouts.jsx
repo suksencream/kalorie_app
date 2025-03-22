@@ -17,7 +17,7 @@ const IntermediateWorkouts = () => {
   return (
     <div className="ex-container">
       <div className='ex-box'>
-        <h2>Hi Satt</h2>
+        <h2>Hi Burger</h2>
         <p>Don’t Miss the Fitness!</p>
         <h3>Practice</h3>
 

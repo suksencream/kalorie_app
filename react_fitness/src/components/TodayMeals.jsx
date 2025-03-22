@@ -156,31 +156,74 @@ const TodayMeals = () => {
   const navigate = useNavigate();
   const [mealsByDate, setMealsByDate] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false); // Control DatePicker visibility
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const datePickerRef = useRef(null);
 
-  useEffect(() => {
-    const storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
-    setMealsByDate(storedMeals);
-  }, []);
+  // Add function to fetch meals for a specific date from database
+  const fetchMealsForDate = async (date) => {
+    const token = localStorage.getItem('accessToken');
+    try {
+      const response = await fetch(`http://localhost:5000/api/food-intake?date=${date}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-  const formattedDate = selectedDate.toISOString().split("T")[0];
+      if (!response.ok) {
+        throw new Error('Failed to fetch meals');
+      }
 
-  // Check if selected date is today
-  const isToday = formattedDate === new Date().toISOString().split("T")[0];
-
-  const handleDeleteMeal = (mealName) => {
-    if (!formattedDate) return;
-
-    const updatedMeals = mealsByDate[formattedDate]?.filter((meal) => meal.name !== mealName);
-    const newMealsByDate = { ...mealsByDate, [formattedDate]: updatedMeals };
-
-    if (updatedMeals.length === 0) {
-      delete newMealsByDate[formattedDate];
+      const meals = await response.json();
+      return meals;
+    } catch (error) {
+      console.error('Error fetching meals:', error);
+      return [];
     }
+  };
 
-    setMealsByDate(newMealsByDate);
-    localStorage.setItem("mealsByDate", JSON.stringify(newMealsByDate));
+  // Update useEffect to use a stable dependency
+  useEffect(() => {
+    const loadMeals = async () => {
+      const formattedDate = selectedDate.toISOString().split('T')[0];
+      
+      // Fetch meals from database
+      const fetchedMeals = await fetchMealsForDate(formattedDate);
+      
+      // Update state with fetched meals
+      setMealsByDate(prevState => ({
+        ...prevState,
+        [formattedDate]: fetchedMeals
+      }));
+    };
+
+    loadMeals();
+  }, [selectedDate.toISOString().split('T')[0]]); // Use formatted date string as dependency
+
+  const handleDeleteMeal = async (meal, index) => {
+    const token = localStorage.getItem('accessToken');
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/food-intake/${meal._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete from database');
+      }
+
+      // Update state after successful deletion
+      setMealsByDate(prevState => ({
+        ...prevState,
+        [formattedDate]: prevState[formattedDate].filter((_, i) => i !== index)
+      }));
+
+    } catch (error) {
+      console.error('Error deleting meal:', error);
+    }
   };
 
   return (
@@ -190,7 +233,7 @@ const TodayMeals = () => {
       <Section>
         {/* Date Picker with Calendar Icon for Today */}
         <DatePickerWrapper>
-          <h2>{isToday ? "Today" : selectedDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</h2>
+          <h2>{selectedDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</h2>
           
           {/* Show Calendar Icon Instead of Input for Today */}
           <CalendarIconWrapper onClick={() => setShowDatePicker((prev) => !prev)}>
@@ -213,17 +256,17 @@ const TodayMeals = () => {
         </DatePickerWrapper>
 
         <FoodList>
-          {mealsByDate[formattedDate] && mealsByDate[formattedDate].length > 0 ? (
-            mealsByDate[formattedDate].map((meal, index) => (
+          {mealsByDate[selectedDate.toISOString().split('T')[0]] && mealsByDate[selectedDate.toISOString().split('T')[0]].length > 0 ? (
+            mealsByDate[selectedDate.toISOString().split('T')[0]].map((meal, index) => (
               <FoodItem key={index}>
-                <FoodImage src={meal.image} alt={meal.name} />
+                <FoodImage src={meal.image} alt={meal.foodName} />
                 <FoodDetails>
-                  <div style={{ fontWeight: "bold" }}>{meal.name}</div>
+                  <div style={{ fontWeight: "bold" }}>{meal.foodName}</div>
                   <div style={{ fontSize: "14px", color: "#666" }}>
-                    Protein: {meal.protein} | Carbs: {meal.carbs} | Fat: {meal.fat} | Calories: {meal.calories}
+                    Protein: {meal.protein}g | Carbs: {meal.carbs}g | Fat: {meal.fats}g | Calories: {meal.calories}
                   </div>
                 </FoodDetails>
-                <DeleteButton onClick={() => handleDeleteMeal(meal.name)}>
+                <DeleteButton onClick={() => handleDeleteMeal(meal, index)}>
                   <Trash2 color="black" size={20} />
                 </DeleteButton>
               </FoodItem>

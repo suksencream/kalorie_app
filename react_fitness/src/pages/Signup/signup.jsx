@@ -3,28 +3,61 @@ import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signed up with:", { email, password, agreed });
-    //TODO: fetch the api and check the response
-    if (password != confirmPassword) {
-      setError ("Passwords don't match. Re-enter your password.")
-      setSuccess (false)
-    } else {
-      setError("")
-      setSuccess(true)
-      navigate("/login");
-    }
-    // Redirect user to login page after signup
     
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords don't match. Re-enter your password.");
+      setSuccess(false);
+      return;
+    }
+
+    try {
+      // Make API call to your backend server
+      const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccess(true);
+        setError("");
+        navigate("/login");
+      } else {
+        setError(data.message || "Signup failed. Please try again.");
+        setSuccess(false);
+      }
+    } catch (err) {
+      setError("Network error. Please try again.");
+      setSuccess(false);
+      console.error("Signup error:", err);
+    }
   };
 
   return (
@@ -41,9 +74,10 @@ const SignUpPage = () => {
             <span className="mr-10">🍔</span>
             <input
               type="email"
+              name="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
               required
               className="in"
             />
@@ -53,9 +87,10 @@ const SignUpPage = () => {
             <span className="mr-10">🔒</span>
             <input
               type="password"
+              name="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
               required
               className="in"
             />
@@ -65,15 +100,15 @@ const SignUpPage = () => {
             <span className="mr-10">🔄</span>
             <input
               type="password"
+              name="confirmPassword"
               placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={formData.confirmPassword}
+              onChange={handleChange}
               required
               className="in"
             />
             {error && <p className="error-text">{error}</p>}
           </div>
-          {success}
 
           <div className="signup-terms">
             <input
@@ -84,7 +119,7 @@ const SignUpPage = () => {
             />
             <label>I agree to Terms & Conditions.</label>
           </div>
-          <button type="submit" className="signup-button">
+          <button type="submit" className="signup-button" disabled={!agreed}>
             Register
           </button>
 
