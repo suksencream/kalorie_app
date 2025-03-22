@@ -154,54 +154,68 @@ const BackButton = styled.button`
 
 const TodayMeals = () => {
   const navigate = useNavigate();
-  const [mealsByDate, setMealsByDate] = useState({});
+  const [meals, setMeals] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const datePickerRef = useRef(null);
 
-  // Add function to fetch meals for a specific date from database
   const fetchMealsForDate = async (date) => {
     const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:5000/api/food-intake?date=${date}`, {
+      setIsLoading(true);
+      // Ensure date is in YYYY-MM-DD format and represents start of day in local timezone
+      const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+        .toISOString().split('T')[0];
+
+      console.log('🔍 Frontend - Fetching meals:', {
+        formattedDate,
+        originalDate: date,
+        tokenExists: !!token
+      });
+
+      const response = await fetch(`http://localhost:5000/api/food-intake?date=${formattedDate}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch meals');
-      }
-
-      const meals = await response.json();
-      return meals;
+      const data = await response.json();
+      console.log('📦 Fetched meals:', data);
+      setMeals(data);
     } catch (error) {
-      console.error('Error fetching meals:', error);
-      return [];
+      console.error('❌ Error fetching meals:', error);
+      setMeals([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Update useEffect to use a stable dependency
   useEffect(() => {
-    const loadMeals = async () => {
-      const formattedDate = selectedDate.toISOString().split('T')[0];
-      
-      // Fetch meals from database
-      const fetchedMeals = await fetchMealsForDate(formattedDate);
-      
-      // Update state with fetched meals
-      setMealsByDate(prevState => ({
-        ...prevState,
-        [formattedDate]: fetchedMeals
-      }));
-    };
+    fetchMealsForDate(selectedDate);
+  }, [selectedDate]);
 
-    loadMeals();
-  }, [selectedDate.toISOString().split('T')[0]]); // Use formatted date string as dependency
+  useEffect(() => {
+    fetchMealsForDate(new Date());
+  }, []);
 
-  const handleDeleteMeal = async (meal, index) => {
+  const handleDeleteMeal = async (meal) => {
+    if (!meal._id) {
+      console.error('No meal ID found');
+      return;
+    }
+
     const token = localStorage.getItem('accessToken');
-    const formattedDate = selectedDate.toISOString().split('T')[0];
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
     try {
       const response = await fetch(`http://localhost:5000/api/food-intake/${meal._id}`, {
@@ -212,15 +226,11 @@ const TodayMeals = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to delete from database');
+        throw new Error('Failed to delete meal');
       }
 
-      // Update state after successful deletion
-      setMealsByDate(prevState => ({
-        ...prevState,
-        [formattedDate]: prevState[formattedDate].filter((_, i) => i !== index)
-      }));
-
+      // Update the meals list after successful deletion
+      setMeals(currentMeals => currentMeals.filter(m => m._id !== meal._id));
     } catch (error) {
       console.error('Error deleting meal:', error);
     }
@@ -231,11 +241,15 @@ const TodayMeals = () => {
       <Title>Meal History</Title>
 
       <Section>
-        {/* Date Picker with Calendar Icon for Today */}
         <DatePickerWrapper>
-          <h2>{selectedDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</h2>
+          <h2>
+            {selectedDate.toLocaleDateString(undefined, { 
+              year: "numeric", 
+              month: "long", 
+              day: "numeric" 
+            })}
+          </h2>
           
-          {/* Show Calendar Icon Instead of Input for Today */}
           <CalendarIconWrapper onClick={() => setShowDatePicker((prev) => !prev)}>
             <Calendar size={24} />
           </CalendarIconWrapper>
@@ -249,24 +263,32 @@ const TodayMeals = () => {
                 setShowDatePicker(false);
               }}
               dateFormat="MMMM d, yyyy"
-              maxDate={new Date()} // Prevent selecting future dates
-              inline // Opens directly in UI
+              maxDate={new Date()}
+              inline
             />
           )}
         </DatePickerWrapper>
 
         <FoodList>
-          {mealsByDate[selectedDate.toISOString().split('T')[0]] && mealsByDate[selectedDate.toISOString().split('T')[0]].length > 0 ? (
-            mealsByDate[selectedDate.toISOString().split('T')[0]].map((meal, index) => (
-              <FoodItem key={index}>
-                <FoodImage src={meal.image} alt={meal.foodName} />
+          {isLoading ? (
+            <div>Loading meals...</div>
+          ) : meals && meals.length > 0 ? (
+            meals.map((meal) => (
+              <FoodItem key={meal._id}>
+                <FoodImage 
+                  src={meal.image || '/default-food.png'} 
+                  alt={meal.foodName}
+                  onError={(e) => {
+                    e.target.src = '/default-food.png';
+                  }}
+                />
                 <FoodDetails>
                   <div style={{ fontWeight: "bold" }}>{meal.foodName}</div>
                   <div style={{ fontSize: "14px", color: "#666" }}>
                     Protein: {meal.protein}g | Carbs: {meal.carbs}g | Fat: {meal.fats}g | Calories: {meal.calories}
                   </div>
                 </FoodDetails>
-                <DeleteButton onClick={() => handleDeleteMeal(meal, index)}>
+                <DeleteButton onClick={() => handleDeleteMeal(meal)}>
                   <Trash2 color="black" size={20} />
                 </DeleteButton>
               </FoodItem>

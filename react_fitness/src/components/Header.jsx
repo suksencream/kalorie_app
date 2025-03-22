@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./Header.css";
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../components/sidebar"
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);

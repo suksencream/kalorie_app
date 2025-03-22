@@ -23,7 +23,6 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords don't match. Re-enter your password.");
       setSuccess(false);
@@ -31,7 +30,8 @@ const SignUpPage = () => {
     }
 
     try {
-      // Make API call to your backend server
+      console.log("Attempting to connect to:", 'http://localhost:5000/api/register');
+      
       const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: {
@@ -50,13 +50,13 @@ const SignUpPage = () => {
         setError("");
         navigate("/login");
       } else {
-        setError(data.message || "Signup failed. Please try again.");
+        setError(data.error || "Signup failed. Please try again.");
         setSuccess(false);
       }
     } catch (err) {
-      setError("Network error. Please try again.");
-      setSuccess(false);
       console.error("Signup error:", err);
+      setError("Server is not responding. Please make sure the backend server is running.");
+      setSuccess(false);
     }
   };
 

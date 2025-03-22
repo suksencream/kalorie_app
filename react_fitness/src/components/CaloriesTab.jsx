@@ -206,11 +206,13 @@ const CalorieTab = () => {
   const handleAddToMeals = async () => {
     if (!selectedMeal) return;
 
-    // Get token from localStorage
     const token = localStorage.getItem('accessToken');
+    if (!token) {
+        console.error('No access token found');
+        return;
+    }
 
     try {
-        // Convert nutritional values safely
         const parseNutrient = (value) => {
             if (typeof value === 'string') {
                 return parseFloat(value.replace('g', '')) || 0;
@@ -218,7 +220,15 @@ const CalorieTab = () => {
             return parseFloat(value) || 0;
         };
 
-        // First save to database
+        // Get current date in ISO format
+        const currentDate = new Date().toISOString();
+        
+        console.log('💾 Saving meal:', {
+            meal: selectedMeal,
+            date: currentDate,
+            tokenExists: !!token
+        });
+
         const response = await fetch('http://localhost:5000/api/food-intake', {
             method: 'POST',
             headers: {
@@ -231,47 +241,19 @@ const CalorieTab = () => {
                 protein: parseNutrient(selectedMeal.protein),
                 carbs: parseNutrient(selectedMeal.carbs),
                 fats: parseNutrient(selectedMeal.fat),
-                image: selectedMeal.image || ''
+                image: selectedMeal.image || '',
+                date: currentDate
             })
         });
 
         const data = await response.json();
-        
-        // Then proceed with your existing local storage logic
-        const today = new Date().toISOString().split("T")[0];
-        let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
-
-        if (!storedMeals[today]) {
-            storedMeals[today] = [];
-        }
-
-        // Store the database ID with the meal
-        storedMeals[today].push({ 
-            ...selectedMeal, 
-            addedAt: Date.now(),
-            _id: data.foodEntry._id  // Save the database ID
-        });
-        
-        localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
+        console.log('✅ Meal saved successfully:', data);
         
         setSelectedMeal(null);
         setSearchInput("");
 
     } catch (error) {
-        console.error('Error saving meal:', error);
-        // Continue with local storage even if database save fails
-        const today = new Date().toISOString().split("T")[0];
-        let storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
-
-        if (!storedMeals[today]) {
-            storedMeals[today] = [];
-        }
-
-        storedMeals[today].push({ ...selectedMeal, addedAt: Date.now() });
-        localStorage.setItem("mealsByDate", JSON.stringify(storedMeals));
-        
-        setSelectedMeal(null);
-        setSearchInput("");
+        console.error('❌ Error saving meal:', error);
     }
   };
 
