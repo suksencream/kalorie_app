@@ -12,32 +12,39 @@ router.get("/testFoodIntake", (req, res) => {
 
 // ✅ Add a food intake entry
 router.post("/food-intake", authMiddleware, async (req, res) => {
-    console.log("📥 Received Data:", req.body);
+    console.log("📥 Received meal data:", req.body);
     try {
-        const { foodName, calories, protein, carbs, fats, servingSize, image } = req.body;
+        const { foodName, calories, protein, carbs, fats, image } = req.body;
         const userId = req.user.userId;
-        
-        // Create a new date in UTC
-        const date = new Date();
-        date.setUTCHours(0, 0, 0, 0);  // Set to start of day in UTC
 
-        console.log('📅 Saving meal with date:', date.toISOString());
-
-        const foodEntry = new FoodIntake({
+        // Ensure all numeric values are properly parsed
+        const parsedData = {
             userId,
             foodName,
-            calories,
-            protein,
-            carbs,
-            fats,
-            servingSize,
-            image,
-            date
-        });
+            calories: parseFloat(calories) || 0,
+            protein: parseFloat(protein) || 0,
+            carbs: parseFloat(carbs) || 0,
+            fats: parseFloat(fats) || 0,
+            image: image || '/default-food.png',
+            date: new Date()
+        };
 
+        console.log('💾 Saving meal with parsed data:', parsedData);
+
+        const foodEntry = new FoodIntake(parsedData);
         await foodEntry.save();
-        console.log('✅ Saved meal with ID:', foodEntry._id);
-        res.status(201).json({ message: "Food entry added", foodEntry });
+
+        console.log('✅ Saved food entry:', foodEntry);
+        res.status(201).json({ 
+            message: "Food entry added", 
+            foodEntry,
+            parsedValues: {
+                calories: parsedData.calories,
+                protein: parsedData.protein,
+                carbs: parsedData.carbs,
+                fats: parsedData.fats
+            }
+        });
     } catch (error) {
         console.error("❌ Error adding food intake:", error);
         res.status(500).json({ error: "Server error" });
@@ -164,6 +171,68 @@ router.delete("/food-intake/by-name/:name", authMiddleware, async (req, res) => 
     } catch (error) {
         console.error("Error deleting food intake:", error);
         res.status(500).json({ error: "Failed to delete meal" });
+    }
+});
+
+// Add this new debug route
+router.get("/food-intake-debug/today", authMiddleware, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const meals = await FoodIntake.find({
+            userId: new mongoose.Types.ObjectId(userId),
+            date: {
+                $gte: today,
+                $lt: tomorrow
+            }
+        });
+
+        console.log('Debug - Today\'s meals:', {
+            count: meals.length,
+            meals: meals.map(meal => ({
+                name: meal.foodName,
+                calories: meal.calories,
+                protein: meal.protein,
+                carbs: meal.carbs,
+                fats: meal.fats,
+                date: meal.date
+            }))
+        });
+
+        res.json({
+            count: meals.length,
+            meals: meals
+        });
+
+    } catch (error) {
+        console.error("Debug endpoint error:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// Add this debug route to check the latest meal
+router.get("/food-intake-debug/latest", authMiddleware, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const latestMeal = await FoodIntake.findOne({ 
+            userId: new mongoose.Types.ObjectId(userId) 
+        }).sort({ date: -1 });
+
+        console.log('Latest meal data:', {
+            meal: latestMeal,
+            fatsValue: latestMeal?.fats,
+            fatType: typeof latestMeal?.fats
+        });
+
+        res.json(latestMeal);
+    } catch (error) {
+        console.error("Debug endpoint error:", error);
+        res.status(500).json({ error: "Server error" });
     }
 });
 
