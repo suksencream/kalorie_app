@@ -32,7 +32,7 @@
     position: absolute;
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 50px;
   
   }
   
@@ -42,11 +42,38 @@
     font-size: 18px;
     padding: 5px 10px;
     border-bottom: 3px solid transparent;
-    transition: border-color 0.3s ease; 
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .nav-links a:hover {
+    color: rgb(68, 178, 1);
+    transform: translateY(-2px);
+  }
+  
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -3px;
+    left: 0;
+    background-color: rgb(68, 178, 1);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-links a:hover::after {
+    width: 100%;
   }
   
   .nav-links a.active {
-    border-bottom: 3px solid green;
+    border-bottom: 1px solid rgb(68, 178, 1);
+    color: rgb(68, 178, 1);
+  }
+  
+  .nav-links a.active::after {
+    width: 100%;
+    background-color: rgb(68, 178, 1);
   }
   
   .menu-icon {
