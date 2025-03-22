@@ -44,19 +44,64 @@ const ProgressBar = styled.div`
 const CalorieTracker = () => {
   const [totalCalories, setTotalCalories] = useState(0);
   const [goalCalories, setGoalCalories] = useState(2000);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    const storedMeals = JSON.parse(localStorage.getItem("mealsByDate")) || {};
-    const todayMeals = storedMeals[today] || [];
-
-    const total = todayMeals.reduce((acc, meal) => acc + parseInt(meal.calories), 0);
-    setTotalCalories(total);
-
-    const storedGoal = localStorage.getItem("userCalorieGoal");
-    if (storedGoal) {
-      setGoalCalories(parseInt(storedGoal));
+  const fetchTodaysMeals = async () => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('No access token found');
+      return;
     }
+
+    try {
+      setIsLoading(true);
+      // Get today's date in YYYY-MM-DD format
+      const today = new Date().toISOString().split('T')[0];
+      
+      const response = await fetch(`http://localhost:5000/api/food-intake?date=${today}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch meals');
+      }
+
+      const meals = await response.json();
+      console.log('📊 Fetched meals for calories:', meals);
+
+      // Calculate total calories from all meals
+      const total = meals.reduce((acc, meal) => acc + (parseFloat(meal.calories) || 0), 0);
+      console.log('🔢 Total calories calculated:', total);
+      setTotalCalories(total);
+
+      // Get user's calorie goal from localStorage or use default
+      const storedGoal = localStorage.getItem("userCalorieGoal");
+      if (storedGoal) {
+        setGoalCalories(parseInt(storedGoal));
+      }
+
+    } catch (error) {
+      console.error('Error fetching calories:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch meals when component mounts
+  useEffect(() => {
+    fetchTodaysMeals();
+  }, []);
+
+  // Add a refresh interval to update calories every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchTodaysMeals();
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
   }, []);
 
   const progressPercentage = (totalCalories / goalCalories) * 100;
@@ -64,8 +109,8 @@ const CalorieTracker = () => {
   return (
     <Container>
       <TopSection>
-        <span>Total Calories</span>
-        <span>{totalCalories} / {goalCalories}</span>
+        <div>Calories</div>
+        <div>{Math.round(totalCalories)} / {goalCalories}</div>
       </TopSection>
       <ProgressContainer>
         <ProgressBar percentage={progressPercentage} />

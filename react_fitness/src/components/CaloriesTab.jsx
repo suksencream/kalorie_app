@@ -215,19 +215,27 @@ const CalorieTab = () => {
     try {
         const parseNutrient = (value) => {
             if (typeof value === 'string') {
+                // Remove 'g' and convert to float
                 return parseFloat(value.replace('g', '')) || 0;
             }
             return parseFloat(value) || 0;
         };
 
-        // Get current date in ISO format
-        const currentDate = new Date().toISOString();
-        
-        console.log('💾 Saving meal:', {
-            meal: selectedMeal,
-            date: currentDate,
-            tokenExists: !!token
-        });
+        // Log the incoming meal data for debugging
+        console.log('Raw selected meal:', selectedMeal);
+
+        // Create the meal data with explicit fat handling
+        const mealData = {
+            foodName: selectedMeal.name,
+            calories: parseFloat(selectedMeal.calories) || 0,
+            protein: parseNutrient(selectedMeal.protein),
+            carbs: parseNutrient(selectedMeal.carbs),
+            // Try all possible fat property names and ensure it's saved as 'fats'
+            fats: parseNutrient(selectedMeal.fats || selectedMeal.fat || selectedMeal.Fat || 0),
+            image: selectedMeal.image || ''
+        };
+
+        console.log('Processed meal data to send:', mealData);
 
         const response = await fetch('http://localhost:5000/api/food-intake', {
             method: 'POST',
@@ -235,27 +243,37 @@ const CalorieTab = () => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({
-                foodName: selectedMeal.name,
-                calories: parseFloat(selectedMeal.calories) || 0,
-                protein: parseNutrient(selectedMeal.protein),
-                carbs: parseNutrient(selectedMeal.carbs),
-                fats: parseNutrient(selectedMeal.fat),
-                image: selectedMeal.image || '',
-                date: currentDate
-            })
+            body: JSON.stringify(mealData)
         });
 
         const data = await response.json();
-        console.log('✅ Meal saved successfully:', data);
+        console.log('✅ Server response:', data);
         
         setSelectedMeal(null);
         setSearchInput("");
+
+        // Refresh the page to update all components
+        window.location.reload();
 
     } catch (error) {
         console.error('❌ Error saving meal:', error);
     }
   };
+
+  const renderFoodItem = (meal, index) => (
+    <FoodItem key={index} onClick={() => handleMealClick(meal)}>
+        <FoodImage src={meal.image} alt={meal.name} />
+        <div>
+            <div style={{ fontWeight: "bold" }}>{meal.name}</div>
+            <div style={{ fontSize: "14px", color: "#666" }}>
+                Protein: {meal.protein}g | 
+                Carbs: {meal.carbs}g | 
+                Fat: {meal.fat || meal.fats || '0'}g | 
+                Calories: {meal.calories}
+            </div>
+        </div>
+    </FoodItem>
+  );
 
   return (
     <Container>
@@ -299,17 +317,7 @@ const CalorieTab = () => {
       {/* Recommended Meals */}
       <SectionTitle>Recommended</SectionTitle>
       <FoodList>
-        {recommendedMeals.map((meal, index) => (
-          <FoodItem key={index} onClick={() => handleMealClick(meal)}>
-            <FoodImage src={meal.image} alt={meal.name} />
-            <div>
-              <div style={{ fontWeight: "bold" }}>{meal.name}</div>
-              <div style={{ fontSize: "14px", color: "#666" }}>
-                Protein: {meal.protein} | Carbs: {meal.carbs} | Fat: {meal.fat} | Calories: {meal.calories}
-              </div>
-            </div>
-          </FoodItem>
-        ))}
+        {recommendedMeals.map((meal, index) => renderFoodItem(meal, index))}
       </FoodList>
     </Container>
   );
