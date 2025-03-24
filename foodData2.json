@@ -1,0 +1,461 @@
+[
+ {
+    "name": "Apple (แอปเปิ้ล)",
+    "calories": 52,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 14,
+    "servingSize": "100g",
+    "image": "https://i5.walmartimages.com/seo/Fresh-Red-Delicious-Apple-Each_7320e63a-de46-4a16-9b8c-526e15219a12_3.e557c1ad9973e1f76f512b34950243a3.jpeg"
+  },
+  {
+    "name": "Banana (กล้วย)",
+    "calories": 89,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 23,
+    "servingSize": "100g",
+    "image": "https://fit-d.com/uploads/food/5f6c8c69a8f190b979f93f02475aac80.jpg"
+  },
+  {
+    "name": "Orange (ส้ม)",
+    "calories": 47,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 12,
+    "servingSize": "100g",
+    "image": "https://medthai.com/wp-content/uploads/2013/07/Orange-1.jpg"
+  },
+  {
+    "name": "Grapes (องุ่น)",
+    "calories": 69,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 18,
+    "servingSize": "100g",
+    "image": "https://f.btwcdn.com/store-43065/product/a390601b-00d0-a9e2-0d5e-600fc736be59.jpg"
+  },
+  {
+    "name": "Mango (มะม่วง)",
+    "calories": 60,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 15,
+    "servingSize": "100g",
+    "image": "https://res.cloudinary.com/dk0z4ums3/image/upload/v1729691838/attached_image_th/mango.jpg"
+  },
+  {
+    "name": "Watermelon (แตงโม)",
+    "calories": 30,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 8,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/07/watermelon-and-its-benefits-scaled.jpg"
+  },
+  {
+    "name": "Pineapple (สับปะรด)",
+    "calories": 50,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 13,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/07/pineapple-properties-and-benefits.jpg"
+  },
+  {
+    "name": "Strawberry (สตรอว์เบอร์รี่)",
+    "calories": 32,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 8,
+    "servingSize": "100g",
+    "image": "https://babimild.com/images/stories/natural/istock_000013443522xsmall.jpg"
+  },
+  {
+    "name": "Blueberry (บลูเบอร์รี่)",
+    "calories": 57,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 15,
+    "servingSize": "100g",
+    "image": "https://cdn8.devgodigit.net/wp-content/uploads/2021/09/30185213/016306821_F.jpg"
+  },
+  {
+    "name": "Pear (สาลี่)",
+    "calories": 57,
+    "protein": 0,
+    "fats": 0,
+    "carbs": 15,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/wo/0/ud/32/164017/untitled-1.jpg"
+  },
+  {
+    "name": "Kiwi (กีวี)",
+    "calories": 61,
+    "protein": 1,
+    "fats": 1,
+    "carbs": 15,
+    "servingSize": "100g",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Kiwi_%28Actinidia_chinensis%29_1_Luc_Viatour_edit.jpg"
+  },
+  {
+    "name": "Papaya (มะละกอ)",
+    "calories": 43,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 11,
+    "servingSize": "100g",
+    "image": "https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4L4TEIpL7g7NckM3zXhm6toHSnaX0INnFQFJA688rDCT1ATKs6e.jpg"
+  },
+  {
+    "name": "Peach (ลูกพีช)",
+    "calories": 39,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 10,
+    "servingSize": "100g",
+    "image": "https://inwfile.com/s-fw/o5g3cp.jpg"
+  },
+  {
+    "name": "Plum (ลูกพลัม)",
+    "calories": 46,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 11,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/he/0/ud/4/21825/plum.jpg"
+  },
+  {
+    "name": "Avocado (อะโวคาโด)",
+    "calories": 160,
+    "protein": 2,
+    "fats": 15,
+    "carbs": 9,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/he/0/ud/0/2431/Persea_americana.jpg?ip/crop/w670h402/q80/jpg"
+  },
+  {
+    "name": "Dragon Fruit (แก้วมังกร)",
+    "calories": 50,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 11,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/07/benefits-of-dragon-fruit-and-weight-loss-scaled.jpg"
+  },
+  {
+    "name": "Lychee (ลิ้นจี่)",
+    "calories": 66,
+    "protein": 1,
+    "fats": 1,
+    "carbs": 17,
+    "servingSize": "100g",
+    "image": "https://cache-igetweb-v2.mt108.info/uploads/images-cache/5985/product/96166dd0706a287c125b5b5328dc9a1f_full.jpg"
+  },
+  {
+    "name": "Durian (ทุเรียน)",
+    "calories": 147,
+    "protein": 2,
+    "fats": 5,
+    "carbs": 27,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/04/the-danger-of-eating-durian-scaled.jpg"
+  },
+  {
+    "name": "Rambutan (เงาะ)",
+    "calories": 68,
+    "protein": 1,
+    "fats": 1,
+    "carbs": 16,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/04/%E0%B9%80%E0%B8%87%E0%B8%B2%E0%B8%B0-Rambutan-scaled.jpg"
+  },
+  {
+    "name": "Mangosteen (มังคุด)",
+    "calories": 73,
+    "protein": 1,
+    "fats": 1,
+    "carbs": 18,
+    "servingSize": "100g",
+    "image": "https://medthai.com/wp-content/uploads/2013/07/Mangosteen-1.jpg"
+  },
+  {
+    "name": "Pomegranate (ทับทิม)",
+    "calories": 83,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 19,
+    "servingSize": "100g",
+    "image": "https://inwfile.com/s-dn/q8ey8t.jpg"
+  },
+  {
+    "name": "Coconut (มะพร้าว)",
+    "calories": 354,
+    "protein": 3,
+    "fats": 33,
+    "carbs": 15,
+    "servingSize": "100g",
+    "image": "https://www.disthai.com/images/content/original-1634805921927.jpg"
+  },
+  {
+    "name": "Starfruit (มะเฟือง)",
+    "calories": 31,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 7,
+    "servingSize": "100g",
+    "image": "https://www.disthai.com/images/content/original-1703495171879.jpg"
+  },
+  {
+    "name": "Jackfruit (ขนุน)",
+    "calories": 95,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 24,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/wo/0/ud/36/183361/n.jpg?ip/crop/w670h402/q80/jpg"
+  },
+  {
+    "name": "Passion Fruit (เสาวรส)",
+    "calories": 97,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 23,
+    "servingSize": "100g",
+    "image": "https://hdmall.co.th/blog/wp-content/uploads/2024/07/benefits-of-passion-fruit-scaled.jpg"
+  },
+  {
+    "name": "Tom Yum Goong (ต้มยำกุ้ง)",
+    "calories": 320,
+    "protein": 25,
+    "fats": 12,
+    "carbs": 30,
+    "servingSize": "300g",
+    "image": "https://d3h1lg3ksw6i6b.cloudfront.net/media/image/2023/04/24/5608757681874e1ea5df1aa41d5b2e3d_How_To_Make_Tom_Yam_Kung_The_Epitome_Of_Delicious_And_Nutritious_Thai_Cuisine3.jpg"
+  },
+  {
+    "name": "Green Curry with Chicken (แกงเขียวหวานไก่)",
+    "calories": 450,
+    "protein": 28,
+    "fats": 22,
+    "carbs": 40,
+    "servingSize": "300g",
+    "image": "https://www.pholfoodmafia.com/wp-content/uploads/2022/04/ChickenGreenCurry1000x650.jpg"
+  },
+  {
+    "name": "Massaman Curry with Beef (แกงมัสมั่นเนื้อ)",
+    "calories": 600,
+    "protein": 35,
+    "fats": 30,
+    "carbs": 50,
+    "servingSize": "300g",
+    "image": "https://api2.krua.co/wp-content/uploads/2020/09/RT1119_ImageBannerMobile_960x633_New_-01-scaled.jpg"
+  },
+  {
+    "name": "Satay (สะเต๊ะ)",
+    "calories": 230,
+    "protein": 14,
+    "fats": 15,
+    "carbs": 8,
+    "servingSize": "120g",
+    "image": "https://img.wongnai.com/p/1920x0/2018/10/31/52a20e563de44402b0ea7483039cd3db.jpg"
+  },
+  {
+    "name": "Khao Soi (ข้าวซอย)",
+    "calories": 580,
+    "protein": 25,
+    "fats": 30,
+    "carbs": 55,
+    "servingSize": "300g",
+    "image": "https://img.wongnai.com/p/1968x0/2020/05/20/c0b7b1af395e44b6965494efb7b09cfa.jpg"
+  },
+  {
+    "name": "Moo Ping (หมูปิ้ง)",
+    "calories": 150,
+    "protein": 18,
+    "fats": 7,
+    "carbs": 5,
+    "servingSize": "100g",
+    "image": "https://img.wongnai.com/p/1920x0/2018/07/17/454e074d6e6d4a159c33f327ede65dc2.jpg"
+  },
+  {
+    "name": "Tacos (ทาโก้)",
+    "calories": 150,
+    "protein": 8,
+    "fats": 7,
+    "carbs": 18,
+    "servingSize": "100g",
+    "image": "https://cheewajit.com/app/uploads/2019/02/1.-%E0%B8%97%E0%B8%B2%E0%B9%82%E0%B8%81%E0%B9%89-%E0%B8%8B%E0%B8%B9%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B8%A1-Taco-Supreme_1.jpg"
+  },
+  {
+    "name": "Croissant (ครัวซองต์)",
+    "calories": 200,
+    "protein": 4,
+    "fats": 12,
+    "carbs": 24,
+    "servingSize": "60g",
+    "image": "https://image.makewebcdn.com/makeweb/m_1920x0/I1MJQjJJO/CroissantPuffPastries/Croissant_DSCF5275.jpg"
+  },
+  {
+    "name": "Peking Duck (เป็ดย่างปักกิ่ง)",
+    "calories": 550,
+    "protein": 40,
+    "fats": 35,
+    "carbs": 20,
+    "servingSize": "200g",
+    "image": "https://mpics.mgronline.com/pics/Images/562000004600203.JPEG"
+  },
+  {
+    "name": "Greek Yogurt (กรีกโยเกิร์ต)",
+    "calories": 100,
+    "protein": 10,
+    "fats": 4,
+    "carbs": 6,
+    "servingSize": "170g",
+    "image": "https://s359.kapook.com/pagebuilder/ab65a012-e2a7-4a8a-b740-35b8a6b8f095.jpg"
+  },
+  {
+    "name": "Sweet Potato (มันหวาน)",
+    "calories": 86,
+    "protein": 2,
+    "fats": 0,
+    "carbs": 20,
+    "servingSize": "100g",
+    "image": "https://cms.dmpcdn.com/food/2023/03/08/339783f0-bdc8-11ed-b280-937bc7697a96_webp_original.jpg"
+  },
+  {
+    "name": "Tofu (เต้าหู้)",
+    "calories": 70,
+    "protein": 8,
+    "fats": 4,
+    "carbs": 2,
+    "servingSize": "100g",
+    "image": "https://res.cloudinary.com/dk0z4ums3/image/upload/v1684727920/attached_image_th/tofuwithsoybeanonwoodenboard.jpg"
+  },
+  {
+    "name": "Steamed Tilapia Fish (ปลานิลนึ่ง)",
+    "calories": 150,
+    "protein": 25,
+    "fats": 5,
+    "carbs": 0,
+    "servingSize": "100g",
+    "image": "https://img.wongnai.com/p/1920x0/2023/12/17/17a12eea069d4b209c9602b8c714e4d7.jpg"
+  },
+  {
+    "name": "Zucchini (ซูกินี)",
+    "calories": 17,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 4,
+    "servingSize": "100g",
+    "image": "https://kpgreenpirates.com/upload-img/%E0%B8%9A%E0%B8%A7%E0%B8%9A.png"
+  },
+  {
+    "name": "Pumpkin (ฟักทอง)",
+    "calories": 26,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 7,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/wo/0/ud/45/225397/225397-thumbnail.jpg"
+  },
+  {
+    "name": "Soft Boiled Eggs (ไข่ต้มยางมะตูม)",
+    "calories": 155,
+    "protein": 13,
+    "fats": 11,
+    "carbs": 1,
+    "servingSize": "50g",
+    "image": "https://assets.unileversolutions.com/v1/949481.jpg"
+  },
+  {
+    "name": "Cucumber (แตงกวา)",
+    "calories": 16,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 4,
+    "servingSize": "100g",
+    "image": "https://www.opsmoac.go.th/data/local_wisdom/l/631100000121.jpg"
+  },
+  {
+    "name": "Hummus (ฮัมมุส)",
+    "calories": 166,
+    "protein": 8,
+    "fats": 9,
+    "carbs": 14,
+    "servingSize": "100g",
+    "image": "https://img.wongnai.com/p/1920x0/2021/12/10/0b60fef2f78a44c5a9dc2dc3dc8b64ea.jpg"
+  },
+  {
+  "name": "Lasagna(ลาซาญย่า)",
+  "calories": 400,
+  "protein": 25,
+  "fats": 20,
+  "carbs": 30,
+  "servingSize": "250g",
+  "image": "https://static01.nyt.com/images/2023/08/31/multimedia/RS-Lasagna-hkjl/RS-Lasagna-hkjl-mediumSquareAt3X.jpg"
+  },
+  {
+    "name": "Oatmeal (ข้าวโอ๊ต)",
+    "calories": 71,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 12,
+    "servingSize": "100g",
+    "image": "https://s.isanook.com/ca/0/ud/284/1424419/istock-157587762.jpg?ip/resize/w728/q80/jpg"
+  },
+  {
+    "name": "Ricotta Cheese (ริคอตต้าชีส)",
+    "calories": 174,
+    "protein": 14,
+    "fats": 13,
+    "carbs": 4,
+    "servingSize": "100g",
+    "image": "https://www.thespruceeats.com/thmb/0SFkKV13vXlNq4T_uq6IpmZUrAY=/2123x1415/filters:fill(auto,1)/106908888-58aefb225f9b58a3c9287cf3.jpg"
+  },
+  {
+    "name": "Rice Cakes (เค้กข้าว)",
+    "calories": 35,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 7,
+    "servingSize": "1 cake (9g)",
+    "image": "https://png.pngtree.com/thumb_back/fw800/background/20220318/pngtree-white-background-photo-of-main-picture-of-shengnian-cake-image_1016850.jpg"
+  },
+  {
+    "name": "Carrots (แครอท)",
+    "calories": 35,
+    "protein": 1,
+    "fats": 0,
+    "carbs": 8,
+    "servingSize": "100g",
+    "image": "https://images.squarespace-cdn.com/content/v1/5eeedc3a4892516223474ad2/3b813588-1b09-4ddc-86f7-adaa58b365be/Lovepik_com-500772709-carrot.jpg"
+  },
+  {
+    "name": "Pork Congee (โจ๊กหมู)",
+    "calories": 55,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 11,
+    "servingSize": "100g",
+    "image": "https://img-global.cpcdn.com/recipes/052796c4ff9d3068/680x482cq70/%E0%B8%A3%E0%B8%9B-%E0%B8%AB%E0%B8%A5%E0%B8%81-%E0%B8%82%E0%B8%AD%E0%B8%87-%E0%B8%AA%E0%B8%95%E0%B8%A3-%E0%B9%82%E0%B8%88%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%81%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%A5%E0%B8%A1.jpg"
+  },
+  {
+    "name": "Pork Porridge (ข้าวต้ม)",
+    "calories": 58,
+    "protein": 2,
+    "fats": 1,
+    "carbs": 12,
+    "servingSize": "100g",
+    "image": "https://img-global.cpcdn.com/recipes/1ad9882231d35330/1200x630cq70/photo.jpg"
+  },
+  {
+    "name": "Cottage Cheese (คอทเทจชีส)",
+    "calories": 90,
+    "protein": 11,
+    "fats": 4,
+    "carbs": 3,
+    "servingSize": "100g",
+    "image": "https://api2.krua.co/wp-content/uploads/2021/04/RI1650_Gallery_-02-scaled.jpg"
+  }
+]

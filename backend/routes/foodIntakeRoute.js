@@ -56,49 +56,58 @@ router.get("/food-intake", authMiddleware, async (req, res) => {
     try {
         const userId = req.user.userId;
         const dateQuery = req.query.date;
+        const startDate = req.query.startDate;
+        const endDate = req.query.endDate;
 
         console.log('🔍 Debug - Fetch Request Details:', {
             userId,
             dateQuery,
+            startDate,
+            endDate,
             tokenExists: !!req.header("Authorization")
         });
 
         let query = { userId: new mongoose.Types.ObjectId(userId) };
 
-        // If date is provided, filter by date
+        // If specific date is provided, filter by that date
         if (dateQuery) {
-            // Create date objects for start and end of the queried date in UTC
-            const startDate = new Date(dateQuery);
-            startDate.setUTCHours(0, 0, 0, 0);
+            const startOfDay = new Date(dateQuery);
+            startOfDay.setUTCHours(0, 0, 0, 0);
             
-            const endDate = new Date(dateQuery);
-            endDate.setUTCHours(23, 59, 59, 999);
+            const endOfDay = new Date(dateQuery);
+            endOfDay.setUTCHours(23, 59, 59, 999);
 
             query.date = {
-                $gte: startDate,
-                $lte: endDate
+                $gte: startOfDay,
+                $lte: endOfDay
             };
+        }
+        // If date range is provided, filter by that range
+        else if (startDate && endDate) {
+            const start = new Date(startDate);
+            start.setUTCHours(0, 0, 0, 0);
+            
+            const end = new Date(endDate);
+            end.setUTCHours(23, 59, 59, 999);
 
-            console.log('📅 Date Range Query:', {
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString(),
-                rawQuery: JSON.stringify(query)
-            });
+            query.date = {
+                $gte: start,
+                $lte: end
+            };
         }
 
-        // Debug: First check if any meals exist for this user
-        const allMeals = await FoodIntake.find({ userId: new mongoose.Types.ObjectId(userId) });
-        console.log('📊 Total meals for user:', allMeals.length);
-
-        // Debug: Log a sample meal to check date format
-        if (allMeals.length > 0) {
-            console.log('📝 Sample meal date:', allMeals[0].date);
-        }
+        console.log('📅 Query:', {
+            query: JSON.stringify(query),
+            dateRange: query.date ? {
+                start: query.date.$gte,
+                end: query.date.$lte
+            } : 'No date filter'
+        });
 
         const foodEntries = await FoodIntake.find(query)
             .sort({ date: -1 });
 
-        console.log('🍽 Filtered meals found:', {
+        console.log('🍽 Meals found:', {
             count: foodEntries.length,
             dates: foodEntries.map(entry => entry.date)
         });
