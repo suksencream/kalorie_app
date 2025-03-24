@@ -182,10 +182,6 @@ const MacronutrientTracker = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (isLoading) {
-    return <div>Loading macronutrients...</div>;
-  }
-
   return (
     <MacroContainer>
       <ProgressRing percentage={totals.fats} color="#FFD700" label="Fats" />

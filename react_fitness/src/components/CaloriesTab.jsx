@@ -11,7 +11,7 @@ const eggImage = "/egg.png";
 //  { name: "Hard-boiled egg (large)", protein: "6g", carbs: "0.6g", fat: "5g", calories: "70", image: eggImage },
 //  { name: "Fried Eggs", protein: "7g", carbs: "1g", fat: "6g", calories: "90", image: eggImage },
 //  { name: "Egg Salad", protein: "8g", carbs: "2g", fat: "9g", calories: "120", image: eggImage },
- // { name: "Egg Fried Rice", protein: "9g", carbs: "20g", fat: "10g", calories: "250", image: eggImage }
+// { name: "Egg Fried Rice", protein: "9g", carbs: "20g", fat: "10g", calories: "250", image: eggImage }
 //];
 
 const Container = styled.div`
@@ -166,6 +166,50 @@ const FoodImage = styled.img`
   height: 50px;
 `;
 
+const SuccessMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #76ba1b;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+
+  @keyframes slideIn {
+    from {
+      top: -100px;
+      opacity: 0;
+    }
+    to {
+      top: 20px;
+      opacity: 1;
+    }
+  }
+`;
+
+const CheckIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &::before {
+    content: "✓";
+    color: #76ba1b;
+    font-weight: bold;
+  }
+`;
+
 const CalorieTab = () => {
   const navigate = useNavigate();
   const [showRecent, setShowRecent] = useState(false);
@@ -173,6 +217,7 @@ const CalorieTab = () => {
   const [recentSearches, setRecentSearches] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [ recommendedMeals, setRecommendedMeals ] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const storedSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
@@ -215,22 +260,18 @@ const CalorieTab = () => {
     try {
         const parseNutrient = (value) => {
             if (typeof value === 'string') {
-                // Remove 'g' and convert to float
                 return parseFloat(value.replace('g', '')) || 0;
             }
             return parseFloat(value) || 0;
         };
 
-        // Log the incoming meal data for debugging
         console.log('Raw selected meal:', selectedMeal);
 
-        // Create the meal data with explicit fat handling
         const mealData = {
             foodName: selectedMeal.name,
             calories: parseFloat(selectedMeal.calories) || 0,
             protein: parseNutrient(selectedMeal.protein),
             carbs: parseNutrient(selectedMeal.carbs),
-            // Try all possible fat property names and ensure it's saved as 'fats'
             fats: parseNutrient(selectedMeal.fats || selectedMeal.fat || selectedMeal.Fat || 0),
             image: selectedMeal.image || ''
         };
@@ -251,9 +292,13 @@ const CalorieTab = () => {
         
         setSelectedMeal(null);
         setSearchInput("");
+        
+        // Show success message
+        setShowSuccess(true);
+        // Hide it after 3 seconds
+        setTimeout(() => setShowSuccess(false), 2000);
 
-        // Refresh the page to update all components
-        window.location.reload();
+        window.dispatchEvent(new Event('mealUpdated'));
 
     } catch (error) {
         console.error('❌ Error saving meal:', error);
@@ -277,6 +322,13 @@ const CalorieTab = () => {
 
   return (
     <Container>
+      {showSuccess && (
+        <SuccessMessage>
+          <CheckIcon />
+          Successfully Added!
+        </SuccessMessage>
+      )}
+
       <Title>Food Log</Title>
 
       {/* Search Bar */}

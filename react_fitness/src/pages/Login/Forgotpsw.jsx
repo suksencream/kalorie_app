@@ -6,9 +6,32 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState("")
     const navigate = useNavigate()
 
-    const handleContinue = (e) => {
-        e.preventDefault()
-        navigate("/checkyouremail")
+    const handleContinue = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:5000/api/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json(); 
+
+            if (response.ok) {
+                // Store email in localStorage before navigating
+                localStorage.setItem('resetEmail', email);
+                navigate("/checkyouremail");
+            } else {
+                // Handle error cases
+                console.error(data.error);
+                // You might want to show an error message to the user here
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle network errors
+        }
     }
 
     return (

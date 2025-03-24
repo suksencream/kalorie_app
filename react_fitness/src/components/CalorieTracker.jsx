@@ -36,7 +36,7 @@ const ProgressContainer = styled.div`
 const ProgressBar = styled.div`
   height: 100%;
   width: ${({ percentage }) => Math.min(percentage, 100)}%;
-  background: ${({ percentage }) => (percentage > 100 ? "#cd071e" : "#4caf50")};
+  background: ${({ percentage }) => (percentage > 100 ? "#cd071e" : "#76ba1b")};
   border-radius: 10px;
   transition: width 0.5s ease-in-out, background 0.5s ease-in-out;
 `;
@@ -109,7 +109,7 @@ const CalorieTracker = () => {
   return (
     <Container>
       <TopSection>
-        <div>Calories</div>
+        <div>Total Calories</div>
         <div>{Math.round(totalCalories)} / {goalCalories}</div>
       </TopSection>
       <ProgressContainer>

@@ -18,7 +18,7 @@ const AboutUs = () => {
             </p>
             <h2>Contact Us</h2>
             <p>
-            If you have any questions or feedback, feel free to reach out to us via our contact page. We appreciate your support!
+            If you have any questions or feedback, feel free to reach out to us via KMITL Computer Engineering Department. We appreciate your support!
             </p>
         </div>
       </div>

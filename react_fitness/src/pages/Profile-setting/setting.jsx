@@ -7,18 +7,18 @@ const calculateCalorieDeficit = (userData) => {
 
   const baseCalories = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age;
   let activityFactor = 1.2;
-  if (userData.activityLevel === "Lightly Active") activityFactor = 1.375;
-  else if (userData.activityLevel === "Moderately Active") activityFactor = 1.55;
-  else if (userData.activityLevel === "Very Active") activityFactor = 1.725;
+  if (userData.activityLevel === "light") activityFactor = 1.375;
+  else if (userData.activityLevel === "moderate") activityFactor = 1.55;
+  else if (userData.activityLevel === "very active") activityFactor = 1.725;
 
   let calorieNeeds = baseCalories * activityFactor;
-  if (userData.sex === "Male") calorieNeeds += 5;
-  else if (userData.sex === "Female") calorieNeeds -= 161;
+  if (userData.sex === "male") calorieNeeds += 5;
+  else if (userData.sex === "female") calorieNeeds -= 161;
 
   let deficit = calorieNeeds;
 
-  if (userData.goals === "Lose Weight") deficit -= 500;
-  else if (userData.goals === "Gain Muscle") deficit += 500;
+  if (userData.goals === "lose") deficit -= 500;
+  else if (userData.goals === "gain") deficit += 500;
 
   if (userData.speedOfProgress === "Slow") {
     deficit -= 250;
@@ -214,39 +214,25 @@ const Setting = () => {
         
         <form onSubmit={handleSave} className="settings-form">
           <div className="form-grid">
-            {/* First Column - now with Speed of Progress */}
+            {/* First Column */}
             <div className="form-column">
               {[
-                ["firstName", "First Name"],
-                ["lastName", "Last Name"],
-                ["age", "Age"],
-                ["weight", "Weight"],
-                ["speedOfProgress", "Speed of Progress"]
+                ["firstName", "First Name *"],
+                ["lastName", "Last Name *"],
+                ["age", "Age *"],
+                ["weight", "Weight (kg) *"],
+                ["height", "Height (cm) *"]
               ].map(([name, label]) => (
                 <div className="input-group" key={name}>
                   <label>{label}</label>
-                  {name === "speedOfProgress" ? (
-                    <select 
-                      name={name} 
-                      value={profileData[name]} 
-                      onChange={handleInputChange} 
-                      disabled={!isEditing}
-                    >
-                      <option value="">Select {label}</option>
-                      {["slow", "moderate", "fast"].map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input 
-                      type={name === "age" || name === "weight" ? "number" : "text"}
-                      name={name}
-                      value={profileData[name]}
-                      onChange={handleInputChange}
-                      placeholder={`Your ${label}`}
-                      disabled={!isEditing}
-                    />
-                  )}
+                  <input 
+                    type={name === "age" || name === "weight" || name === "height" ? "number" : "text"}
+                    name={name}
+                    value={profileData[name]}
+                    onChange={handleInputChange}
+                    placeholder={`Your ${label}`}
+                    disabled={!isEditing}
+                  />
                   {errors[name] && <p className="error-message">{errors[name]}</p>}
                 </div>
               ))}
@@ -255,41 +241,49 @@ const Setting = () => {
             {/* Second Column */}
             <div className="form-column">
               {[
-                ["height", "Height"],
-                ["sex", "Sex"],
-                ["activityLevel", "Activity Level"],
-                ["goals", "Goals"]
+                ["sex", "Sex *"],
+                ["activityLevel", "Activity Level *"],
+                ["goals", "Goals *"],
+                ["speedOfProgress", "Speed of Progress *"]
               ].map(([name, label]) => (
                 <div className="input-group" key={name}>
                   <label>{label}</label>
-                  {name === "sex" || name === "activityLevel" || name === "goals" ? (
-                    <select 
-                      name={name} 
-                      value={profileData[name]} 
-                      onChange={handleInputChange} 
-                      disabled={!isEditing}
-                    >
-                      <option value="">Select {label}</option>
-                      {name === "sex" && ["male", "female", "other"].map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                      {name === "activityLevel" && ["sedentary", "light", "moderate", "active", "very active"].map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                      {name === "goals" && ["lose", "maintain", "gain"].map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input 
-                      type="number"
-                      name={name}
-                      value={profileData[name]}
-                      onChange={handleInputChange}
-                      placeholder={`Your ${label}`}
-                      disabled={!isEditing}
-                    />
-                  )}
+                  <select 
+                    name={name} 
+                    value={profileData[name]} 
+                    onChange={handleInputChange} 
+                    disabled={!isEditing}
+                  >
+                    <option value="">Select {label}</option>
+                    {name === "sex" && [
+                      ["male", "Male"],
+                      ["female", "Female"]
+                    ].map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                    {name === "activityLevel" && [
+                      ["sedentary", "Sedentary"],
+                      ["light", "Lightly Active"],
+                      ["moderate", "Moderately Active"],
+                      ["very active", "Very Active"]
+                    ].map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                    {name === "goals" && [
+                      ["lose", "Lose Weight"],
+                      ["maintain", "Maintain Weight"],
+                      ["gain", "Gain Muscle"]
+                    ].map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                    {name === "speedOfProgress" && [
+                      ["slow", "Slow"],
+                      ["moderate", "Moderate"],
+                      ["fast", "Fast"]
+                    ].map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                  </select>
                   {errors[name] && <p className="error-message">{errors[name]}</p>}
                 </div>
               ))}
