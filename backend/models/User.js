@@ -12,13 +12,19 @@ const UserSchema = new mongoose.Schema({
   age: { type: Number},
   weight: { type: Number},  // in kg
   height: { type: Number},  // in cm
-  gender: { type: String, enum: ["male", "female", "other"] },
+  sex: { type: String, enum: ["male", "female"] },
   activityLevel: { 
     type: String,  
-    enum: ["sedentary", "lightly active", "moderately active", "very active", "super active"] 
+    enum: ["sedentary", "lightly active", "moderately active", "very active"] 
   },
-  goalWeight: { type: Number},  // in kg
-  progressDuration: { type: Number}, // in weeks
+  goals: { 
+    type: String,  
+    enum: ["lose weight", "maintain weight", "gain weight"] 
+  },
+  speedOfProgress: { 
+    type: String,  
+    enum: ["slow", "moderate", "fast"]
+  }, 
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 });
