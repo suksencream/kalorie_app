@@ -236,4 +236,31 @@ router.get("/food-intake-debug/latest", authMiddleware, async (req, res) => {
     }
 });
 
+router.get('/meals/:date', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const dateQuery = req.params.date; // Format: YYYY-MM-DD
+
+    // Create start and end of the day in UTC
+    const startDate = new Date(dateQuery);
+    startDate.setUTCHours(0, 0, 0, 0);
+
+    const endDate = new Date(dateQuery);
+    endDate.setUTCHours(23, 59, 59, 999);
+
+    const meals = await FoodIntake.find({
+      userId,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    }).sort({ date: -1 });
+
+    res.json({ meals });
+  } catch (error) {
+    console.error('Error fetching meals:', error);
+    res.status(500).json({ error: 'Failed to fetch meals' });
+  }
+});
+
 export default router;

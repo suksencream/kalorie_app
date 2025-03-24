@@ -214,65 +214,88 @@ router.get('/auth/google/callback',
   }
 );
 
-// Complete profile route for Google users
-router.put('/complete-profile', authMiddleware, async (req, res) => {
+// Get user profile
+router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        const {
-            username,
-            firstName,
-            lastName,
-            age, 
-            weight, 
-            height, 
-            gender, 
-            activityLevel, 
-            goalWeight, 
-            progressDuration,
-            userPfp 
-        } = req.body;
-
-        // Get user from the authenticated request
-        const user = await User.findById(req.user.userId);
+        const user = await User.findById(req.user.userId)
+            .select('-password -refreshToken -resetPasswordToken -resetPasswordExpires');
         
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Update user profile with the required fields
-        user.username = username;
-        user.firstName = firstName;
-        user.lastName = lastName;
-        user.age = age;
-        user.weight = weight;
-        user.height = height;
-        user.gender = gender;
-        user.activityLevel = activityLevel;
-        user.goalWeight = goalWeight;
-        user.progressDuration = progressDuration;
-        user.userPfp = userPfp;
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching profile:", error);
+        res.status(500).json({ error: "Failed to fetch profile" });
+    }
+});
 
-        // Save the updated user
-        await user.save();
+// Update profile
+router.put('/complete-profile', authMiddleware, async (req, res) => {
+    try {
+        const {
+            firstName,
+            lastName,
+            age,
+            weight,
+            height,
+            sex,
+            activityLevel,
+            goals,
+            speedOfProgress
+        } = req.body;
 
-        res.json({ 
-            message: "Profile completed successfully",
-            user: {
-                username: user.username,
-                email: user.email,
-                age: user.age,
-                weight: user.weight,
-                height: user.height,
-                gender: user.gender,
-                activityLevel: user.activityLevel,
-                goalWeight: user.goalWeight,
-                progressDuration: user.progressDuration,
-                userPfp: user.userPfp
-            }
-        });
+        // Debug log the incoming data and user ID
+        console.log('Received data:', req.body);
+        console.log('User ID:', req.user.userId);
+
+        const user = await User.findById(req.user.userId);
+        
+        if (!user) {
+            console.log('User not found with ID:', req.user.userId);
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Log the found user
+        console.log('Found user:', user);
+
+        try {
+            // Update user fields
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.age = Number(age);
+            user.weight = Number(weight);
+            user.height = Number(height);
+            user.sex = sex;
+            user.activityLevel = activityLevel;
+            user.goals = goals;
+            user.speedOfProgress = speedOfProgress;
+
+            // Log the user object before saving
+            console.log('User object before save:', user);
+
+            await user.save();
+            console.log('User saved successfully');
+
+            res.json({
+                message: "Profile updated successfully",
+                user: user.toObject()
+            });
+        } catch (saveError) {
+            console.error('Error saving user:', saveError);
+            res.status(500).json({ 
+                error: "Failed to save user",
+                details: saveError.message 
+            });
+        }
 
     } catch (error) {
-        console.error("Error completing profile:", error);
-        res.status(500).json({ error: "Failed to complete profile" });
+        console.error("Error in complete-profile route:", error);
+        res.status(500).json({ 
+            error: "Failed to update profile",
+            details: error.message 
+        });
     }
 });
 

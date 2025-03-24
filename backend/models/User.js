@@ -1,28 +1,27 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-  username: { type: String, unique: true },
-  firstName: { type: String},
-  lastName: { type: String},
-  email: { type: String, required: true, unique: true },
-  password: { type: String },
-  googleId: { type: String },
-  userPfp: { type: String },
-  refreshToken: { type: String },
-  age: { type: Number},
-  weight: { type: Number},  // in kg
-  height: { type: Number},  // in cm
-  gender: { type: String, enum: ["male", "female", "other"] },
-  activityLevel: { 
-    type: String,  
-    enum: ["sedentary", "lightly active", "moderately active", "very active", "super active"] 
-  },
-  goalWeight: { type: Number},  // in kg
-  progressDuration: { type: Number}, // in weeks
-  resetPasswordToken: { type: String },
-  resetPasswordExpires: { type: Date }
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    firstName: String,
+    lastName: String,
+    age: Number,
+    weight: Number,
+    height: Number,
+    sex: String,
+    activityLevel: String,
+    goals: String,
+    speedOfProgress: String,
+    refreshToken: String
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;
