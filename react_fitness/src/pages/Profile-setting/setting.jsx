@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./setting.css";
 
 const calculateCalorieDeficit = (userData) => {
@@ -11,8 +12,8 @@ const calculateCalorieDeficit = (userData) => {
   else if (userData.activityLevel === "Very Active") activityFactor = 1.725;
 
   let calorieNeeds = baseCalories * activityFactor;
-  if (userData.Sex === "Male") calorieNeeds += 5;
-  else if (userData.Sex === "Female") calorieNeeds -= 161;
+  if (userData.sex === "Male") calorieNeeds += 5;
+  else if (userData.sex === "Female") calorieNeeds -= 161;
 
   let deficit = calorieNeeds;
 
@@ -31,73 +32,152 @@ const calculateCalorieDeficit = (userData) => {
 };
 
 const Setting = () => {
-  const [userData, setUserData] = useState({
+  const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errors, setErrors] = useState({});
+  const [profileData, setProfileData] = useState({
     firstName: "",
     lastName: "",
     age: "",
     weight: "",
     height: "",
-    Sex: "",
+    sex: "",
     activityLevel: "",
     goals: "",
     speedOfProgress: "",
+    email: ""
   });
+  const [userEmail, setUserEmail] = useState('');
 
-  const [errors, setErrors] = useState({});
-  const [isEditable, setIsEditable] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const validateForm = () => {
+    const newErrors = {};
+    if (!profileData.firstName) newErrors.firstName = "This field is required";
+    if (!profileData.lastName) newErrors.lastName = "This field is required";
+    if (!profileData.age) newErrors.age = "This field is required";
+    if (!profileData.weight) newErrors.weight = "This field is required";
+    if (!profileData.height) newErrors.height = "This field is required";
+    if (!profileData.sex) newErrors.sex = "This field is required";
+    if (!profileData.activityLevel) newErrors.activityLevel = "This field is required";
+    if (!profileData.goals) newErrors.goals = "This field is required";
+    if (!profileData.speedOfProgress) newErrors.speedOfProgress = "This field is required";
 
-  const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+    setErrors(newErrors);
+    console.log('Validation errors:', newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSaving(true);
-
-    const newErrors = {};
-    Object.keys(userData).forEach((key) => {
-      if (!userData[key]) {
-        newErrors[key] = "This field is required";
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        navigate('/login');
+        return;
       }
-    });
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setIsSaving(false);
-      return;
+      const response = await fetch('http://localhost:5000/api/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch profile');
+      }
+
+      const data = await response.json();
+      console.log('Fetched profile data:', data);
+
+      setUserEmail(data.email || '');
+
+      setProfileData({
+        firstName: data.firstName || '',
+        lastName: data.lastName || '',
+        age: data.age?.toString() || '',
+        weight: data.weight?.toString() || '',
+        height: data.height?.toString() || '',
+        sex: data.sex || '',
+        activityLevel: data.activityLevel || '',
+        goals: data.goals || '',
+        speedOfProgress: data.speedOfProgress || ''
+      });
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      setError('Failed to load profile data');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      console.error("No authentication token found");
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log('Input changed:', name, value);
+    setProfileData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSave = async () => {
+    console.log('Save button clicked');
+    console.log('Current profile data:', profileData);
+
+    if (!validateForm()) {
+      console.log('Form validation failed', errors);
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/complete-profile", {
-        method: "PUT",
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      const dataToSend = {
+        ...profileData,
+        age: profileData.age ? Number(profileData.age) : undefined,
+        weight: profileData.weight ? Number(profileData.weight) : undefined,
+        height: profileData.height ? Number(profileData.height) : undefined
+      };
+
+      console.log('Sending data to server:', dataToSend);
+
+      const response = await fetch('http://localhost:5000/api/complete-profile', {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(dataToSend)
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Profile successfully updated:", data);
-        setIsEditable(false);
-        setUserData(data);
-      } else {
-        const errorData = await response.json();
-        console.error("Error completing profile:", errorData);
+      console.log('Server response status:', response.status);
+
+      const data = await response.json();
+      console.log('Server response data:', data);
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || 'Failed to update profile');
       }
+
+      setProfileData(prev => ({
+        ...prev,
+        ...data.user
+      }));
+      setIsEditing(false);
+      setSuccessMessage('Profile updated successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      console.error("Error during request:", error);
-    } finally {
-      setIsSaving(false);
+      console.error('Error updating profile:', error);
+      setError(error.message || 'Failed to update profile');
+      setTimeout(() => setError(''), 3000);
     }
   };
 
@@ -105,55 +185,122 @@ const Setting = () => {
     <div className="container">
       <div className="settings-container">
         <div className="profile-header">
-          <img src="/Burger.png" alt="Profile" className="profile-icon" />
-          <div className="profile-info">
-            <h2>Burger Shouldbehealthy</h2>
-            <p>burger123@gmail.com</p>
+          <div className="profile-info-section">
+            <img src="/Burger.png" alt="Profile" className="profile-icon" />
+            <div className="profile-info">
+              <h2>{profileData.firstName && profileData.lastName 
+                  ? `${profileData.firstName} ${profileData.lastName}`
+                  : 'Update your profile'}
+              </h2>
+              <p>{userEmail}</p>
+            </div>
+          </div>
+          
+          <div className="button-group">
+            {!isEditing ? (
+              <button className="edit" onClick={() => setIsEditing(true)}>Edit</button>
+            ) : (
+              <>
+                <button onClick={handleSave}>Save</button>
+                <button onClick={() => {
+                  setIsEditing(false);
+                  setErrors({});
+                  fetchProfile();
+                }}>Cancel</button>
+              </>
+            )}
           </div>
         </div>
-        <button className="edit" onClick={() => setIsEditable(true)}>Edit</button>
-        <form onSubmit={handleSubmit} className="settings-form">
-          {[
-            ["firstName", "First Name"],
-            ["lastName", "Last Name"],
-            ["age", "Age"],
-            ["weight", "Weight"],
-            ["height", "Height"],
-            ["sex", "Sex"],
-            ["activityLevel", "Activity Level"],
-            ["goals", "Goals"],
-            ["speedOfProgress", "Speed of Progress"],
-          ].map(([name, label], index) => (
-            <div className="input-group" key={name}>
-              <label>{label}</label>
-              {name === "sex" || name === "activityLevel" || name === "goals" || name === "speedOfProgress" ? (
-                <select name={name} value={userData[name]} onChange={handleChange} disabled={!isEditable}>
-                  <option value="">Select {label}</option>
-                  {name === "sex" && ["Male", "Female"].map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                  {name === "activityLevel" && ["Sedentary", "Lightly Active", "Moderately Active", "Very Active"].map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                  {name === "goals" && ["Lose Weight", "Maintain Weight", "Gain Muscle"].map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                  {name === "speedOfProgress" && ["Slow", "Moderate", "Fast"].map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              ) : (
-                <input type={name === "age" || name === "weight" || name === "height" ? "number" : "text"} name={name} value={userData[name]} onChange={handleChange} placeholder={`Your ${label}`} disabled={!isEditable} />
-              )}
-              {errors[name] && <p className="error-message">{errors[name]}</p>}
+        
+        <form onSubmit={handleSave} className="settings-form">
+          <div className="form-grid">
+            {/* First Column - now with Speed of Progress */}
+            <div className="form-column">
+              {[
+                ["firstName", "First Name"],
+                ["lastName", "Last Name"],
+                ["age", "Age"],
+                ["weight", "Weight"],
+                ["speedOfProgress", "Speed of Progress"]
+              ].map(([name, label]) => (
+                <div className="input-group" key={name}>
+                  <label>{label}</label>
+                  {name === "speedOfProgress" ? (
+                    <select 
+                      name={name} 
+                      value={profileData[name]} 
+                      onChange={handleInputChange} 
+                      disabled={!isEditing}
+                    >
+                      <option value="">Select {label}</option>
+                      {["slow", "moderate", "fast"].map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input 
+                      type={name === "age" || name === "weight" ? "number" : "text"}
+                      name={name}
+                      value={profileData[name]}
+                      onChange={handleInputChange}
+                      placeholder={`Your ${label}`}
+                      disabled={!isEditing}
+                    />
+                  )}
+                  {errors[name] && <p className="error-message">{errors[name]}</p>}
+                </div>
+              ))}
             </div>
-          ))}
 
-          <div className="calorie-result">
-            <p>Estimated Daily Calories: {Math.max(0, calculateCalorieDeficit(userData)).toFixed(0)}</p>
+            {/* Second Column */}
+            <div className="form-column">
+              {[
+                ["height", "Height"],
+                ["sex", "Sex"],
+                ["activityLevel", "Activity Level"],
+                ["goals", "Goals"]
+              ].map(([name, label]) => (
+                <div className="input-group" key={name}>
+                  <label>{label}</label>
+                  {name === "sex" || name === "activityLevel" || name === "goals" ? (
+                    <select 
+                      name={name} 
+                      value={profileData[name]} 
+                      onChange={handleInputChange} 
+                      disabled={!isEditing}
+                    >
+                      <option value="">Select {label}</option>
+                      {name === "sex" && ["male", "female", "other"].map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                      {name === "activityLevel" && ["sedentary", "light", "moderate", "active", "very active"].map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                      {name === "goals" && ["lose", "maintain", "gain"].map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input 
+                      type="number"
+                      name={name}
+                      value={profileData[name]}
+                      onChange={handleInputChange}
+                      placeholder={`Your ${label}`}
+                      disabled={!isEditing}
+                    />
+                  )}
+                  {errors[name] && <p className="error-message">{errors[name]}</p>}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <button className="submit" type="submit" disabled={!isEditable || isSaving}>{isSaving ? "Saving..." : "Save"}</button>
+          <div className="calorie-result">
+            <p>Estimated Daily Calories: {Math.max(0, calculateCalorieDeficit(profileData)).toFixed(0)}</p>
+          </div>
+
+          {successMessage && <div className="success-message">{successMessage}</div>}
         </form>
       </div>
     </div>

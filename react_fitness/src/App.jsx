@@ -1,5 +1,5 @@
 import { useEffect} from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/Login/login';
 import SignUpPage from './pages/Signup/signup';
 import BurgerLayout from "./components/BurgerLayout";
@@ -27,7 +27,7 @@ import LoadingPage from "./components/Loadingscreen";
 
 
 
-const AppWrapper = () => {
+const AppContent = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -74,7 +74,6 @@ const AppWrapper = () => {
 
 function App() {
   useEffect(() => {
-
     const cursor = document.createElement('div');
     cursor.style.position = 'absolute';
     cursor.style.zIndex = '9999';
@@ -84,25 +83,23 @@ function App() {
     cursor.innerHTML = `<img src="/LOGO.svg" style="width: 25px; height: 25px;">`;
     document.body.appendChild(cursor);
 
-
     const updateCursor = (e) => {
       cursor.style.left = `${e.pageX + 10}px`; 
       cursor.style.top = `${e.pageY + 10}px`;
     };
 
-
     document.addEventListener('mousemove', updateCursor);
-
 
     return () => {
       document.removeEventListener('mousemove', updateCursor);
       document.body.removeChild(cursor);
     };
   }, []);
+
   return (
-    <Router>
-      <AppWrapper />
-    </Router>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 

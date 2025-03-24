@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Calendar } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 const Container = styled.div`
   display: flex;
@@ -39,32 +39,34 @@ const Section = styled.div`
 `;
 
 const DatePickerWrapper = styled.div`
-  
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 15px;
   position: relative;
 `;
 
-const CalendarIconWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const ClickableDate = styled.h2`
   cursor: pointer;
-  border: 1px solid #ddd;
+  color: #333;
+  background: #f0f0f0;
+  padding: 10px 16px;
   border-radius: 8px;
-  padding: 10px;
-  background: #fff;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid #ccc;
+  transition: all 0.3s;
 
   &:hover {
-    background: #f5f5f5;
+    background-color: #e4f5d4;
+    color: #76BA1B;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 18px;
   }
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  
   position: absolute;
   top: 45px;
   left: 50%;
@@ -72,6 +74,7 @@ const StyledDatePicker = styled(DatePicker)`
   border-radius: 10px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 `;
 
 const FoodList = styled.div`
@@ -169,15 +172,7 @@ const TodayMeals = () => {
 
     try {
       setIsLoading(true);
-      // Ensure date is in YYYY-MM-DD format and represents start of day in local timezone
-      const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-        .toISOString().split('T')[0];
-
-      console.log('🔍 Frontend - Fetching meals:', {
-        formattedDate,
-        originalDate: date,
-        tokenExists: !!token
-      });
+      const formattedDate = date.toISOString().split('T')[0];
 
       const response = await fetch(`http://localhost:5000/api/food-intake?date=${formattedDate}`, {
         headers: {
@@ -187,10 +182,9 @@ const TodayMeals = () => {
       });
 
       const data = await response.json();
-      console.log('📦 Fetched meals:', data);
-      setMeals(data);
+      setMeals(data || []);
     } catch (error) {
-      console.error('❌ Error fetching meals:', error);
+      console.error('Error fetching meals:', error);
       setMeals([]);
     } finally {
       setIsLoading(false);
@@ -229,7 +223,6 @@ const TodayMeals = () => {
         throw new Error('Failed to delete meal');
       }
 
-      // Update the meals list after successful deletion
       setMeals(currentMeals => currentMeals.filter(m => m._id !== meal._id));
     } catch (error) {
       console.error('Error deleting meal:', error);
@@ -242,17 +235,13 @@ const TodayMeals = () => {
 
       <Section>
         <DatePickerWrapper>
-          <h2>
-            {selectedDate.toLocaleDateString(undefined, { 
-              year: "numeric", 
-              month: "long", 
-              day: "numeric" 
+          <ClickableDate onClick={() => setShowDatePicker(prev => !prev)}>
+            {selectedDate.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
             })}
-          </h2>
-          
-          <CalendarIconWrapper onClick={() => setShowDatePicker((prev) => !prev)}>
-            <Calendar size={24} />
-          </CalendarIconWrapper>
+          </ClickableDate>
 
           {showDatePicker && (
             <StyledDatePicker

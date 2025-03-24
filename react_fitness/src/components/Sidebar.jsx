@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, Shield, FileText, Info, Trash2, LogOut } from "lucide-react";
 import DeleteAccount from "../pages/sidebar/Delete";
 import Logout from "../pages/sidebar/Logout";
@@ -7,14 +7,55 @@ import "./Sidebar.css";
 const Sidebar = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: ''
+  });
+
+  // Fetch user profile data
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) return;
+
+        const response = await fetch('http://localhost:5000/api/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserData({
+            firstName: data.firstName || '',
+            lastName: data.lastName || ''
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // Get first initial of first name
+  const getInitial = () => {
+    return userData.firstName ? userData.firstName.charAt(0).toUpperCase() : '?';
+  };
 
   return (
     <>
       <div className="sidebar">
         {/* Profile Section */}
         <div className="profile">
-          <div className="profile-picture">S</div>
-          <h3 className="username">Satt Satt</h3>
+          <div className="profile-picture">{getInitial()}</div>
+          <h3 className="username">
+            {userData.firstName && userData.lastName 
+              ? `${userData.firstName} ${userData.lastName}`
+              : 'Update Profile'}
+          </h3>
         </div>
 
         {/* Sidebar Menu */}

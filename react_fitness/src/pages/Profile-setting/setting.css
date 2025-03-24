@@ -1,16 +1,27 @@
-.settings-container {
-
-    position: relative; /* Add this */
-    top: 5px; 
-    max-width: 800px;
-    margin: 0 auto;
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.settings-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    padding: 30px;
+    margin: 20px;
 }
 
 .profile-header {
+    padding-top: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 15px;
     margin-bottom: 20px;
 }
@@ -20,15 +31,25 @@
     margin-bottom: 25px;
 }
 
+.profile-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .profile-info h2 {
+    margin-top: 20px;
     font-size: 20px;
     margin: 0;
+    text-align: left;
 }
 
 .profile-info p {
     font-size: 14px;
     color: gray;
     margin: 0;
+    text-align: left;
 }
 
 .settings-form {
@@ -37,17 +58,30 @@
     gap: 20px;
 }
 
-.input-row {
+/* Create two column layout */
+.form-grid {
     display: flex;
-    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.form-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+}
+
+/* Updated last input style to be full width */
+.last-input {
+    width: 100%;
+    margin-top: 20px;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-width: 250px; /* Ensures good spacing on smaller screens */
+    gap: 5px;
 }
 
 .input-group label {
@@ -74,7 +108,6 @@
     cursor: pointer;
 }
 
-
 .calorie-result {
     border-top: 1px solid #ccc; 
     border-bottom: 1px solid #ccc; 
@@ -85,32 +118,206 @@
     margin: 30px 10px 10px 10px;
 }
   
+/* Updated button styles */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .input-row {
-        flex-direction: column;
-        gap: 15px;
+.button-group button {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Both Edit and Save buttons */
+.button-group button:first-child {
+    background-color: #76ba1b;
+    color: white;
+}
+
+.button-group button:first-child:hover {
+    background-color: #4c9a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cancel button */
+.button-group button:last-child {
+    background-color: #808080;
+    color: white;
+}
+
+.button-group button:last-child:hover {
+    background-color: #666666;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit button styles */
+.submit {
+    padding: 12px 30px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #4CAF50;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    margin: 20px 0;
+}
+
+.submit:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Edit button styles */
+.edit {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #76ba1b;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.edit:hover {
+    background-color: #4c9a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.edit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure Edit and Save buttons have the same styles */
+.button-group .edit,
+.button-group button:first-child {
+    background-color: #76ba1b;
+    color: white;
+}
+
+.button-group .edit:hover,
+.button-group button:first-child:hover {
+    background-color: #4c9a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Loading animation for buttons */
+.button-group button.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.button-group button.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 0.8s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
     }
 }
 
-.submit {
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: white;
-    padding: 10px 100px 10px 100px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .settings-container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .form-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .last-input {
+        width: 100%;
+        margin: 0;
+    }
 }
 
-.submit:hover, .edit:hover {
-    background-color: rgb(228, 228, 228);
+/* Success message animation */
+.success-message {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    margin-top: 10px;
+    animation: slideIn 0.3s ease-out;
 }
 
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-.edit {
-    margin-left: 500px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: white;
-    padding: 5px 20px 5px 20px;
+/* Error message animation */
+.error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.profile-info-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
 }
