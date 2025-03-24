@@ -1,0 +1,140 @@
+// fetch food's info
+GET http://localhost:5000/api/food?query=apple
+
+###
+
+// test if food route is working
+GET http://localhost:5000/api/testFood
+
+###
+
+// register
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+  "email": "jbongaj@gmail.com",
+  "password": "1234"
+  
+}
+
+###
+
+// login
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "email": "jbongaj@gmail.com",
+    "password": "1234"
+}
+
+###
+
+// test if authentication route is working
+GET http://localhost:5000/api/testAuth
+
+###
+
+// test authorization
+GET http://localhost:5000/api/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzYThhNzk4NTBmYjk3ZTYyOTkxMTYiLCJpYXQiOjE3NDE5MjQ1NDksImV4cCI6MTc0MjAxMDk0OX0.GS61kAhdRL81_j9Lst7tdtTAkWmzvf2W5nM7RsaSa2w
+
+###
+
+// use refresh token to get a new access token
+POST http://localhost:5000/api/refresh
+Content-Type: application/json
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzYThhNzk4NTBmYjk3ZTYyOTkxMTYiLCJpYXQiOjE3NDE5MjQ1NDl9.FeHcEGOD5WDN9g3c-nn24wfXK6_WDs8gZXvPHcYb0mg"
+}
+
+###
+
+// logout
+POST http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzOWY3YjAwNzhkZDQxYWViZDk4ZDgiLCJpYXQiOjE3NDE5MjI4NjF9.MGLxoKCquas3_Cxj_XFidBSfQynSRXjizPhhTXrOh7w","userId":"67d39f7b0078dd41aebd98d8"
+}
+
+###
+
+// stores food intake to db
+POST http://localhost:5000/api/food-intake
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
+Content-Type: application/json
+
+{
+"foodName": "test",
+"calories": 165,
+"protein": 31,
+"carbs": 0,
+"fats": 5,
+"servingSize": "300 g",
+"image": "test.jpg"
+}
+
+###
+
+// get foodintake
+GET http://localhost:5000/api/food-intake
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
+
+###
+
+// delete foodintake
+DELETE http://localhost:5000/api/food-intake/67cfe580192e588014ea7fd8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NmZTJkYzI0ZTQwMmQ3ZjQ4N2Q3YjQiLCJpYXQiOjE3NDE2Nzc5MTQsImV4cCI6MTc0MTc2NDMxNH0.xpbZWuRxm8lvJPLOtE9B_b686MchyvyyDURoVlUDHWs
+
+###
+// test if foodintake route is working
+GET http://localhost:5000/api/testFoodIntake
+
+###
+
+// google login
+GET http://localhost:5000/api/auth/google
+
+###
+
+PUT http://localhost:5000/api/complete-profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QzZThhYzZmOTU2MjMwNjdhYWQxNmUiLCJpYXQiOjE3NDE5NDA5NTcsImV4cCI6MTc0MjAyNzM1N30.ejj5P0zlQXwBrEt_U5HrGut-KlneS9YX_glQitgzL_g
+Content-Type: application/json
+
+{
+  "username": "user5",
+  "firstName": "user",
+  "lastName": "5",
+  "age": 25,
+  "weight": 72,
+  "height": 175,
+  "gender": "male",
+  "activityLevel": "moderately active",
+  "goalWeight": 65,
+  "progressDuration": 12,
+  "userPfp": "test.jpg"
+}
+
+###
+
+// forgot password
+POST http://localhost:5000/api/forgot-password
+Content-Type: application/json
+
+{
+    "email": "jbongaj@gmail.com"
+}
+
+###
+
+// reset password
+POST http://localhost:5000/api/reset-password
+Content-Type: application/json
+
+{
+    "token": "452b9c56ff4143738c3ecb5404cb71f0fd5a0d8641f2b87fdfe4586cc7ea73c8",
+    "newPassword": "12345"
+}

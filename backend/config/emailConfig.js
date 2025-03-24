@@ -1,0 +1,35 @@
+import nodemailer from 'nodemailer';
+
+// Create transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_APP_PASSWORD // This will be your Gmail App Password, not your regular Gmail password
+    }
+});
+
+export const sendResetEmail = async (email, resetToken) => {
+    const resetUrl = `http://localhost:5173/resetpassword?token=${resetToken}`;
+    
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Password Reset Request',
+        html: `
+            <h1>Password Reset Request</h1>
+            <p>You requested a password reset. Click the link below to reset your password:</p>
+            <a href="${resetUrl}">Reset Password</a>
+            <p>This link will expire in 1 hour.</p>
+            <p>If you didn't request this, please ignore this email.</p>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        return true;
+    } catch (error) {
+        console.error('Email send error:', error);
+        return false;
+    }
+}; 
