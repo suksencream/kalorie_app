@@ -258,7 +258,7 @@
     }
 }
 
-/* Responsive adjustments */
+/* Update media queries for mobile responsiveness */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -277,6 +277,47 @@
 
     .last-input {
         width: 100%;
+        margin: 0;
+    }
+
+    .profile-header {
+        flex-direction: column; /* Stack elements vertically on mobile */
+        align-items: center;
+        text-align: center;
+    }
+
+    .button-group {
+        width: 100%; /* Full width on mobile */
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .button-group button {
+        padding: 12px 20px; /* Slightly larger touch target */
+        font-size: 16px; /* Larger font size for better readability */
+        min-width: 120px; /* Larger minimum width on mobile */
+    }
+
+    .profile-info-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info {
+        align-items: center;
+    }
+}
+
+/* Add specific styles for very small screens */
+@media (max-width: 480px) {
+    .button-group {
+        flex-direction: column; /* Stack buttons vertically on very small screens */
+        gap: 10px;
+    }
+
+    .button-group button {
+        width: 100%; /* Full width buttons */
         margin: 0;
     }
 }
@@ -320,4 +361,3 @@
     display: flex;
     align-items: flex-start;
     gap: 15px;
-}
