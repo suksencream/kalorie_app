@@ -24,7 +24,7 @@ import ForgotPassword from "./pages/Login/Forgotpsw"
 import CheckMail from "./pages/Login/Checkmail"
 import ResetPassword from "./pages/Login/Resetpsw"
 import LoadingPage from "./components/Loadingscreen";
-
+import OnboardingTour from "./components/Onboarding";
 
 
 const AppContent = () => {

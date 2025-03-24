@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Signup/signup.css"
 
-const CheckMail = () => {
+const VerifyMail = () => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
@@ -12,7 +12,7 @@ const CheckMail = () => {
 
     const handleSendAgain = async () => {
         if (!email) {
-            setError("Email not found. Please try again from the forgot password page.");
+            setError("Email not found. Please try again from the signup page.");
             return;
         }
 
@@ -46,7 +46,7 @@ const CheckMail = () => {
             <div className="signup-box">
                 <img src="/email-sent.png" alt="Email Sent" className="email-image"/>
                 <h2 className="signup-title">Check Your Email</h2>
-                <p>We've sent you a password recovery instruction to your email.</p>
+                <p>Check your email to verify your account.</p>
                 <button 
                     className="signup-button" 
                     onClick={handleSendAgain}
@@ -64,4 +64,4 @@ const CheckMail = () => {
     )
 }
 
-export default CheckMail;
+export default VerifyMail;

@@ -263,16 +263,16 @@ const Setting = () => {
                     ))}
                     {name === "activityLevel" && [
                       ["sedentary", "Sedentary"],
-                      ["light", "Lightly Active"],
-                      ["moderate", "Moderately Active"],
+                      ["lightly active", "Lightly Active"],
+                      ["moderately active", "Moderately Active"],
                       ["very active", "Very Active"]
                     ].map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
                     ))}
                     {name === "goals" && [
-                      ["lose", "Lose Weight"],
-                      ["maintain", "Maintain Weight"],
-                      ["gain", "Gain Muscle"]
+                      ["lose weight", "Lose Weight"],
+                      ["maintain weight", "Maintain Weight"],
+                      ["gain weight", "Gain Weight"]
                     ].map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
                     ))}

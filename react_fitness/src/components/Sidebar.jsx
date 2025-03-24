@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { User, Shield, FileText, Info, Trash2, LogOut } from "lucide-react";
+import { User, Shield, FileText, Info, Trash2, LogOut, ChartColumnBig } from "lucide-react";
 import DeleteAccount from "../pages/sidebar/Delete";
 import Logout from "../pages/sidebar/Logout";
 import "./Sidebar.css";
+
 
 const Sidebar = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -61,6 +62,7 @@ const Sidebar = () => {
         {/* Sidebar Menu */}
         <ul className="menu">
           <li><a href="/setting"><User size={20} /> Profile</a></li>
+          <li><a href="/report"><ChartColumnBig size={20} /> Report</a></li>
           <li><a href="/privacy"><Shield size={20} /> Privacy Policy</a></li>
           <li><a href="/terms"><FileText size={20} /> Terms & Conditions</a></li>
           <li><a href="/aboutus"><Info size={20} /> About Us</a></li>
