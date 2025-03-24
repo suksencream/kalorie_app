@@ -24,7 +24,7 @@ import ForgotPassword from "./pages/Login/Forgotpsw"
 import CheckMail from "./pages/Login/Checkmail"
 import ResetPassword from "./pages/Login/Resetpsw"
 import LoadingPage from "./components/Loadingscreen";
-import OnboardingTour from "./components/Onboarding";
+import Report from "./pages/Report";
 
 
 const AppContent = () => {
@@ -53,6 +53,7 @@ const AppContent = () => {
         <Route path="/resetpassword" element={<ResetPassword/>} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path='/sidebar' element={<Sidebar/>} />
+        <Route path='/report' element={<Report/>} />
         <Route path='/privacy' element={<PrivacyPolicy/>} />
         <Route path='/terms' element={<TermsConditions/>} />
         <Route path='/aboutus' element={<AboutUs/>} />
