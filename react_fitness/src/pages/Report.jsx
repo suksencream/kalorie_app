@@ -317,14 +317,7 @@ const WeeklyMonthlyReport = () => {
       setIsLoading(false);
     };
 
-    // Initial fetch
     fetchData();
-
-    // Set up refresh interval (every 5 minutes)
-    const interval = setInterval(fetchData, 5 * 60 * 1000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
   }, [view]);
 
   return (

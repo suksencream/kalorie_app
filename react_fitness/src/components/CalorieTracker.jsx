@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { calculateCalorieDeficit } from "../pages/Profile-setting/setting";
 
 const Container = styled.div`
   background: white;
@@ -46,6 +47,32 @@ const CalorieTracker = () => {
   const [goalCalories, setGoalCalories] = useState(2000);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchUserProfile = async () => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('No access token found');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch profile');
+      }
+
+      const profileData = await response.json();
+      const calculatedCalories = calculateCalorieDeficit(profileData);
+      setGoalCalories(Math.max(0, Math.round(calculatedCalories)));
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+
   const fetchTodaysMeals = async () => {
     const token = localStorage.getItem('accessToken');
     if (!token) {
@@ -77,12 +104,6 @@ const CalorieTracker = () => {
       console.log('🔢 Total calories calculated:', total);
       setTotalCalories(total);
 
-      // Get user's calorie goal from localStorage or use default
-      const storedGoal = localStorage.getItem("userCalorieGoal");
-      if (storedGoal) {
-        setGoalCalories(parseInt(storedGoal));
-      }
-
     } catch (error) {
       console.error('Error fetching calories:', error);
     } finally {
@@ -90,8 +111,9 @@ const CalorieTracker = () => {
     }
   };
 
-  // Fetch meals when component mounts
+  // Fetch both profile and meals when component mounts
   useEffect(() => {
+    fetchUserProfile();
     fetchTodaysMeals();
   }, []);
 

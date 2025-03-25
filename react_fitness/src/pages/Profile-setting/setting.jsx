@@ -7,8 +7,8 @@ const calculateCalorieDeficit = (userData) => {
 
   const baseCalories = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age;
   let activityFactor = 1.2;
-  if (userData.activityLevel === "light") activityFactor = 1.375;
-  else if (userData.activityLevel === "moderate") activityFactor = 1.55;
+  if (userData.activityLevel === "lightly active") activityFactor = 1.375;
+  else if (userData.activityLevel === "moderately active") activityFactor = 1.55;
   else if (userData.activityLevel === "very active") activityFactor = 1.725;
 
   let calorieNeeds = baseCalories * activityFactor;
@@ -17,14 +17,14 @@ const calculateCalorieDeficit = (userData) => {
 
   let deficit = calorieNeeds;
 
-  if (userData.goals === "lose") deficit -= 500;
-  else if (userData.goals === "gain") deficit += 500;
+  if (userData.goals === "lose weight") deficit -= 500;
+  else if (userData.goals === "gain weight") deficit += 500;
 
-  if (userData.speedOfProgress === "Slow") {
+  if (userData.speedOfProgress === "slow") {
     deficit -= 250;
-  } else if (userData.speedOfProgress === "Moderate") {
+  } else if (userData.speedOfProgress === "moderate") {
     deficit -= 500;
-  } else if (userData.speedOfProgress === "Fast") {
+  } else if (userData.speedOfProgress === "fast") {
     deficit -= 750;
   }
 
