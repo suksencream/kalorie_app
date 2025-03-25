@@ -341,7 +341,7 @@ const WeeklyMonthlyReport = () => {
             <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="label" />
-              <YAxis label={{ value: "Amount (g / kcal)", angle: -90, position: "insideLeft" }} />
+              <YAxis label={{ value: "Amount (kcal)", angle: -90, position: "insideLeft" }} />
               <Tooltip
                 formatter={(value, name) => [`${value}`, name]}
                 labelFormatter={(label, payload) => {
@@ -350,19 +350,11 @@ const WeeklyMonthlyReport = () => {
                 }}
               />
               <Legend />
-              <Bar dataKey="fats" stackId="a" fill="#FFD700" name="Fats" />
-              <Bar dataKey="carbs" stackId="a" fill="#FFA500" name="Carbs" />
-              <Bar dataKey="proteins" stackId="a" fill="#FF0000" name="Proteins" />
               <Bar dataKey="calories" stackId="a" fill="#4CAF50" name="Calories" />
             </BarChart>
           </ResponsiveContainer>
+          
 
-          <MacroContainer>
-            <ProgressRing percentage={macroAverages.fats} color="#FFD700" label="Fats" total={macroTotals.fats} unit="g" />
-            <ProgressRing percentage={macroAverages.carbs} color="#FFA500" label="Carbs" total={macroTotals.carbs} unit="g" />
-            <ProgressRing percentage={macroAverages.proteins} color="#FF0000" label="Proteins" total={macroTotals.proteins} unit="g" />
-            <ProgressRing percentage={macroAverages.calories} color="#4CAF50" label="Calories" total={macroTotals.calories} unit="kcal" />
-          </MacroContainer>
         </>
       )}
     </Container>
